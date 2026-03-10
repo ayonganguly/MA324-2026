@@ -1,0 +1,210 @@
+\documentclass[10pt]{beamer} %
+\usetheme{CambridgeUS}
+% \usecolortheme{seahorse}
+\usecolortheme{orchid}
+% \usepackage[latin1]{inputenc}
+\usefonttheme{professionalfonts}
+\usepackage{times}
+%\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{multicol}
+%\usetikzlibrary{arrows,shapes}
+\setlength{\tabcolsep}{20pt}
+\renewcommand{\arraystretch}{1.5}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage[english]{babel}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+\usepackage{xcolor}
+\usepackage{color, colortbl}
+\usepackage{multirow}
+
+%\usepackage{beamerthemesplit}
+%\usetheme{Warsaw}
+\setbeamertemplate{footline}[frame number]
+%\usefonttheme{structurebold}
+%\usefonttheme[onlymath]{serif}
+%\usefonttheme{serif}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{amsmath,amssymb}
+% \usepackage{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[english]{babel}
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage{colortbl}
+\usepackage{helvet}
+
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,trees, positioning}
+\usepackage{graphics}
+\usepackage{color}
+
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+
+%\usepackage[dvipsnames]{xcolor}
+%\graphicspath{{images/}}
+%\renewcommand{\baselinestretch}{1.5}
+% \usepackage[utf8]{inputenc} % allow utf-8 input
+% \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+%\usepackage{listings}
+%\usepackage{hyperref}       % hyperlinks
+%\usepackage{url}            % simple URL typesetting
+%\usepackage{booktabs}       % professional-quality tables
+%\usepackage{amsfonts}       % blackboard math symbols
+%\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+%\usepackage{microtype}      % microtypography
+%\usepackage{lipsum}
+% \usepackage{fancyhdr}       % header
+%\usepackage{graphicx}       % graphics
+%\usepackage{caption}
+%\usepackage{subcaption}
+%\usepackage[dvipsnames]{xcolor}
+%\usepackage{cite}
+%\usepackage{epsfig}
+%\usepackage{textcomp}
+%\usepackage{bm}
+%
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+%\usepackage{dsfont}
+%\usepackage{appendixnumberbeamer}
+%Header
+% \pagestyle{fancy}
+% \thispagestyle{empty}
+% \rhead{ \textit{ }} 
+% \setlength{\tabcolsep}{15pt}
+
+
+\newcommand{\defn}{\textcolor{red}{Def:~}}
+%\AtBeginEnvironment{frame}{\setcounter{myc}{0}}
+\newcounter{myc}[section]%framenumber]
+\newcommand{\expl}{\textcolor{blue}{\stepcounter{myc}Example~\arabic{myc}:~}}
+\newcommand{\theo}{\textcolor{brown}{Theorem:~}}
+\newcommand{\coro}{\textcolor{brown}{Corollary:~}}
+\newcommand{\remark}{\textcolor{brown}{Remark:~}}
+\newcommand{\sam}{\mathcal{S}}
+\newcommand{\sig}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bg}{\boldsymbol{g}}
+\newcommand{\bX}{\boldsymbol{X}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\bY}{\boldsymbol{Y}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\bt}{\boldsymbol{t}}
+\newcommand{\bu}{\boldsymbol{u}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\mc}{\{X_n:n\geq0\}}
+
+
+\title[]{Statistical Inference and Multivariate Analysis (MA324)}
+\subtitle{\textsc{Lecture Slides}\\ Topic 00 \\
+   Introduction and Information
+}
+\author[MA324]{
+}
+% \vspace{-5mm} 
+% \institute[]{Indian Institute of Technology Guwahati}
+\date{}
+
+
+\begin{document}
+
+% ===================================================================== Frame : Title Page
+\thispagestyle{empty}
+\maketitle
+
+% ===================================================================== Frame : Syllabus
+\begin{frame}
+   \frametitle{Syllabus (after mid-semester examination)}
+   \begin{itemize}
+      \item Confidence Interval: Delta Method, Bootstrap confidence interval.
+      \item Simple linear regression: least squares estimation, estimation of
+         variance, tests of significance, interval estimation.
+      \item Multiple linear regression: least squares estimation, estimation of
+         variance, tests of significance, interval estimation,
+         multicollinearity, residual analysis, PRESS statistic, detection and
+         treatment of outliers, lack of fit.
+      \item Multivariate analysis: principle component analysis, factor
+         analysis, canonical correlations, cluster analysis.
+   \end{itemize}
+\end{frame}
+
+% ===================================================================== Frame : Books
+\begin{frame}
+   \frametitle{Books}
+   \begin{itemize}
+      \setlength\itemsep{1em}
+      \item Text Books
+         \begin{itemize}
+            \item \textit{Introduction to Linear Regression Analysis} by
+               \textit{D.~C.~Montgomery, E.~A.~Peck and G.~G.~Vining}.
+            \item \textit{Applied Multivariate Statistical Analysis} by
+               \textit{R.~A.~Johnson and D.~W.~Wichern}.
+         \end{itemize}
+      \item Reference Books
+         \begin{itemize}
+            \item \textit{Applied Regression Analysis} by \textit{N. R. Draper
+               and H. Smith}.
+            \item \textit{ Applied Linear Regression} by \textit{S. Weisberg}.
+            \item \textit{An Introduction to Multivariate Statistical Analysis}
+               by \textit{T. W. Anderson}.
+            \item \textit{Applied Multivariate Statistical Analysis} by
+               \textit{W. K. Hardle and L. Simar}.
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+% ===================================================================== Frame : Grading
+\begin{frame}
+   \frametitle{Grading Policy}
+   \begin{itemize}
+      \item Weights in different examinations are as follows:
+         \begin{itemize}
+            \item Quiz III: 15 (Date: April 09, 2026)
+            \item End-semester examination: 30 (Date: May 08, 2026)
+         \end{itemize}
+      \item For each examination, linear scaling will be used (if needed)
+      \item Letter grade based on you performance in 5 exams (3 quizzes, MS, ES)
+      \item Relative grading scheme
+   \end{itemize}
+\end{frame}
+
+% ===================================================================== Frame : Course Website
+\begin{frame}
+   \frametitle{Course Website}
+   \hspace{10mm}\url{https://ayonganguly.github.io/ma324.html}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Resource Person
+\begin{frame}
+   \frametitle{Resource Person}
+   \begin{itemize}
+      \setlength\itemsep{1em}
+      \item Instructor:
+         \begin{itemize}
+            \item Name: Ayon Ganguly
+            \item Office: E1-210, Department of Mathematics
+            \item Email: aganguly@iitg.ac.in
+         \end{itemize}
+      \item Teaching Assistants:
+         \begin{itemize}
+            \item Hitesh Kumar (hiteshk1004@iitg.ac.in)
+            \item Prateek Goel (prateek.goel@iitg.ac.in)
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+
+\end{document}
