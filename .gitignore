@@ -3,6 +3,10 @@
 *.fls
 *.log
 *.synctex.gz
+*.nav
+*.out
+*.snm
+*.toc
 ES-Responses.pdf
 /.quarto/
 **/*.quarto_ipynb
