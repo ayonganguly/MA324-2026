@@ -1,0 +1,317 @@
+---
+title: ""
+author: ""
+format: 
+  beamer:
+    theme: "CambridgeUS"
+    colortheme: "default"
+    keep-tex: true
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
+  - \date{\text{Jan - May, 2026}}
+  - \let\olddate\date
+  - \renewcommand{\date}[1]{}
+  - \title[SIMA]{
+      Statistical Inference and Multivariate Analysis (MA324)
+    }
+  - \subtitle{
+      \textsc{Lecture Slides} \\
+      Topic 01 \\
+      Delta Method and Bootstrap
+    }
+---
+
+## {.plain}
+
+\titlepage
+
+# Delta Method
+
+## Introduction & Intuition
+
+* **The Problem:** We know the asymptotic distribution of an estimator $\hat{\theta}$, but we want to know the asymptotic distribution of a continuous function $g(\hat{\theta})$.
+* **The Solution:** The Delta Method uses a first-order Taylor series expansion to approximate the variance of the transformed estimator.
+* **Taylor Expansion:** Around the true parameter $\theta$, the function $g(\hat{\theta})$ can be approximated as:
+  $$g(\hat{\theta}) \approx g(\theta) + g'(\theta)(\hat{\theta} - \theta)$$
+* Rearranging terms, we get:
+  $$g(\hat{\theta}) - g(\theta) \approx g'(\theta)(\hat{\theta} - \theta)$$
+
+## The Univariate Delta Method
+
+::: {.block title="Theorem"}
+Let $X_n$ be a sequence of random variables such that:
+$$\sqrt{n}(X_n - \theta) \xrightarrow{d} \mathcal{N}(0, \sigma^2)$$
+Suppose $g$ is a function such that its derivative $g'(\theta)$ exists and is non-zero. Then:
+$$\sqrt{n}(g(X_n) - g(\theta)) \xrightarrow{d} \mathcal{N}\left(0, \sigma^2 \left[g'(\theta)\right]^2\right)$$
+:::
+
+\vspace{0.5cm}
+**Implication:** The variance of the transformed estimator is approximately the original variance multiplied by the square of the derivative of the transformation evaluated at $\theta$.
+
+## Proof Sketch: Univariate Delta Method
+
+* By Taylor's Theorem and the Mean Value Theorem, we can write:
+  $$g(X_n) = g(\theta) + g'(\tilde{\theta})(X_n - \theta)$$
+  where $\tilde{\theta}$ lies strictly between $X_n$ and $\theta$.
+* Rearranging and multiplying by $\sqrt{n}$:
+  $$\sqrt{n}(g(X_n) - g(\theta)) = g'(\tilde{\theta})\sqrt{n}(X_n - \theta)$$
+* Since $\sqrt{n}(X_n - \theta) \xrightarrow{d} \mathcal{N}(0, \sigma^2)$, we know $X_n \xrightarrow{p} \theta$. Thus, $\tilde{\theta} \xrightarrow{p} \theta$.
+* By the Continuous Mapping Theorem, $g'(\tilde{\theta}) \xrightarrow{p} g'(\theta)$.
+* Finally, applying **Slutsky's Theorem**:
+  $$g'(\tilde{\theta})\sqrt{n}(X_n - \theta) \xrightarrow{d} g'(\theta) \cdot \mathcal{N}(0, \sigma^2) \equiv \mathcal{N}\left(0, \sigma^2 [g'(\theta)]^2\right)$$
+
+## Example: Estimating Survival Probability
+
+* Let lifetimes $T_1, \dots, T_n \sim \text{Exp}(\lambda)$. The MLE for the rate is $\hat{\lambda} = 1/\bar{T}$.
+* From asymptotic likelihood theory, we know:
+  $$\sqrt{n}(\hat{\lambda} - \lambda) \xrightarrow{d} \mathcal{N}(0, \lambda^2)$$
+* We want the asymptotic distribution of the survival function at time $t_0$: $S(t_0) = \exp(-\lambda t_0)$.
+* Let $g(\lambda) = \exp(-\lambda t_0)$. The derivative is $g'(\lambda) = -t_0 \exp(-\lambda t_0)$.
+* Applying the Delta Method:
+  $$\sqrt{n}\left(\exp(-\hat{\lambda} t_0) - \exp(-\lambda t_0)\right) \xrightarrow{d} \mathcal{N}\left(0, \lambda^2 \left[-t_0 \exp(-\lambda t_0)\right]^2\right)$$
+* The asymptotic variance simplifies to $\lambda^2 t_0^2 \exp(-2\lambda t_0)$.
+
+## Constructing Confidence Intervals
+
+* We use a plug-in estimator for the standard error. Let $\widehat{\text{SE}}(g(\hat{\theta}))$ be:
+  $$\widehat{\text{SE}}(g(\hat{\theta})) = \sqrt{\frac{\hat{\sigma}^2 \left[g'(\hat{\theta})\right]^2}{n}}$$
+* An approximate $(1 - \alpha)100\%$ confidence interval for $g(\theta)$ is:
+  $$g(\hat{\theta}) \pm z_{\alpha/2} \cdot \widehat{\text{SE}}(g(\hat{\theta}))$$
+* Returning to our survival example, $\hat{S}(t_0) = \exp(-\hat{\lambda} t_0)$.
+* The estimated standard error is:
+  $$\widehat{\text{SE}}(\hat{S}(t_0)) = \frac{\hat{\lambda} t_0 \exp(-\hat{\lambda} t_0)}{\sqrt{n}}$$
+* A $(1 - \alpha)100\%$ asymptotic CI for $S(t_0)$ is:
+  $$\exp(-\hat{\lambda} t_0) \pm z_{\alpha/2} \left[ \frac{\hat{\lambda} t_0 \exp(-\hat{\lambda} t_0)}{\sqrt{n}} \right]$$
+
+## Restricting Survival CIs to $[0, 1]$
+
+* The standard linear CI for $\hat{S}(t_0)$ can yield bounds outside $[0, 1]$.
+* **Solution:** Apply the Delta Method to a transformation that maps $(0, 1)$ to $(-\infty, \infty)$, such as the complementary log-log transformation: $g(S) = \ln(-\ln(S))$.
+* The derivative is $g'(S) = \frac{1}{S \ln(S)}$. By the Delta Method:
+  $$\widehat{\text{Var}}(\ln(-\ln(\hat{S}))) \approx \left[ \frac{1}{\hat{S} \ln(\hat{S})} \right]^2 \widehat{\text{Var}}(\hat{S})$$
+* Calculate the CI bounds for the transformed parameter: 
+  $$[L_W, U_W] = \ln(-\ln(\hat{S})) \pm z_{\alpha/2} \cdot \widehat{\text{SE}}(\ln(-\ln(\hat{S})))$$
+* Transform back to get the $[0, 1]$-restricted CI for $S(t_0)$:
+  $$\left[ \exp(-\exp(U_W)), \exp(-\exp(L_W)) \right]$$
+
+## Simulation: Linear vs. Log-Log Bounds
+
+```{r}
+#| label: survival-ci-plot
+#| echo: false
+#| fig-align: center
+#| out-width: 90%
+#| fig-height: 5.5
+#| fig-width: 8
+
+# Simulate exponential survival data
+set.seed(42)
+n <- 25  
+true_lambda <- 0.1
+T_obs <- rexp(n, rate = true_lambda)
+lambda_hat <- 1 / mean(T_obs)
+t_seq <- seq(0, 40, length.out = 100)
+
+# Estimated Survival Function
+S_hat <- exp(-lambda_hat * t_seq)
+
+# Standard Linear CI
+z <- qnorm(0.975) 
+se_linear <- (lambda_hat * t_seq * S_hat) / sqrt(n)
+linear_lower <- S_hat - z * se_linear
+linear_upper <- S_hat + z * se_linear
+
+# Log-Log Transformed CI
+se_loglog <- sqrt( (1 / (S_hat * log(S_hat)))^2 * (se_linear^2) )
+loglog_lower <- exp(-exp( log(-log(S_hat)) + z * se_loglog )) 
+loglog_upper <- exp(-exp( log(-log(S_hat)) - z * se_loglog )) 
+
+# Plot
+par(mar=c(4,4,1,1))
+plot(t_seq, S_hat, type = "l", lwd = 2, col = "black", 
+     ylim = c(-0.15, 1.1), xlab = "Time (t)", ylab = "Survival Probability S(t)")
+abline(h = c(0, 1), col = "gray", lty = 1)
+lines(t_seq, linear_upper, col = "red", lty = 2, lwd = 2)
+lines(t_seq, linear_lower, col = "red", lty = 2, lwd = 2)
+lines(t_seq, loglog_upper, col = "blue", lty = 3, lwd = 2.5)
+lines(t_seq, loglog_lower, col = "blue", lty = 3, lwd = 2.5)
+legend("topright", legend = c("Estimated S(t)", "Linear CI (Violates 0 bound)", "Log-Log CI (Respects bounds)"), col = c("black", "red", "blue"), lty = c(1, 2, 3), lwd = 2, cex=0.8)
+```
+
+## The Second-Order Delta Method
+
+* **Question:** What happens if $g'(\theta) = 0$? The first-order approximation collapses to $0$.
+* If $g'(\theta) = 0$ but $g''(\theta) \neq 0$, we extend the Taylor series to the second order:
+  $$g(X_n) \approx g(\theta) + g'(\theta)(X_n - \theta) + \frac{1}{2}g''(\theta)(X_n - \theta)^2$$
+* Since $g'(\theta) = 0$, we multiply both sides by $n$ (instead of $\sqrt{n}$):
+  $$n(g(X_n) - g(\theta)) \approx \frac{1}{2}g''(\theta) \left[\sqrt{n}(X_n - \theta)\right]^2$$
+* Because $\sqrt{n}(X_n - \theta) \xrightarrow{d} \mathcal{N}(0, \sigma^2)$, its square converges to $\sigma^2 \chi^2_1$.
+* **Result:** $n(g(X_n) - g(\theta)) \xrightarrow{d} \frac{1}{2} \sigma^2 g''(\theta) \chi^2_1$.
+
+## The Multivariate Delta Method
+
+\begin{block}{Theorem}
+Let $\mathbf{X}_n$ be a sequence of random vectors in $\mathbb{R}^k$ such that:
+$$\sqrt{n}(\mathbf{X}_n - \boldsymbol{\theta}) \xrightarrow{d} \mathcal{N}_k(\mathbf{0}, \Sigma)$$
+Let $g: \mathbb{R}^k \rightarrow \mathbb{R}^m$ be a function whose Jacobian matrix $\nabla g(\boldsymbol{\theta})$ (of size $m \times k$) is evaluated at $\boldsymbol{\theta}$. Then:
+$$\sqrt{n}(g(\mathbf{X}_n) - g(\boldsymbol{\theta})) \xrightarrow{d} \mathcal{N}_m\left(\mathbf{0}, \nabla g(\boldsymbol{\theta}) \Sigma \nabla g(\boldsymbol{\theta})^T\right)$$
+\end{block}
+
+\vspace{0.2cm}
+*Note: The matrix $\nabla g(\boldsymbol{\theta}) \Sigma \nabla g(\boldsymbol{\theta})^T$ is the asymptotic covariance matrix of the transformed vector.*
+
+<!-- # Bootstrap -->
+<!--  -->
+<!-- ## Bootstrap -->
+<!--  -->
+<!-- * A [widely applicable and extremely powerful]{style="color: red;"} statistical tool. -->
+<!-- * It can be used to [quantify the uncertainty associated with a given estimator]{style="color: red;"} or statistical learning method.  -->
+<!-- * As a simple example, the bootstrap can be used [to estimate the standard errors of the coefficients]{style="color: blue;"} from a **linear regression** fit.  -->
+<!-- * In the specific [case of linear regression, this is not particularly useful]{style="color: red;"}, since standard statistical software such as R outputs such standard errors automatically.  -->
+<!-- * The power of the bootstrap lies in the fact that it can be easily applied to [a wide range of statistical learning methods:]{style="color: blue;"} -->
+<!--     * including some for which [a measure of variability is otherwise difficult to obtain]{style="color: red;"} and is not automatically output by statistical software. -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## A toy example: -->
+<!--  -->
+<!-- * Let Singapore Govt. wants to [invest an extra fixed sum of money in two health systems (hospital or polyclinics)]{style="color: red;"} that yield returns of $X$ and $Y$, respectively, where $X$ and $Y$ are random quantities. -->
+<!-- * Govt. will invest a [fraction $\alpha$ of it's money in $X$]{style="color: blue;"}, and will invest the [remaining $1 - \alpha$ in $Y$.]{style="color: red;"} -->
+<!-- * Since there is variability associated with the returns on these two systems, Govt. wants to [choose $\alpha$ to minimize the total risk, or variance,]{style="color: red;"} of the investment. -->
+<!-- * In other words, Govt. wants to minimize $Var(\alpha X + (1 -\alpha)Y )$. -->
+<!-- * One can show that the value that minimizes the risk is given by -->
+<!-- $$\alpha = \frac{\sigma_{Y}^2 - \sigma_{XY}}{\sigma_{X}^2 + \sigma_{Y}^2 - 2\sigma_{XY}},$$ -->
+<!-- where $\sigma_{X}^2 = var(X)$, $\sigma_{Y}^2 = var(Y)$ and $\sigma_{XY} = cov(X, Y)$. -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## A toy example: (cont.) -->
+<!--  -->
+<!-- * In practice, $\sigma_{X}^2, \sigma_{Y}^2$ and $\sigma_{XY}$ are unknown.  -->
+<!-- * Let from past real data (on $X$ and $Y$), we can get the estimates of the above as $\hat\sigma_{X}^2, \hat\sigma_{Y}^2$ and $\hat\sigma_{XY}$.  -->
+<!-- * We can then estimate the value of $\alpha$ that minimizes the variance of Govt. investment using -->
+<!-- $$\hat\alpha = \frac{\hat\sigma_{Y}^2 - \hat\sigma_{XY}}{\hat\sigma_{X}^2 + \hat\sigma_{Y}^2 - 2\hat\sigma_{XY}}.$$ -->
+<!-- * How do you find a variance (accuracy of the estimate) of $\hat \alpha$? -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## A toy example: variance -->
+<!--  -->
+<!-- * To estimate the standard deviation of $\hat \alpha$ we need to (some how) know the distribution of $\hat \alpha$.  -->
+<!-- * Let there are 100 pairs of observation on $(X, Y)$.  -->
+<!-- * Let generate one random sample (with replacement) of size 100 from the above real data.  -->
+<!-- * Now repeat the the above process (sample generation) for 1000 times.  -->
+<!-- * Then we have 1,000 estimates for $\alpha$ each from one sample, which we can call -->
+<!-- $$\hat\alpha_1, \hat\alpha_2, \cdots, \hat\alpha_{1000}.$$ -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## A toy example: (cont.) -->
+<!--  -->
+<!-- * The Bootstrap estimate of $\alpha$ based on 1000 samples is: -->
+<!-- $$\bar{\alpha} = \frac{1}{1000} \sum_{r=1}^{1000} \hat{\alpha}_r$$ -->
+<!-- * The Bootstrap estimate of the variance of $\hat\alpha$ based on 1000 samples is: -->
+<!-- $$\frac{1}{1000-1} \sum_{r=1}^{1000}(\hat{\alpha}_r - \bar{\alpha})^2.$$ -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## Non-Parametric Bootstrap: -->
+<!--  -->
+<!-- * Consider a [data of size $n$]{style="color: red;"} as: $x_1, \cdots, x_n$. -->
+<!-- * We want to find the [bootstrap estimate of variance of the estimator $T(X)$]{style="color: red;"} -->
+<!-- * [Randomly select $n$ observations]{style="color: red;"} from the data set in order to produce a bootstrap data set, $Z^{*1}$. -->
+<!-- * The [sampling is performed with replacement,]{style="color: red;"} which means that the same observation can occur more than once in the bootstrap data set.  -->
+<!-- * We can use $Z^{*1}$ to [produce a new bootstrap estimate]{style="color: red;"} for $T(X)$, which we call $T_1^*(x)$. -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## Non-Parametric Bootstrap: (cont.) -->
+<!--  -->
+<!-- * This procedure is [repeated $B$ times]{style="color: red;"} for some large value of $B$, in order to produce $B$ [different bootstrap data sets,]{style="color: red;"} $Z^{*1}, Z^{*2}, \cdots, Z^{*B}$, and -->
+<!-- * $B$ (corresponding $T(X)$) estimates as $T_1^*(x), T_2^*(x), \cdots, T_B^*(x)$. -->
+<!-- * We can compute the [variance of these bootstrap estimates]{style="color: red;"} using the formula -->
+<!-- $$var(\hat T(X)) = \frac{1}{B-1} \sum_{r=1}^{B} \bigg(T_r^*(x) - \frac{1}{B}\sum_{r'=1}^{B} T_{r'}^*(x) \bigg)^2$$ -->
+<!-- * This serves as an estimate of the variance of $\hat T(X)$, estimated from the original data set. -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## Parametric Bootstrap: -->
+<!--  -->
+<!-- * Let $x_1, \cdots, x_n$ are [obtained independently from $N(\mu, 1)$.]{style="color: red;"} -->
+<!-- * Estimate $\mu$ (using MLE) as: $\hat \mu = \bar{x}$. -->
+<!-- * Generate a [sample of size $n$ from $N(\bar{x}, 1)$]{style="color: red;"} and estimate the sample mean as $\bar{x}_1$ from this newly generate samples. -->
+<!-- * [Repeat the above $B$ times to get $B$ such estimates]{style="color: red;"} as $\bar{x}_1, \cdots, \bar{x}_B$. -->
+<!-- * The [variance of $\bar{x}$ based on the bootstrap]{style="color: red;"} estimates -->
+<!-- $$var(\bar{x}) = \frac{1}{B-1} \sum_{r=1}^{B} \bigg(\bar{x}_r - \frac{1}{B}\sum_{r'=1}^{B} \bar{x}_{r'} \bigg)^2.$$ -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## An empirical bootstrap confidence interval: -->
+<!--  -->
+<!-- * The [sample data:]{style="color: red;"} 30, 37, 36, 43, 42, 43, 43, 46, 41, 42 -->
+<!-- * Problem: [Estimate the mean $\mu$]{style="color: red;"} of the underlying distribution and give an [80% bootstrap confidence interval.]{style="color: red;"} -->
+<!-- * The sample mean is $\bar{x} = 40.3$. We [use this as an estimate]{style="color: red;"} of the true mean $\mu$ of the underlying distribution.  -->
+<!-- * To make the confidence interval we need to know how much the [distribution of $\bar{x}$ varies around $\mu$.]{style="color: red;"} -->
+<!-- * In fact, we want to know the [distribution of $\delta = \bar{x} - \mu$]{style="color: red;"}. -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## An empirical bootstrap confidence interval: (cont.) -->
+<!--  -->
+<!-- * If we [knew this distribution]{style="color: red;"} we could find $\delta_{0.1}$ and $\delta_{0.9}$, the 0.1 and 0.9 critical values of $\delta$. -->
+<!-- * Then we would have -->
+<!-- $$P(\delta_{0.9} \leq \bar{x} - \mu \leq \delta_{0.1} | \mu) = 0.8 \implies P(\bar{x} - \delta_{0.9} \geq \mu \geq \bar{x} - \delta_{0.1} | \mu ) = 0.8$$ -->
+<!-- which gives [an 80% confidence interval]{style="color: red;"} of $[\bar{x} - \delta_{0.1}, \bar{x} - \delta_{0.9} ]$. -->
+<!-- * The bootstrap principle offers a [practical approach to estimating the distribution]{style="color: red;"} of $\delta = \bar{x} - \mu$. -->
+<!-- * It says that we can approximate it by the distribution of $\delta^* = \bar{x}^* - \bar{x}$ where $\bar{x}^*$ is the mean of an empirical bootstrap sample. -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## An empirical bootstrap confidence interval: (cont.) -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!-- **Bootstrap Samples (20 iterations):** -->
+<!--  -->
+<!-- | | | | | | | | | | | | | | | | | | | | | -->
+<!-- |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---| -->
+<!-- | 43| 36| 46| 30| 43| 43| 43| 37| 42| 42| 43| 37| 36| 42| 43| 43| 42| 43| 42| 43| -->
+<!-- | 43| 41| 37| 37| 43| 43| 46| 36| 41| 43| 43| 42| 41| 43| 46| 36| 43| 43| 43| 42| -->
+<!-- | 42| 43| 37| 43| 46| 37| 36| 41| 36| 43| 41| 36| 37| 30| 46| 46| 42| 36| 36| 43| -->
+<!-- | 37| 42| 43| 41| 41| 42| 36| 42| 42| 43| 42| 43| 41| 43| 36| 43| 43| 41| 42| 46| -->
+<!-- | 42| 36| 43| 43| 42| 37| 42| 42| 42| 46| 30| 43| 36| 43| 43| 42| 37| 36| 42| 30| -->
+<!-- | 36| 36| 42| 42| 36| 36| 43| 41| 30| 42| 37| 43| 41| 41| 43| 43| 42| 46| 43| 37| -->
+<!-- | 43| 37| 41| 43| 41| 42| 43| 46| 46| 36| 43| 42| 43| 30| 41| 46| 43| 46| 30| 43| -->
+<!-- | 41| 42| 30| 42| 37| 43| 43| 42| 43| 43| 46| 43| 30| 42| 30| 42| 30| 43| 43| 42| -->
+<!-- | 46| 42| 42| 43| 41| 42| 30| 37| 30| 42| 43| 42| 43| 37| 37| 37| 42| 43| 43| 46| -->
+<!-- | 42| 43| 43| 41| 42| 36| 43| 30| 37| 43| 42| 43| 41| 36| 37| 41| 43| 42| 43| 43| -->
+<!--  -->
+<!-- * Next we compute $\delta^* = \bar{x}^* - \bar{x}$ for each bootstrap sample and sort them smallest to biggest: -->
+<!-- $$\small -1.6, -1.4, -1.4, -0.9, -0.5, -0.2, -0.1, 0.1, 0.2, 0.2, 0.4, 0.4, 0.7, 0.9, 1.1, 1.2, 1.2, 1.6, 1.6, 2.0$$ -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## An empirical bootstrap confidence interval: (cont.) -->
+<!--  -->
+<!-- * We will [approximate the critical values]{style="color: red;"} $\delta_{0.1}$ and $\delta_{0.9}$ by $\delta_{0.1}^*$ and $\delta_{0.9}^*$. -->
+<!-- * Since $\delta_{0.1}^*$ is at the [90th percentile we choose the 18th element]{style="color: red;"} in the list, i.e. 1.6. Likewise, since $\delta_{0.9}^*$ is at the [10th percentile we choose the 2nd element]{style="color: red;"} in the list, i.e. -1.4. -->
+<!-- * Therefore our [bootstrap 80% confidence interval]{style="color: red;"} for $\mu$ is -->
+<!-- $$[\bar{x} -\delta_{0.1}^*, \bar{x} - \delta_{0.9}^*] = [40.3 - 1.6, 40.3 + 1.4] = [38.7, 41.7]$$ -->
+<!-- * In this example we only generated 20 bootstrap samples so they would fit on the page. -->
+<!-- * Using R, [we would generate 10000 or more bootstrap samples]{style="color: red;"} in order to obtain a [very accurate estimate]{style="color: red;"} of $\delta_{0.1}^*$ and $\delta_{0.9}^*$. -->
+<!--  -->
+<!-- --- -->
+<!--  -->
+<!-- ## References -->
+<!--  -->
+<!-- ::: {.nonincremental} -->
+<!--  -->
+<!-- * **James, G., Witten, D., Hastie, T., & Tibshirani, R.** (2013). *An Introduction to Statistical Learning with Applications in R*. Springer. -->
+<!--  -->
+<!--  -->
+<!-- * **StatMethods.** *Bootstrapping: Quick-R*. [statmethods.net/advstats/bootstrapping.html](https://www.statmethods.net/advstats/bootstrapping.html) -->
+<!--  -->
+<!-- ::: -->
+<!--  -->
+<!-- --- -->
