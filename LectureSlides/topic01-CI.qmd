@@ -161,157 +161,157 @@ $$\sqrt{n}(g(\mathbf{X}_n) - g(\boldsymbol{\theta})) \xrightarrow{d} \mathcal{N}
 \vspace{0.2cm}
 *Note: The matrix $\nabla g(\boldsymbol{\theta}) \Sigma \nabla g(\boldsymbol{\theta})^T$ is the asymptotic covariance matrix of the transformed vector.*
 
-<!-- # Bootstrap -->
-<!--  -->
-<!-- ## Bootstrap -->
-<!--  -->
-<!-- * A [widely applicable and extremely powerful]{style="color: red;"} statistical tool. -->
-<!-- * It can be used to [quantify the uncertainty associated with a given estimator]{style="color: red;"} or statistical learning method.  -->
-<!-- * As a simple example, the bootstrap can be used [to estimate the standard errors of the coefficients]{style="color: blue;"} from a **linear regression** fit.  -->
-<!-- * In the specific [case of linear regression, this is not particularly useful]{style="color: red;"}, since standard statistical software such as R outputs such standard errors automatically.  -->
-<!-- * The power of the bootstrap lies in the fact that it can be easily applied to [a wide range of statistical learning methods:]{style="color: blue;"} -->
-<!--     * including some for which [a measure of variability is otherwise difficult to obtain]{style="color: red;"} and is not automatically output by statistical software. -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## A toy example: -->
-<!--  -->
-<!-- * Let Singapore Govt. wants to [invest an extra fixed sum of money in two health systems (hospital or polyclinics)]{style="color: red;"} that yield returns of $X$ and $Y$, respectively, where $X$ and $Y$ are random quantities. -->
-<!-- * Govt. will invest a [fraction $\alpha$ of it's money in $X$]{style="color: blue;"}, and will invest the [remaining $1 - \alpha$ in $Y$.]{style="color: red;"} -->
-<!-- * Since there is variability associated with the returns on these two systems, Govt. wants to [choose $\alpha$ to minimize the total risk, or variance,]{style="color: red;"} of the investment. -->
-<!-- * In other words, Govt. wants to minimize $Var(\alpha X + (1 -\alpha)Y )$. -->
-<!-- * One can show that the value that minimizes the risk is given by -->
-<!-- $$\alpha = \frac{\sigma_{Y}^2 - \sigma_{XY}}{\sigma_{X}^2 + \sigma_{Y}^2 - 2\sigma_{XY}},$$ -->
-<!-- where $\sigma_{X}^2 = var(X)$, $\sigma_{Y}^2 = var(Y)$ and $\sigma_{XY} = cov(X, Y)$. -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## A toy example: (cont.) -->
-<!--  -->
-<!-- * In practice, $\sigma_{X}^2, \sigma_{Y}^2$ and $\sigma_{XY}$ are unknown.  -->
-<!-- * Let from past real data (on $X$ and $Y$), we can get the estimates of the above as $\hat\sigma_{X}^2, \hat\sigma_{Y}^2$ and $\hat\sigma_{XY}$.  -->
-<!-- * We can then estimate the value of $\alpha$ that minimizes the variance of Govt. investment using -->
-<!-- $$\hat\alpha = \frac{\hat\sigma_{Y}^2 - \hat\sigma_{XY}}{\hat\sigma_{X}^2 + \hat\sigma_{Y}^2 - 2\hat\sigma_{XY}}.$$ -->
-<!-- * How do you find a variance (accuracy of the estimate) of $\hat \alpha$? -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## A toy example: variance -->
-<!--  -->
-<!-- * To estimate the standard deviation of $\hat \alpha$ we need to (some how) know the distribution of $\hat \alpha$.  -->
-<!-- * Let there are 100 pairs of observation on $(X, Y)$.  -->
-<!-- * Let generate one random sample (with replacement) of size 100 from the above real data.  -->
-<!-- * Now repeat the the above process (sample generation) for 1000 times.  -->
-<!-- * Then we have 1,000 estimates for $\alpha$ each from one sample, which we can call -->
-<!-- $$\hat\alpha_1, \hat\alpha_2, \cdots, \hat\alpha_{1000}.$$ -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## A toy example: (cont.) -->
-<!--  -->
-<!-- * The Bootstrap estimate of $\alpha$ based on 1000 samples is: -->
-<!-- $$\bar{\alpha} = \frac{1}{1000} \sum_{r=1}^{1000} \hat{\alpha}_r$$ -->
-<!-- * The Bootstrap estimate of the variance of $\hat\alpha$ based on 1000 samples is: -->
-<!-- $$\frac{1}{1000-1} \sum_{r=1}^{1000}(\hat{\alpha}_r - \bar{\alpha})^2.$$ -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## Non-Parametric Bootstrap: -->
-<!--  -->
-<!-- * Consider a [data of size $n$]{style="color: red;"} as: $x_1, \cdots, x_n$. -->
-<!-- * We want to find the [bootstrap estimate of variance of the estimator $T(X)$]{style="color: red;"} -->
-<!-- * [Randomly select $n$ observations]{style="color: red;"} from the data set in order to produce a bootstrap data set, $Z^{*1}$. -->
-<!-- * The [sampling is performed with replacement,]{style="color: red;"} which means that the same observation can occur more than once in the bootstrap data set.  -->
-<!-- * We can use $Z^{*1}$ to [produce a new bootstrap estimate]{style="color: red;"} for $T(X)$, which we call $T_1^*(x)$. -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## Non-Parametric Bootstrap: (cont.) -->
-<!--  -->
-<!-- * This procedure is [repeated $B$ times]{style="color: red;"} for some large value of $B$, in order to produce $B$ [different bootstrap data sets,]{style="color: red;"} $Z^{*1}, Z^{*2}, \cdots, Z^{*B}$, and -->
-<!-- * $B$ (corresponding $T(X)$) estimates as $T_1^*(x), T_2^*(x), \cdots, T_B^*(x)$. -->
-<!-- * We can compute the [variance of these bootstrap estimates]{style="color: red;"} using the formula -->
-<!-- $$var(\hat T(X)) = \frac{1}{B-1} \sum_{r=1}^{B} \bigg(T_r^*(x) - \frac{1}{B}\sum_{r'=1}^{B} T_{r'}^*(x) \bigg)^2$$ -->
-<!-- * This serves as an estimate of the variance of $\hat T(X)$, estimated from the original data set. -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## Parametric Bootstrap: -->
-<!--  -->
-<!-- * Let $x_1, \cdots, x_n$ are [obtained independently from $N(\mu, 1)$.]{style="color: red;"} -->
-<!-- * Estimate $\mu$ (using MLE) as: $\hat \mu = \bar{x}$. -->
-<!-- * Generate a [sample of size $n$ from $N(\bar{x}, 1)$]{style="color: red;"} and estimate the sample mean as $\bar{x}_1$ from this newly generate samples. -->
-<!-- * [Repeat the above $B$ times to get $B$ such estimates]{style="color: red;"} as $\bar{x}_1, \cdots, \bar{x}_B$. -->
-<!-- * The [variance of $\bar{x}$ based on the bootstrap]{style="color: red;"} estimates -->
-<!-- $$var(\bar{x}) = \frac{1}{B-1} \sum_{r=1}^{B} \bigg(\bar{x}_r - \frac{1}{B}\sum_{r'=1}^{B} \bar{x}_{r'} \bigg)^2.$$ -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## An empirical bootstrap confidence interval: -->
-<!--  -->
-<!-- * The [sample data:]{style="color: red;"} 30, 37, 36, 43, 42, 43, 43, 46, 41, 42 -->
-<!-- * Problem: [Estimate the mean $\mu$]{style="color: red;"} of the underlying distribution and give an [80% bootstrap confidence interval.]{style="color: red;"} -->
-<!-- * The sample mean is $\bar{x} = 40.3$. We [use this as an estimate]{style="color: red;"} of the true mean $\mu$ of the underlying distribution.  -->
-<!-- * To make the confidence interval we need to know how much the [distribution of $\bar{x}$ varies around $\mu$.]{style="color: red;"} -->
-<!-- * In fact, we want to know the [distribution of $\delta = \bar{x} - \mu$]{style="color: red;"}. -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## An empirical bootstrap confidence interval: (cont.) -->
-<!--  -->
-<!-- * If we [knew this distribution]{style="color: red;"} we could find $\delta_{0.1}$ and $\delta_{0.9}$, the 0.1 and 0.9 critical values of $\delta$. -->
-<!-- * Then we would have -->
-<!-- $$P(\delta_{0.9} \leq \bar{x} - \mu \leq \delta_{0.1} | \mu) = 0.8 \implies P(\bar{x} - \delta_{0.9} \geq \mu \geq \bar{x} - \delta_{0.1} | \mu ) = 0.8$$ -->
-<!-- which gives [an 80% confidence interval]{style="color: red;"} of $[\bar{x} - \delta_{0.1}, \bar{x} - \delta_{0.9} ]$. -->
-<!-- * The bootstrap principle offers a [practical approach to estimating the distribution]{style="color: red;"} of $\delta = \bar{x} - \mu$. -->
-<!-- * It says that we can approximate it by the distribution of $\delta^* = \bar{x}^* - \bar{x}$ where $\bar{x}^*$ is the mean of an empirical bootstrap sample. -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## An empirical bootstrap confidence interval: (cont.) -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!-- **Bootstrap Samples (20 iterations):** -->
-<!--  -->
-<!-- | | | | | | | | | | | | | | | | | | | | | -->
-<!-- |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---| -->
-<!-- | 43| 36| 46| 30| 43| 43| 43| 37| 42| 42| 43| 37| 36| 42| 43| 43| 42| 43| 42| 43| -->
-<!-- | 43| 41| 37| 37| 43| 43| 46| 36| 41| 43| 43| 42| 41| 43| 46| 36| 43| 43| 43| 42| -->
-<!-- | 42| 43| 37| 43| 46| 37| 36| 41| 36| 43| 41| 36| 37| 30| 46| 46| 42| 36| 36| 43| -->
-<!-- | 37| 42| 43| 41| 41| 42| 36| 42| 42| 43| 42| 43| 41| 43| 36| 43| 43| 41| 42| 46| -->
-<!-- | 42| 36| 43| 43| 42| 37| 42| 42| 42| 46| 30| 43| 36| 43| 43| 42| 37| 36| 42| 30| -->
-<!-- | 36| 36| 42| 42| 36| 36| 43| 41| 30| 42| 37| 43| 41| 41| 43| 43| 42| 46| 43| 37| -->
-<!-- | 43| 37| 41| 43| 41| 42| 43| 46| 46| 36| 43| 42| 43| 30| 41| 46| 43| 46| 30| 43| -->
-<!-- | 41| 42| 30| 42| 37| 43| 43| 42| 43| 43| 46| 43| 30| 42| 30| 42| 30| 43| 43| 42| -->
-<!-- | 46| 42| 42| 43| 41| 42| 30| 37| 30| 42| 43| 42| 43| 37| 37| 37| 42| 43| 43| 46| -->
-<!-- | 42| 43| 43| 41| 42| 36| 43| 30| 37| 43| 42| 43| 41| 36| 37| 41| 43| 42| 43| 43| -->
-<!--  -->
-<!-- * Next we compute $\delta^* = \bar{x}^* - \bar{x}$ for each bootstrap sample and sort them smallest to biggest: -->
-<!-- $$\small -1.6, -1.4, -1.4, -0.9, -0.5, -0.2, -0.1, 0.1, 0.2, 0.2, 0.4, 0.4, 0.7, 0.9, 1.1, 1.2, 1.2, 1.6, 1.6, 2.0$$ -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## An empirical bootstrap confidence interval: (cont.) -->
-<!--  -->
-<!-- * We will [approximate the critical values]{style="color: red;"} $\delta_{0.1}$ and $\delta_{0.9}$ by $\delta_{0.1}^*$ and $\delta_{0.9}^*$. -->
-<!-- * Since $\delta_{0.1}^*$ is at the [90th percentile we choose the 18th element]{style="color: red;"} in the list, i.e. 1.6. Likewise, since $\delta_{0.9}^*$ is at the [10th percentile we choose the 2nd element]{style="color: red;"} in the list, i.e. -1.4. -->
-<!-- * Therefore our [bootstrap 80% confidence interval]{style="color: red;"} for $\mu$ is -->
-<!-- $$[\bar{x} -\delta_{0.1}^*, \bar{x} - \delta_{0.9}^*] = [40.3 - 1.6, 40.3 + 1.4] = [38.7, 41.7]$$ -->
-<!-- * In this example we only generated 20 bootstrap samples so they would fit on the page. -->
-<!-- * Using R, [we would generate 10000 or more bootstrap samples]{style="color: red;"} in order to obtain a [very accurate estimate]{style="color: red;"} of $\delta_{0.1}^*$ and $\delta_{0.9}^*$. -->
-<!--  -->
-<!-- --- -->
-<!--  -->
-<!-- ## References -->
-<!--  -->
-<!-- ::: {.nonincremental} -->
-<!--  -->
-<!-- * **James, G., Witten, D., Hastie, T., & Tibshirani, R.** (2013). *An Introduction to Statistical Learning with Applications in R*. Springer. -->
-<!--  -->
-<!--  -->
-<!-- * **StatMethods.** *Bootstrapping: Quick-R*. [statmethods.net/advstats/bootstrapping.html](https://www.statmethods.net/advstats/bootstrapping.html) -->
-<!--  -->
-<!-- ::: -->
-<!--  -->
-<!-- --- -->
+# Bootstrap
+
+## Bootstrap
+
+* A [widely applicable and extremely powerful]{style="color: red;"} statistical tool.
+* It can be used to [quantify the uncertainty associated with a given estimator]{style="color: red;"} or statistical learning method. 
+* As a simple example, the bootstrap can be used [to estimate the standard errors of the coefficients]{style="color: blue;"} from a **linear regression** fit. 
+* In the specific [case of linear regression, this is not particularly useful]{style="color: red;"}, since standard statistical software such as R outputs such standard errors automatically. 
+* The power of the bootstrap lies in the fact that it can be easily applied to [a wide range of statistical learning methods:]{style="color: blue;"}
+    * including some for which [a measure of variability is otherwise difficult to obtain]{style="color: red;"} and is not automatically output by statistical software.
+
+---
+
+## A toy example:
+
+* Let Singapore Govt. wants to [invest an extra fixed sum of money in two health systems (hospital or polyclinics)]{style="color: red;"} that yield returns of $X$ and $Y$, respectively, where $X$ and $Y$ are random quantities.
+* Govt. will invest a [fraction $\alpha$ of it's money in $X$]{style="color: blue;"}, and will invest the [remaining $1 - \alpha$ in $Y$.]{style="color: red;"}
+* Since there is variability associated with the returns on these two systems, Govt. wants to [choose $\alpha$ to minimize the total risk, or variance,]{style="color: red;"} of the investment.
+* In other words, Govt. wants to minimize $Var(\alpha X + (1 -\alpha)Y )$.
+* One can show that the value that minimizes the risk is given by
+$$\alpha = \frac{\sigma_{Y}^2 - \sigma_{XY}}{\sigma_{X}^2 + \sigma_{Y}^2 - 2\sigma_{XY}},$$
+where $\sigma_{X}^2 = var(X)$, $\sigma_{Y}^2 = var(Y)$ and $\sigma_{XY} = cov(X, Y)$.
+
+---
+
+## A toy example: (cont.)
+
+* In practice, $\sigma_{X}^2, \sigma_{Y}^2$ and $\sigma_{XY}$ are unknown. 
+* Let from past real data (on $X$ and $Y$), we can get the estimates of the above as $\hat\sigma_{X}^2, \hat\sigma_{Y}^2$ and $\hat\sigma_{XY}$. 
+* We can then estimate the value of $\alpha$ that minimizes the variance of Govt. investment using
+$$\hat\alpha = \frac{\hat\sigma_{Y}^2 - \hat\sigma_{XY}}{\hat\sigma_{X}^2 + \hat\sigma_{Y}^2 - 2\hat\sigma_{XY}}.$$
+* How do you find a variance (accuracy of the estimate) of $\hat \alpha$?
+
+---
+
+## A toy example: variance
+
+* To estimate the standard deviation of $\hat \alpha$ we need to (some how) know the distribution of $\hat \alpha$. 
+* Let there are 100 pairs of observation on $(X, Y)$. 
+* Let generate one random sample (with replacement) of size 100 from the above real data. 
+* Now repeat the the above process (sample generation) for 1000 times. 
+* Then we have 1,000 estimates for $\alpha$ each from one sample, which we can call
+$$\hat\alpha_1, \hat\alpha_2, \cdots, \hat\alpha_{1000}.$$
+
+---
+
+## A toy example: (cont.)
+
+* The Bootstrap estimate of $\alpha$ based on 1000 samples is:
+$$\bar{\alpha} = \frac{1}{1000} \sum_{r=1}^{1000} \hat{\alpha}_r$$
+* The Bootstrap estimate of the variance of $\hat\alpha$ based on 1000 samples is:
+$$\frac{1}{1000-1} \sum_{r=1}^{1000}(\hat{\alpha}_r - \bar{\alpha})^2.$$
+
+---
+
+## Non-Parametric Bootstrap:
+
+* Consider a [data of size $n$]{style="color: red;"} as: $x_1, \cdots, x_n$.
+* We want to find the [bootstrap estimate of variance of the estimator $T(X)$]{style="color: red;"}
+* [Randomly select $n$ observations]{style="color: red;"} from the data set in order to produce a bootstrap data set, $Z^{*1}$.
+* The [sampling is performed with replacement,]{style="color: red;"} which means that the same observation can occur more than once in the bootstrap data set. 
+* We can use $Z^{*1}$ to [produce a new bootstrap estimate]{style="color: red;"} for $T(X)$, which we call $T_1^*(x)$.
+
+---
+
+## Non-Parametric Bootstrap: (cont.)
+
+* This procedure is [repeated $B$ times]{style="color: red;"} for some large value of $B$, in order to produce $B$ [different bootstrap data sets,]{style="color: red;"} $Z^{*1}, Z^{*2}, \cdots, Z^{*B}$, and
+* $B$ (corresponding $T(X)$) estimates as $T_1^*(x), T_2^*(x), \cdots, T_B^*(x)$.
+* We can compute the [variance of these bootstrap estimates]{style="color: red;"} using the formula
+$$var(\hat T(X)) = \frac{1}{B-1} \sum_{r=1}^{B} \bigg(T_r^*(x) - \frac{1}{B}\sum_{r'=1}^{B} T_{r'}^*(x) \bigg)^2$$
+* This serves as an estimate of the variance of $\hat T(X)$, estimated from the original data set.
+
+---
+
+## Parametric Bootstrap:
+
+* Let $x_1, \cdots, x_n$ are [obtained independently from $N(\mu, 1)$.]{style="color: red;"}
+* Estimate $\mu$ (using MLE) as: $\hat \mu = \bar{x}$.
+* Generate a [sample of size $n$ from $N(\bar{x}, 1)$]{style="color: red;"} and estimate the sample mean as $\bar{x}_1$ from this newly generate samples.
+* [Repeat the above $B$ times to get $B$ such estimates]{style="color: red;"} as $\bar{x}_1, \cdots, \bar{x}_B$.
+* The [variance of $\bar{x}$ based on the bootstrap]{style="color: red;"} estimates
+$$var(\bar{x}) = \frac{1}{B-1} \sum_{r=1}^{B} \bigg(\bar{x}_r - \frac{1}{B}\sum_{r'=1}^{B} \bar{x}_{r'} \bigg)^2.$$
+
+---
+
+## An empirical bootstrap confidence interval:
+
+* The [sample data:]{style="color: red;"} 30, 37, 36, 43, 42, 43, 43, 46, 41, 42
+* Problem: [Estimate the mean $\mu$]{style="color: red;"} of the underlying distribution and give an [80% bootstrap confidence interval.]{style="color: red;"}
+* The sample mean is $\bar{x} = 40.3$. We [use this as an estimate]{style="color: red;"} of the true mean $\mu$ of the underlying distribution. 
+* To make the confidence interval we need to know how much the [distribution of $\bar{x}$ varies around $\mu$.]{style="color: red;"}
+* In fact, we want to know the [distribution of $\delta = \bar{x} - \mu$]{style="color: red;"}.
+
+---
+
+## An empirical bootstrap confidence interval: (cont.)
+
+* If we [knew this distribution]{style="color: red;"} we could find $\delta_{0.1}$ and $\delta_{0.9}$, the 0.1 and 0.9 critical values of $\delta$.
+* Then we would have
+$$P(\delta_{0.9} \leq \bar{x} - \mu \leq \delta_{0.1} | \mu) = 0.8 \implies P(\bar{x} - \delta_{0.9} \geq \mu \geq \bar{x} - \delta_{0.1} | \mu ) = 0.8$$
+which gives [an 80% confidence interval]{style="color: red;"} of $[\bar{x} - \delta_{0.1}, \bar{x} - \delta_{0.9} ]$.
+* The bootstrap principle offers a [practical approach to estimating the distribution]{style="color: red;"} of $\delta = \bar{x} - \mu$.
+* It says that we can approximate it by the distribution of $\delta^* = \bar{x}^* - \bar{x}$ where $\bar{x}^*$ is the mean of an empirical bootstrap sample.
+
+---
+
+## An empirical bootstrap confidence interval: (cont.)
+
+
+
+**Bootstrap Samples (20 iterations):**
+
+| | | | | | | | | | | | | | | | | | | | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 43| 36| 46| 30| 43| 43| 43| 37| 42| 42| 43| 37| 36| 42| 43| 43| 42| 43| 42| 43|
+| 43| 41| 37| 37| 43| 43| 46| 36| 41| 43| 43| 42| 41| 43| 46| 36| 43| 43| 43| 42|
+| 42| 43| 37| 43| 46| 37| 36| 41| 36| 43| 41| 36| 37| 30| 46| 46| 42| 36| 36| 43|
+| 37| 42| 43| 41| 41| 42| 36| 42| 42| 43| 42| 43| 41| 43| 36| 43| 43| 41| 42| 46|
+| 42| 36| 43| 43| 42| 37| 42| 42| 42| 46| 30| 43| 36| 43| 43| 42| 37| 36| 42| 30|
+| 36| 36| 42| 42| 36| 36| 43| 41| 30| 42| 37| 43| 41| 41| 43| 43| 42| 46| 43| 37|
+| 43| 37| 41| 43| 41| 42| 43| 46| 46| 36| 43| 42| 43| 30| 41| 46| 43| 46| 30| 43|
+| 41| 42| 30| 42| 37| 43| 43| 42| 43| 43| 46| 43| 30| 42| 30| 42| 30| 43| 43| 42|
+| 46| 42| 42| 43| 41| 42| 30| 37| 30| 42| 43| 42| 43| 37| 37| 37| 42| 43| 43| 46|
+| 42| 43| 43| 41| 42| 36| 43| 30| 37| 43| 42| 43| 41| 36| 37| 41| 43| 42| 43| 43|
+
+* Next we compute $\delta^* = \bar{x}^* - \bar{x}$ for each bootstrap sample and sort them smallest to biggest:
+$$\small -1.6, -1.4, -1.4, -0.9, -0.5, -0.2, -0.1, 0.1, 0.2, 0.2, 0.4, 0.4, 0.7, 0.9, 1.1, 1.2, 1.2, 1.6, 1.6, 2.0$$
+
+---
+
+## An empirical bootstrap confidence interval: (cont.)
+
+* We will [approximate the critical values]{style="color: red;"} $\delta_{0.1}$ and $\delta_{0.9}$ by $\delta_{0.1}^*$ and $\delta_{0.9}^*$.
+* Since $\delta_{0.1}^*$ is at the [90th percentile we choose the 18th element]{style="color: red;"} in the list, i.e. 1.6. Likewise, since $\delta_{0.9}^*$ is at the [10th percentile we choose the 2nd element]{style="color: red;"} in the list, i.e. -1.4.
+* Therefore our [bootstrap 80% confidence interval]{style="color: red;"} for $\mu$ is
+$$[\bar{x} -\delta_{0.1}^*, \bar{x} - \delta_{0.9}^*] = [40.3 - 1.6, 40.3 + 1.4] = [38.7, 41.7]$$
+* In this example we only generated 20 bootstrap samples so they would fit on the page.
+* Using R, [we would generate 10000 or more bootstrap samples]{style="color: red;"} in order to obtain a [very accurate estimate]{style="color: red;"} of $\delta_{0.1}^*$ and $\delta_{0.9}^*$.
+
+---
+
+## References
+
+::: {.nonincremental}
+
+* **James, G., Witten, D., Hastie, T., & Tibshirani, R.** (2013). *An Introduction to Statistical Learning with Applications in R*. Springer.
+
+
+* **StatMethods.** *Bootstrapping: Quick-R*. [statmethods.net/advstats/bootstrapping.html](https://www.statmethods.net/advstats/bootstrapping.html)
+
+:::
+
+---
