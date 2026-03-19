@@ -7,6 +7,7 @@
 *.out
 *.snm
 *.toc
+*.vrb
 ES-Responses.pdf
 /.quarto/
 **/*.quarto_ipynb
