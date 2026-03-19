@@ -48,7 +48,8 @@
 \usepackage{hyperref}
 \usepackage{colortbl}
 \usepackage{helvet}
-
+\usepackage{booktabs}
+\usepackage{multirow}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,trees, positioning}
@@ -242,43 +243,6 @@
 \end{itemize}	
 	
 \end{frame}
-
-
-% \begin{frame}
-% 	\frametitle{ Importance of graphing data before analyzing it}	
-% 	\vspace{0.5cm}
-% 	
-% 	\begin{center}
-% 		\includegraphics[trim = 0cm 18cm 0cm 1cm, height=6cm]{Anscombe_four_graph.pdf}
-% 	\end{center}
-% 	
-% 	\vspace{1cm}
-% 	
-% 	
-% 	
-% \end{frame}
-%
-%
-% \begin{frame}
-% 	\frametitle{ }
-% 	\begin{itemize}
-%    \item Which one of the above do you think has \textbf{highest correlation} and ideal for linear regression?
-% 			\pause
-% 	\vspace{0.5cm}
-%
-% 	\item In \textbf{all the four graphs}: mean of x = 9 (with variance 11); mean of y = 7.50 (with variance 4.1) ; correlation between x and y = 0.816
-% 	\vspace{0.5cm}
-%
-% 	\item Fitted linear regression in each cases: \textbf{$y = 3 + 0.5x $}
-% 	\vspace{0.5cm}
-%
-% 	\item In 1973, \textbf{Anscombe} demonstrated the \textbf{importance} of \textbf{graphing data}
-%       %\footnote{The graph is taken from the Wikipedia}
-%       before analyzing it and the \textbf{effect of outliers} on statistical properties
-% \end{itemize}	
-% 	
-% \end{frame}
-
 
 \begin{frame}
 \frametitle{Linear Models: Meaning of Linearity}% and Transformation} 
@@ -514,7 +478,7 @@
 \begin{frame}
    \frametitle{Gauss-Markov Theorem (Without proof)}
    \begin{theorem}
-      Under the three assumptions (on slide 11), the LSEs $\hat\beta_0$ and
+      If the model assumptions hold true, the LSEs $\hat\beta_0$ and
       $\hat\beta_1$ are BLUE of $\beta_0$ and $\beta_1$, respectively. 
    \end{theorem}
 \end{frame}
@@ -526,12 +490,13 @@
          \bigskip
       \item \emph{\textbf{Residuals}}: Difference between observed and
          fitted values of $y$, i.e. $$e_i = y_i - \hat y_i,\; i=1,\ldots,n$$
-         \smallskip
       \item The objective function evaluated at the LSE, i.e.
          $Q(\hat\beta_0,\hat\beta_1)$ is called the \textbf{\emph{residual sum
          of squares} ($SS_{Res}$).}
 
-         $$SS_{Res} = \sum_{i=1}^n (y_i - \hat\beta_0 - \hat\beta_1x_i)^2$$
+         $$SS_{Res} = \sum_{i=1}^n (y_i - \hat\beta_0 - \hat\beta_1x_i)^2 =
+         \sum_{i=1}^{n} \left( y_i - \widehat{y}_i \right)^2 = \sum_{i=1}^{n}
+         e_i^2$$
 
    \end{itemize}
 \end{frame}
@@ -546,7 +511,7 @@
       \item $\sum_{i=1}^{n} y_i = \sum_{i=1}^{n} \hat y_i$. (using (1))
          \vspace{0.5cm}
 
-      \item $\sum_{i=1}^{n} x_i e_i = 0.$
+      \item $\sum_{i=1}^{n} x_i e_i = 0.$ (from the second normal equation)
          \vspace{0.5cm}
 
       \item $\sum_{i=1}^{n}  \hat y_i e_i = 0.$ (using (1) and (3))
@@ -797,23 +762,31 @@ where $SS_{Reg} = \sum_i (\hat y_i - \bar y)^2$
 	\frametitle{Simple Linear Regression in Heights Data }
 \textbf{Heights Data Example}
 \begin{itemize}
-	\item Data on \textbf{heights of $n=1375$ mothers} in the UK under the age of 65 and one of their \textbf{adult daughters over the age of 18} (collected and organized during the period 1893--1898 by the famous statistician Karl Pearson).
-	\bigskip
-	\item A historical \textbf{use of regression to study inheritance of height from generation to generation.}
-	\bigskip
-	%		\item Let's try R to play with this data set.
+	\item Data on heights of $n=1375$ mothers in the UK under the age of 65 and
+      one of their adult daughters over the age of 18.
+   \item Collected and organized during the period 1893--1898 by the famous
+      statistician Karl Pearson.
+   \item The dataset is publicly available 
+      \begin{itemize}
+         \item R-packages: alr4, UsingR
+         \item GitHub:
+            \url{https://github.com/kbroman/PearsonData/blob/master/mother_daughter.csv}
+      \end{itemize}
+	\item A historical use of regression to study inheritance of height from
+      generation to generation
+   \item Sample correlation coefficient is 0.491
 \end{itemize}		
 \end{frame}
 
 
-\begin{frame}
-	%\frametitle{What do you see?}
-	\begin{figure}
-		\begin{center}
-			\scalebox{0.4}[0.4]{\includegraphics{scatterplot1.eps}}
-		\end{center}
-	\end{figure}
-\end{frame}
+% \begin{frame}
+% 	%\frametitle{What do you see?}
+% 	\begin{figure}
+% 		\begin{center}
+% 			\scalebox{0.4}[0.4]{\includegraphics{scatterplot1.eps}}
+% 		\end{center}
+% 	\end{figure}
+% \end{frame}
 
 
 \begin{frame}[fragile]
@@ -838,23 +811,18 @@ where $SS_{Reg} = \sum_i (\hat y_i - \bar y)^2$
 	\end{verbatim}
 \end{frame}
 
-
-
-
-\begin{frame}[fragile]
-	\frametitle{Let's look at the Regression Line}
-	\begin{verbatim}
-	> plot(Dheight ~ Mheight, heights, 
-	xlab="Mother's Height", ylab="Daughter's Height",
-	pch=20, col=2)
-
-	> abline(coef(height.lm), lty=5, col=4)
-
-	> abline(0,1)
-	\end{verbatim}
-\end{frame}
-
-
+% \begin{frame}[fragile]
+% 	\frametitle{Let's look at the Regression Line}
+% 	\begin{verbatim}
+% 	> plot(Dheight ~ Mheight, heights, 
+% 	xlab="Mother's Height", ylab="Daughter's Height",
+% 	pch=20, col=2)
+%
+% 	> abline(coef(height.lm), lty=5, col=4)
+%
+% 	> abline(0,1)
+% 	\end{verbatim}
+% \end{frame}
 
 \begin{frame}
 	\begin{figure}
@@ -864,77 +832,286 @@ where $SS_{Reg} = \sum_i (\hat y_i - \bar y)^2$
 	\end{figure}
 \end{frame}
 
-
-
 \begin{frame}
 	\frametitle{Regression Effect}
 	\begin{itemize}
-		\item It's an empirical phenomenon, also called \textcolor{red}{``regression to the mean'' or ``regression to mediocrity'',} e.g.
-		\smallskip
+      \item It's an empirical phenomenon, also called
+         \textcolor{red}{``regression to the mean''} or \textcolor{red}{``regression to
+         mediocrity'',} e.g.
+		\bigskip
 		\begin{itemize}
-			\item Daughters of tall mothers \textcolor{red}{tend to be tall, but not as tall} as their mothers; daughters of short mothers tend to be short, but not as short as their mothers (same trend between sons and fathers)
+         \item Daughters of tall mothers \textcolor{red}{tend to be tall, but
+            not as tall} as their mothers; daughters of short mothers tend to be
+            short, but not as short as their mothers (same trend between sons
+            and fathers)
 			\bigskip
-			\item Students \textcolor{red}{doing well in Mid-term tend to do well in the Final, but not as well} as the Mid-term; students doing poorly in Mid-term tend to do poorly in the Final, but not as poorly as the Mid-term!
+         \item Students \textcolor{red}{doing well in Mid-term tend to do well
+            in the Final, but not as well} as the Mid-term; students doing
+            poorly in Mid-term tend to do poorly in the Final, but not as poorly
+            as the Mid-term!
 		\end{itemize}
 	\end{itemize}
 \end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Caution
+\begin{frame}
+   \frametitle{Caution}
+   \begin{itemize}
+      \item Do you think a moderate or high absolute value of correlation
+         coefficient makes a data ideal for LR?
+         \pause
+      \item Consider datasets given in next slide.
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: 
+\begin{frame}
+   \frametitle{Anscombe's Examples (1973)}
+   \begin{table}[ht]\scriptsize
+      \centering
+      \begin{tabular}{c@{\hspace{2mm}}cc@{\hspace{2mm}}cc@{\hspace{2mm}}cc@{\hspace{2mm}}c}
+         \toprule
+         \multicolumn{2}{c}{Dataset 1} &
+         \multicolumn{2}{c}{Dataset 2} &
+         \multicolumn{2}{c}{Dataset 3} &
+         \multicolumn{2}{c}{Dataset 4} \\
+         \cmidrule(lr){1-2}
+         \cmidrule(lr){3-4}
+         \cmidrule(lr){5-6}
+         \cmidrule(lr){7-8}
+         $x$ & $y$ & $x$ & $y$ & $x$ & $y$ & $x$ & $y$ \\ 
+         \midrule
+         10.00 & 8.04 & 10.00 & 9.14 & 10.00 & 7.46 & 8.00 & 6.58 \\ 
+         8.00 & 6.95 & 8.00 & 8.14 & 8.00 & 6.77 & 8.00 & 5.76 \\ 
+         13.00 & 7.58 & 13.00 & 8.74 & 13.00 & 12.74 & 8.00 & 7.71 \\ 
+         9.00 & 8.81 & 9.00 & 8.77 & 9.00 & 7.11 & 8.00 & 8.84 \\ 
+         11.00 & 8.33 & 11.00 & 9.26 & 11.00 & 7.81 & 8.00 & 8.47 \\ 
+         14.00 & 9.96 & 14.00 & 8.10 & 14.00 & 8.84 & 8.00 & 7.04 \\ 
+         6.00 & 7.24 & 6.00 & 6.13 & 6.00 & 6.08 & 8.00 & 5.25 \\ 
+         4.00 & 4.26 & 4.00 & 3.10 & 4.00 & 5.39 & 19.00 & 12.50 \\ 
+         12.00 & 10.84 & 12.00 & 9.13 & 12.00 & 8.15 & 8.00 & 5.56 \\ 
+         7.00 & 4.82 & 7.00 & 7.26 & 7.00 & 6.42 & 8.00 & 7.91 \\ 
+         5.00 & 5.68 & 5.00 & 4.74 & 5.00 & 5.73 & 8.00 & 6.89 \\ 
+         \bottomrule
+      \end{tabular}
+   \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Means \& Standard Deviations}
+    \begin{table}\scriptsize
+        \centering
+        \begin{tabular}{cccccc}
+            \toprule
+            & & \multicolumn{2}{c}{$x$} & \multicolumn{2}{c}{$y$} \\
+            \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+            Data Set & N & Mean & SD & Mean & SD \\
+            \midrule
+            1 & 11 & 7.50 & 2.03 & 9.00 & 3.32 \\
+            2 & 11 & 7.50 & 2.03 & 9.00 & 3.32 \\
+            3 & 11 & 7.50 & 2.03 & 9.00 & 3.32 \\
+            4 & 11 & 7.50 & 2.03 & 9.00 & 3.32 \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+    
+    \vspace{0.5cm}
+    \begin{center}
+       The means and SDs for the 4 data sets are identical to two decimals.
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Correlations between $x$ and $y$}
+    \begin{table}\scriptsize
+        \centering
+        \begin{tabular}{cccc}
+            \toprule
+            Data Set & Pearson r & R-squared & Adj. R-sq\\
+            \midrule
+            1 & 0.82 & 0.67 & 0.63 \\
+            2 & 0.82 & 0.67 & 0.63 \\
+            3 & 0.82 & 0.67 & 0.63 \\
+            4 & 0.82 & 0.67 & 0.63 \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+    
+    \vspace{0.5cm}
+    \begin{center}
+        Correlations, R-squared, adjusted R-squared, are all identical to two decimals.
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{ANOVA Summary Tables}
+    \scriptsize
+    \begin{table}\scriptsize
+        \centering
+        \begin{tabular}{c@{\hspace{7mm}}l@{\hspace{7mm}}c@{\hspace{7mm}}c@{\hspace{7mm}}r@{\hspace{7mm}}c@{\hspace{7mm}}c}
+            \toprule
+            Data Set & Source & $SS$ & $df$ & $MS$ & $F$ & $p$-value \\
+            \midrule
+            \multirow{3}{*}{1} & Regression & 27.490 & 1 & 27.490 & 18.003 & 0.002 \\
+            & Residual & 13.742 & 9 & 1.527 & & \\
+            & Total & 41.232 & 10 & & & \\
+            \midrule
+            \multirow{3}{*}{2} & Regression & 27.470 & 1 & 27.470 & 17.972 & 0.002 \\
+            & Residual & 13.756 & 9 & 1.528 & & \\
+            & Total & 41.226 & 10 & & & \\
+            \midrule
+            \multirow{3}{*}{3} & Regression & 27.500 & 1 & 27.500 & 17.966 & 0.002 \\
+            & Residual & 13.776 & 9 & 1.531 & & \\
+            & Total & 41.276 & 10 & & & \\
+            \midrule
+            \multirow{3}{*}{4} & Regression & 27.510 & 1 & 27.510 & 17.990 & 0.002 \\
+            & Residual & 13.763 & 9 & 1.529 & & \\
+            & Total & 41.273 & 10 & & & \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Regression Coefficients}
+    \scriptsize
+    \begin{table}\scriptsize
+        \centering
+        \begin{tabular}{@{\hspace{2mm}}c@{\hspace{7mm}}l@{\hspace{7mm}}c@{\hspace{7mm}}c@{\hspace{7mm}}c@{\hspace{7mm}}c@{\hspace{7mm}}c@{\hspace{7mm}}c@{\hspace{2mm}}}
+            \toprule
+            & & & & & & \multicolumn{2}{c}{95\% CI} \\
+            \cmidrule(r){7-8}
+            Data Set & & Estimate & $SE$ & $t$ & $p$-value & Lower & Upper \\
+            \midrule
+            \multirow{2}{*}{1} & Constant & 3.00 & 1.124 & 2.67 & 0.026 & 0.459 & 5.544 \\
+            & $x$ & 0.50 & 0.118 & 4.24 & 0.002 & 0.233 & 0.766 \\
+            \midrule
+            \multirow{2}{*}{2} & Constant & 3.00 & 1.124 & 2.67 & 0.026 & 0.459 & 5.546 \\
+            & $x$ & 0.50 & 0.118 & 4.24 & 0.002 & 0.233 & 0.766 \\
+            \midrule
+            \multirow{2}{*}{3} & Constant & 3.00 & 1.125 & 2.67 & 0.026 & 0.455 & 5.547 \\
+            & $x$ & 0.50 & 0.118 & 4.24 & 0.002 & 0.233 & 0.767 \\
+            \midrule
+            \multirow{2}{*}{4} & Constant & 3.00 & 1.125 & 2.67 & 0.026 & 0.456 & 5.544 \\
+            & $x$ & 0.50 & 0.118 & 4.24 & 0.002 & 0.233 & 0.767 \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+    
+    \vspace{0.4cm}
+    \begin{center}
+        \normalsize For all 4 models, $\widehat{y}=0.5x+3$
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Which dataset is best described by the model?}
+    \begin{itemize}
+        \item Judging by everything we've just seen, it appears that the models are all equally good
+        \vspace{0.3cm}
+        \item But if that were true, I wouldn't be doing this talk!
+        \vspace{0.3cm}
+        % \item It is well known that good graphs are an essential part of data
+        %    analysis (Tukey, 1977; Tufte, 1997)
+        % \vspace{0.3cm}
+        \item Let's look at scatter plots between $x$ and $y$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ Importance of graphing data before analyzing it}	
+	\vspace{0.5cm}
+
+	\begin{center}
+		\includegraphics[trim = 0cm 18cm 0cm 1cm, height=6cm]{Anscombe_four_graph.pdf}
+	\end{center}
+
+	\vspace{1cm}
+
+
+
+\end{frame}
+
+
+% \begin{frame}
+% 	\frametitle{ }
+% 	\begin{itemize}
+%    \item Which one of the above do you think has \textbf{highest correlation} and ideal for linear regression?
+% 			\pause
+% 	\vspace{0.5cm}
+%
+% 	\item In \textbf{all the four graphs}: mean of x = 9 (with variance 11); mean of y = 7.50 (with variance 4.1) ; correlation between x and y = 0.816
+% 	\vspace{0.5cm}
+%
+% 	\item Fitted linear regression in each cases: \textbf{$y = 3 + 0.5x $}
+% 	\vspace{0.5cm}
+%
+% 	\item In 1973, \textbf{Anscombe} demonstrated the \textbf{importance} of \textbf{graphing data}
+%       %\footnote{The graph is taken from the Wikipedia}
+%       before analyzing it and the \textbf{effect of outliers} on statistical properties
+% \end{itemize}	
+%
+% \end{frame}
+
 
 
 % == == == == == == == == == == == == == == == == == == == ==
 
 
-\begin{frame}
-	\frametitle{How to attack the data analysis/model fitting:}
-	
-	\begin{itemize}
-		\item Understand the \textbf{research question(s)}. Understand the \textbf{data} you have. 
-
-		\vspace{0.2cm}			
-		\begin{enumerate}
-			\item How the \textbf{data was collected}?
-\vspace{0.2cm}			
-			\item What type of the \textbf{study design used}: \textit{Randomized or Observational; Prospective or Retrospective etc. }
-\vspace{0.2cm}						
-			\item Can you make \textbf{connection with the primary research question and the data}? Is the \textbf{research question feasible} based on the data you have?
-			\vspace{0.2cm}			
-			\item Are there \textbf{secondary research questions}?
-			\vspace{0.2cm}			
-			\item  What are the \textbf{potential source of bias}? Sample (data) \textbf{may not be} a representative of the target (source) population.
-			\vspace{0.2cm}			
-			\item Are there any \textbf{confounders}? 
-			\vspace{0.2cm}			
-			\textbf{Confounders}: A confounder (also known as confounding variable, confounding factor) is \textbf{a variable that influences both the dependent variable and independent variable}, causing a spurious association. \textbf{Confounding is a causal concept}, and as such, cannot be described in terms of correlations or associations.
-			\vspace{0.2cm}			
-			\item  Are the \textbf{number of observations/individuals} in the data \textbf{sufficient}? Is it a \textbf{small data}?
-		\end{enumerate}
-		
-	
-	\end{itemize}	
-
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{How to attack the data analysis/model fitting:}
-	\begin{itemize}
-		\item Do the \textbf{scatter plot}(s): response vs. input variable(s).
-			\vspace{0.2cm}
-\item \textbf{Fit the regression} model(s) (or other type of model(s)).
-			\vspace{0.2cm}
-\item \textbf{Interpret} the output from the fitted models:
-			\vspace{0.2cm}
-\begin{enumerate}
-	\item Are all the results expected? Whether the \textbf{results go well with existing domain} (basic science) knowledge?
-			\vspace{0.2cm}	
-	\item If not, what are the \textbf{reasons behind the aberration} from the expected results.  
-\end{enumerate}
-
-\item \textbf{Check the diagnostics} for model assumptions. If you find problem, go back and correct (if you can) the chosen model; or, take decision about the outliers/influential points. 
-			\vspace{0.2cm}
-\item Always remember: 	\emph{\textcolor{blue}{``Essentially, all models are wrong, but some are useful'' -- Box}}
-	\end{itemize}	
-	
-\end{frame}
+% \begin{frame}
+% 	\frametitle{How to attack the data analysis/model fitting:}
+% 	
+% 	\begin{itemize}
+% 		\item Understand the \textbf{research question(s)}. Understand the \textbf{data} you have. 
+%
+% 		\vspace{0.2cm}			
+% 		\begin{enumerate}
+% 			\item How the \textbf{data was collected}?
+% \vspace{0.2cm}			
+% 			\item What type of the \textbf{study design used}: \textit{Randomized or Observational; Prospective or Retrospective etc. }
+% \vspace{0.2cm}						
+% 			\item Can you make \textbf{connection with the primary research question and the data}? Is the \textbf{research question feasible} based on the data you have?
+% 			\vspace{0.2cm}			
+% 			\item Are there \textbf{secondary research questions}?
+% 			\vspace{0.2cm}			
+% 			\item  What are the \textbf{potential source of bias}? Sample (data) \textbf{may not be} a representative of the target (source) population.
+% 			\vspace{0.2cm}			
+% 			\item Are there any \textbf{confounders}? 
+% 			\vspace{0.2cm}			
+% 			\textbf{Confounders}: A confounder (also known as confounding variable, confounding factor) is \textbf{a variable that influences both the dependent variable and independent variable}, causing a spurious association. \textbf{Confounding is a causal concept}, and as such, cannot be described in terms of correlations or associations.
+% 			\vspace{0.2cm}			
+% 			\item  Are the \textbf{number of observations/individuals} in the data \textbf{sufficient}? Is it a \textbf{small data}?
+% 		\end{enumerate}
+% 		
+% 	
+% 	\end{itemize}	
+%
+% \end{frame}
+%
+%
+% \begin{frame}
+% 	\frametitle{How to attack the data analysis/model fitting:}
+% 	\begin{itemize}
+% 		\item Do the \textbf{scatter plot}(s): response vs. input variable(s).
+% 			\vspace{0.2cm}
+% \item \textbf{Fit the regression} model(s) (or other type of model(s)).
+% 			\vspace{0.2cm}
+% \item \textbf{Interpret} the output from the fitted models:
+% 			\vspace{0.2cm}
+% \begin{enumerate}
+% 	\item Are all the results expected? Whether the \textbf{results go well with existing domain} (basic science) knowledge?
+% 			\vspace{0.2cm}	
+% 	\item If not, what are the \textbf{reasons behind the aberration} from the expected results.  
+% \end{enumerate}
+%
+% \item \textbf{Check the diagnostics} for model assumptions. If you find problem, go back and correct (if you can) the chosen model; or, take decision about the outliers/influential points. 
+% 			\vspace{0.2cm}
+% \item Always remember: 	\emph{\textcolor{blue}{``Essentially, all models are wrong, but some are useful'' -- Box}}
+% 	\end{itemize}	
+% 	
+% \end{frame}
 
 
 % \begin{frame}
