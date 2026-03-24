@@ -548,14 +548,33 @@
 
 % == == == == == == == == == == == == == == == == == == == ==
 
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Hypothesis Testing
+\begin{frame}
+   \frametitle{Hypothesis Testing}
+   \begin{itemize}
+      \item We will talk about mainly following hypotheses:
+         \begin{itemize}
+            \item $H_0: \beta_1=0$ against $H_1:\beta_1\neq 0$
+            \item $H_0: \beta_0=0$ against $H_1:\beta_0\neq 0$
+         \end{itemize}
+         \bigskip
+      \item Assumption: We need the following assumption along with previous
+         assumptions.
+         \begin{center}
+            $\boldsymbol{\epsilon} = \left( \epsilon_1,\,\ldots,\,\epsilon_n
+            \right)$ has a $n$-dimensional normal distribution.
+         \end{center}
+   \end{itemize}
+\end{frame}
 
 
 \begin{frame}
 	\frametitle{Hypothesis Testing: $\beta_1$ }
 \begin{itemize}
-\item The fourth assumption of linear regression is required for testing of hypothesis: Errors are independent and normally distributed. 
-\vspace{0.2cm}
-
+% \item The fourth assumption of linear regression is required for testing of hypothesis: Errors are independent and normally distributed. 
+% \vspace{0.2cm}
+%
 \item Want to test the hypothesis that the \textbf{slope} parameter ($\beta_1$) equals to a constant (a value, say $\beta_{10}$):
 $$H_0: \beta_1 = \beta_{10} \mbox{ ag. } H_1: \beta_1 \neq \beta_{10} $$
 %\vspace{0.01cm}
@@ -574,6 +593,8 @@ $$t = \frac{\hat{\beta_1} - \beta_{10}}{\sqrt{MS_{Res}/S_{xx}}} \sim t_{n-2}, \m
 %\vspace{0.1cm}
 
 \item Reject $H_0$ iff $|t| > t_{n-2, \alpha/2};$ (at level $\alpha$). 
+\item The test can be performed using $F$-distribution with appropriate degrees
+   of freedom.
 \end{itemize}	
 
 \end{frame}
@@ -723,38 +744,38 @@ where $SS_{Reg} = \sum_i (\hat y_i - \bar y)^2$
 \item It is a bounded quantity: \textbf{$0\le R^2 \le 1$}
 
 \vspace{0.2cm}
-		\item  $R^2$ is interpreted as the \textbf{``percentage of variation explained by the model''.}
+		\item  $R^2$ is interpreted as the \textbf{``proportion of variation explained by the model''.}
 
 \vspace{0.2cm}
 \item \textbf{Higher values of $R^2$ are desirable} ($R^2$ close to 1 indicates a good fit), but ``how high is high'' \textbf{depends on the context.}
 		\vspace{0.25cm}
 
-\item In \textbf{multiple linear regression}, \textbf{adding a variable to a model can increase the value of $R^{2}$}. To overcome this problem:
-
-\[ 
-\mbox{Adjusted } R^{2}: \hspace{0.5cm}  R^{2}_{adj}  = 1 - \frac{\sum_{i}(y_{i} - \hat y_{i})^{2}/(n-p-1)}{\sum_{i}(y_{i} - \bar y)^{2}/(n-1)}.
-\]
+% \item In \textbf{multiple linear regression}, \textbf{adding a variable to a model can increase the value of $R^{2}$}. To overcome this problem:
+%
+% \[ 
+% \mbox{Adjusted } R^{2}: \hspace{0.5cm}  R^{2}_{adj}  = 1 - \frac{\sum_{i}(y_{i} - \hat y_{i})^{2}/(n-p-1)}{\sum_{i}(y_{i} - \bar y)^{2}/(n-1)}.
+% \]
 \end{itemize}	
 	
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{F -Test for Regression }
-\begin{itemize}
-	\item Large value of the sum of squares for regression $SS_{Reg} = SS_{T} - SS_{Res}$ indicates the simple regression
-	mean function $E(Y |X = x) = \beta_0 + \beta_1 x$ should be a \textbf{significant improvement over the mean function} $E(y|X = x) = \beta_0$.
-	\vspace{0.5cm}
-	\item This is equivalent to saying
-	that the \textbf{additional parameter} ($\beta_1$) in the simple regression mean function is \textbf{non-zero}. In other words, that $E(Y |X = x)$ is not constant with respect to $X$.
-	\vspace{0.5cm}
-	\item To test $$H_0: E(Y |X = x) = \beta_0 \mbox{ ag. } H_1: E(Y |X = x) = \beta_0 + \beta_1 x $$
-%		\vspace{0.5cm}
-	\item Test statistics is a ratio, defined as F :
-	$$ F = \frac{SS_{Reg}/1}{\hat\sigma^2} = \frac{SS_{Reg}/1}{SS_{Res}/(n-2)} \sim F_{1, n-2} $$
-\end{itemize}	
-	
-\end{frame}
+% \begin{frame}
+% 	\frametitle{$F$-Test for Regression }
+% \begin{itemize}
+% 	\item Large value of the sum of squares for regression $SS_{Reg} = SS_{T} - SS_{Res}$ indicates the simple regression
+% 	mean function $E(Y |X = x) = \beta_0 + \beta_1 x$ should be a \textbf{significant improvement over the mean function} $E(y|X = x) = \beta_0$.
+% 	\vspace{0.5cm}
+% 	\item This is equivalent to saying
+% 	that the \textbf{additional parameter} ($\beta_1$) in the simple regression mean function is \textbf{non-zero}. In other words, that $E(Y |X = x)$ is not constant with respect to $X$.
+% 	\vspace{0.5cm}
+% 	\item To test $$H_0: E(Y |X = x) = \beta_0 \mbox{ ag. } H_1: E(Y |X = x) = \beta_0 + \beta_1 x $$
+% %		\vspace{0.5cm}
+% 	\item Test statistics is a ratio, defined as F :
+% 	$$ F = \frac{SS_{Reg}/1}{\hat\sigma^2} = \frac{SS_{Reg}/1}{SS_{Res}/(n-2)} \sim F_{1, n-2} $$
+% \end{itemize}	
+% 	
+% \end{frame}
 
 
 
@@ -762,6 +783,8 @@ where $SS_{Reg} = \sum_i (\hat y_i - \bar y)^2$
 	\frametitle{Simple Linear Regression in Heights Data }
 \textbf{Heights Data Example}
 \begin{itemize}
+	\item Aim: To study inheritance of height from generation to generation
+      (among females)
 	\item Data on heights of $n=1375$ mothers in the UK under the age of 65 and
       one of their adult daughters over the age of 18.
    \item Collected and organized during the period 1893--1898 by the famous
@@ -772,8 +795,8 @@ where $SS_{Reg} = \sum_i (\hat y_i - \bar y)^2$
          \item GitHub:
             \url{https://github.com/kbroman/PearsonData/blob/master/mother_daughter.csv}
       \end{itemize}
-	\item A historical use of regression to study inheritance of height from
-      generation to generation
+	% \item A historical use of regression to study inheritance of height from
+      % generation to generation
    \item Sample correlation coefficient is 0.491
 \end{itemize}		
 \end{frame}
