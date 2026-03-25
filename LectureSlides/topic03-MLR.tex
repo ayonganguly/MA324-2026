@@ -609,7 +609,11 @@
    \begin{itemize}
       \item $W^{'}W=\begin{pmatrix}
             1 & r_{12} & . & . & . & r_{1p}\\
-            r_{21} & 1 & . & . & . & r_{2p}\\ . & . & & & & . \\ . & . & & & & . \\ . & . & & & & . \\ r_{p1} & r_{p2} & . & . & . & 1
+            r_{21} & 1 & . & . & . & r_{2p}\\
+            . & . & & & & . \\
+            . & . & & & & . \\
+            . & . & & & & . \\
+            r_{p1} & r_{p2} & . & . & . & 1
             \end{pmatrix}_{p \times p}$ $W^{'}{y}^* = \begin{pmatrix}
             r_{1y} \\ r_{2y} \\ . \\ . \\ . \\ r_{py}
          \end{pmatrix}_{p \times 1}$
@@ -665,28 +669,28 @@
 %
 \begin{frame}
    \frametitle{Residual Plots: Q-Q Plot (Test for normality)}
-
-
-   %\includegraphics[page=78, trim= 1.5cm 6cm 1.5cm 10.5cm, clip=true, width=17cm, height=10cm, scale=0.2]{Faraway_book.pdf}
-   %\includegraphics[page=78, trim= 1.5cm 6cm 1.5cm 10.5cm, clip=true, scale=0.5]{Faraway_book.pdf}
-
    \begin{columns}
       \begin{column}{0.4\textwidth}
          \begin{itemize}
-            \item The residuals can be \textbf{assessed for normality} using a Q--Q plot. This \textbf{compares the residuals to ``ideal" normal} observations.
+            \item The residuals can be assessed for normality using a
+               Q--Q plot. This compares the residuals to ``ideal"
+               normal observations.
                \vspace{0.2cm}
-            \item  We\textbf{ plot the quantiles corresponding to sorted residuals ($e_i$) against} $\Phi^{-1}(\frac{i}{n+1})$ for $i =1,\cdots, n$.
+            \item  We plot the quantiles corresponding to sorted
+               residuals ($e_i$) against $\Phi^{-1}(\frac{i}{n+1})$ for $i
+               =1,\cdots, n$.
                \vspace{0.2cm}	
             \item Four Q-Q plots are: \textbf{Normal:} ideal;\\ 
                \textbf{Lognormal}: an example of a skewed distribution; \\
                \textbf{Cauchy:} an example of a long-tailed (platykurtic) distribution; 
-               %	\item \textbf{Histograms and boxplots are not suitable} for checking normality. In case of histogram, The choice of width and placement of these bins is problematic.
+               %	\item \textbf{Histograms and boxplots are not suitable} for
+               %	checking normality. In case of histogram, The choice of width
+               %	and placement of these bins is problematic.
                %	\item Ideal case, heavy tail, light tail (positively) skewed, (negatively) skewed.
          \end{itemize}
       \end{column}
       \begin{column}{0.6\textwidth}  %%<--- here
          \begin{center}
-            %			\includegraphics[page=78, trim= 1.5cm 6cm 1.5cm 10.5cm, clip=true, scale=0.5]{Faraway_book.pdf}
             \includegraphics[page=78, trim= 1.5cm 6cm 1.5cm 10.5cm, clip=true, width=7.5cm, height=5cm]{Faraway_book.pdf}
          \end{center}
          \begin{itemize}
@@ -697,141 +701,142 @@
          \end{itemize}	
       \end{column}
    \end{columns}
-
 \end{frame}
 
-% %\begin{frame}
-% %		\frametitle{Residual Plots: Q-Q Plot (Test for normality)}
-% %\begin{itemize}
-% %	\item Normal
-% %	Lognormal?an example of a skewed distribution
-% %	Cauchy?an example of a long-tailed (platykurtic) distribution
-% %	Uniform?an example of a short-tailed (leptokurtic) distribution
-% %\end{itemize}		
-% %%\includegraphics[page=245, trim= 0cm 3cm 2cm 6.5cm, clip=true, width=7.5cm, height=6cm]{Intro_Regression_Montgomery.pdf}
-% %%
-% %%\begin{itemize}
-% %%	\item Source: Introduction to Linear Regression Analysis, by Montgomery, Peck, Vining; 2006.  
-% %%\end{itemize}
-% %\end{frame}
-%
-% \begin{frame}
-%    \frametitle{Residual Plots: Plot of residual against Fitted values}
-%    \begin{itemize}
-%       \item Plot $\hat{y_i}$ vs $e_i(or\ d_i\ or\ r_i)$: (Test of constant variance and non-linear relation)
-%    \end{itemize}
-%
-%    \includegraphics[page=82, trim= 2cm 16.5cm 2cm 3.9cm, clip=true, width=12cm, height=5cm]{Faraway-PRA.pdf}
-%
-%    \textbf{Residuals vs Fitted plots} - the \textbf{first} suggests \textbf{no change} to the current model while the \textbf{second} shows \textbf{non-constant variance} and the \textbf{third} indicates \textbf{some nonlinearity} which should prompt some change in the structural form of the model
-%
-% \end{frame}
-%
-% \begin{frame}
-%    \frametitle{Residual Plots}
-%    \begin{itemize}
-%
-%       \item Plot of residual against regressor
-%          \vspace{0.5cm}
-%          \begin{itemize}
-%             \item Plot $x_{ij}$ vs $e_i \forall j$
-%                \vspace{0.5cm}
-%             \item In previous plot, replace `fitted' by $x_{ij}$ to find similar interpretation.
-%                \vspace{0.5cm}
-%             \item Repeat it for all the regressors. 
-%
-%          \end{itemize}
-%    \end{itemize}
-% \end{frame}
-%
-%
-% \begin{frame}
-%    \begin{itemize}
-%       \item Partial Regression Plot:
-%          \vspace{0.5cm}
-%          \begin{itemize}
-%             \item Complete/correct marginal effect
-%                \vspace{0.5cm}
-%             \item Let we want to study the marginal effect of $x_j$ on $y$
-%                \vspace{0.5cm}
-%             \item $y$ is regressed on $x_1,...,x_k$ except $x_j$.
-%                \vspace{0.5cm}
-%             \item $x_j$ is regressed on $x_1,...,x_k$ except $x_j$.
-%                \vspace{0.5cm}
-%             \item Plot $y$ residual, $e_i(y|x_1,...,x_{j-1},x_{j+1},...,x_k)$
-%                against $x_j$ residual, $e_i(x_j|x_1,...,x_{j-1},x_{j+1},...,x_k)$
-%                \vspace{0.5cm}
-%             \item For ideal scenario, the partial regression plot should show a linear relationship (straight line with non-zero slop). 
-%                \vspace{0.5cm}
-%             \item Curvilinear band: indicates higher order terms in $x_j$ or it's transformation. 
-%                \vspace{0.5cm}
-%             \item Horizontal band: indicates no additional useful information in $x_j$
-%          \end{itemize}
-%    \end{itemize}
-% \end{frame}
-%
-%
-% \begin{frame}
-%    \frametitle{The PRESS Statistic}
-%    \begin{itemize}
-%       \item Delete $i^{th}$ observation. Fit the model on remaining $(n-1)$ observations. Now, predict $y_i$. Let the corresponding prediction error be $e_{(i)}=y-\hat{y}_{(i)}$ (PRESS Residual).
-%          \vspace{0.25cm}
-%       \item $e_{(i)}=\frac{e_i}{1-h_{ii}}$.
-%          \vspace{0.25cm}
-%       \item Large values of $e_{(i)}$ implies potential influential observations.
-%          \vspace{0.25cm}
-%       \item Large difference between $e_i$ and $e_{(i)}$ indicates an observation where model fit is quite well but a model built without that predicts poorly.
-%          \vspace{0.25cm}
-%       \item $Var(e_{(i)})=\frac{\sigma^2}{1-h_{ii}}$.
-%    \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%    \begin{itemize}
-%       \item Standardized PRESS residual is $\frac{e_{(i)}}{\sqrt{Var(e_{(i)})}}=\frac{e_i}{\sqrt{\sigma^2(1-h_{ii})}}$, which is standardized residual if we estimate $\sigma^2$ by $MS_{Res}$.
-%          \vspace{0.45cm}
-%       \item $PRESS=\sum_{i=1}^n e_{(i)}^2=\sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2$.
-%          \vspace{0.45cm}
-%       \item PRESS is a measure of how well a regression model perform in predicting new observations.
-%          \vspace{0.45cm}
-%       \item $R^2$ for prediction : \\[0.25cm] $R_{prediction}^2=1-\frac{PRESS}{SST}$: gives indication of the prediction capability of the regression model.
-%          \vspace{0.45cm}
-%       \item Using PRESS, we may compare model.
-%    \end{itemize}    
-% \end{frame}
-% \begin{frame}
-%    \frametitle{Variable Selection}
-%    \begin{itemize}
-%       \item Criteria for Evaluating Subset Regression Models:
-%          \vspace{0.45cm}
-%          \begin{itemize}
-%             \item $R^2$
-%                \vspace{0.25cm}
-%             \item $R^2_{Adj}$
-%                \vspace{0.25cm}
-%             \item Residual Mean Square : $MS_{Res}(p) \equiv R^2_{Adj}$.
-%                \vspace{0.25cm}
-%             \item Partial Correlation
-%                \vspace{0.25cm}
-%             \item PRESS Statistic
-%          \end{itemize}
-%          \vspace{0.45cm}
-%       \item Techniques:
-%          \begin{itemize}
-%             \item All possible Regression.
-%                \vspace{0.25cm}
-%             \item Step-wise Type Procedures :
-%                \begin{itemize}
-%                   \item Forward Selection : $F=\frac{SS_{R}(x_2|x_1)}{MS_{Res}(x_1,x_2)}$
-%                      \vspace{0.15cm}
-%                   \item Backward elimination
-%                      \vspace{0.15cm}
-%                   \item Step-wise Regression
-%                \end{itemize}
-%          \end{itemize}
-%    \end{itemize}
-% \end{frame}
-%
+%\begin{frame}
+%		\frametitle{Residual Plots: Q-Q Plot (Test for normality)}
+%\begin{itemize}
+%	\item Normal
+%	Lognormal?an example of a skewed distribution
+%	Cauchy?an example of a long-tailed (platykurtic) distribution
+%	Uniform?an example of a short-tailed (leptokurtic) distribution
+%\end{itemize}		
+%%\includegraphics[page=245, trim= 0cm 3cm 2cm 6.5cm, clip=true, width=7.5cm, height=6cm]{Intro_Regression_Montgomery.pdf}
+%%
+%%\begin{itemize}
+%%	\item Source: Introduction to Linear Regression Analysis, by Montgomery, Peck, Vining; 2006.  
+%%\end{itemize}
+%\end{frame}
+
+\begin{frame}
+   \frametitle{Residual Plots: Plot of residual against Fitted values}
+   \begin{itemize}
+      \item Plot $\hat{y_i}$ vs $e_i(or\ d_i\ or\ r_i)$: (Test of constant variance and non-linear relation)
+   \end{itemize}
+   \includegraphics[page=82, trim= 2cm 16.5cm 2cm 3.9cm, clip=true, width=12cm, height=5cm]{Faraway-PRA.pdf}
+   \textbf{Residuals vs Fitted plots} - the \textbf{first} suggests \textbf{no
+   change} to the current model while the \textbf{second} shows
+   \textbf{non-constant variance} and the \textbf{third} indicates \textbf{some
+   nonlinearity} which should prompt some change in the structural form of the
+   model
+\end{frame}
+
+\begin{frame}
+   \frametitle{Residual Plots}
+   \begin{itemize}
+
+      \item Plot of residual against regressor
+         \vspace{0.5cm}
+         \begin{itemize}
+            \item Plot $x_{ij}$ vs $e_i \forall j$
+               \vspace{0.5cm}
+            \item In previous plot, replace `fitted' by $x_{ij}$ to find similar interpretation.
+               \vspace{0.5cm}
+            \item Repeat it for all the regressors. 
+
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+   \begin{itemize}
+      \item Partial Regression Plot:
+         \vspace{0.5cm}
+         \begin{itemize}
+            \item Complete/correct marginal effect
+               \vspace{0.5cm}
+            \item Let we want to study the marginal effect of $x_j$ on $y$
+               \vspace{0.5cm}
+            \item $y$ is regressed on $x_1,...,x_k$ except $x_j$.
+               \vspace{0.5cm}
+            \item $x_j$ is regressed on $x_1,...,x_k$ except $x_j$.
+               \vspace{0.5cm}
+            \item Plot $y$ residual, $e_i(y|x_1,...,x_{j-1},x_{j+1},...,x_k)$
+               against $x_j$ residual, $e_i(x_j|x_1,...,x_{j-1},x_{j+1},...,x_k)$
+               \vspace{0.5cm}
+            \item For ideal scenario, the partial regression plot should show a
+               linear relationship (straight line with non-zero slope). 
+               \vspace{0.5cm}
+            \item Curvilinear band: indicates higher order terms in $x_j$ or it's transformation. 
+               \vspace{0.5cm}
+            \item Horizontal band: indicates no additional useful information in $x_j$
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{The PRESS Statistic}
+   \begin{itemize}
+      \item Delete $i^{th}$ observation. Fit the model on remaining $(n-1)$ observations. Now, predict $y_i$. Let the corresponding prediction error be $e_{(i)}=y-\hat{y}_{(i)}$ (PRESS Residual).
+         \vspace{0.25cm}
+      \item $e_{(i)}=\frac{e_i}{1-h_{ii}}$.
+         \vspace{0.25cm}
+      \item Large values of $e_{(i)}$ implies potential influential observations.
+         \vspace{0.25cm}
+      \item Large difference between $e_i$ and $e_{(i)}$ indicates an observation where model fit is quite well but a model built without that predicts poorly.
+         \vspace{0.25cm}
+      \item $Var(e_{(i)})=\frac{\sigma^2}{1-h_{ii}}$.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \begin{itemize}
+      \item Standardized PRESS residual is $\frac{e_{(i)}}{\sqrt{Var(e_{(i)})}}=\frac{e_i}{\sqrt{\sigma^2(1-h_{ii})}}$, which is standardized residual if we estimate $\sigma^2$ by $MS_{Res}$.
+         \vspace{0.45cm}
+      \item $PRESS=\sum_{i=1}^n e_{(i)}^2=\sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2$.
+         \vspace{0.45cm}
+      \item PRESS is a measure of how well a regression model perform in predicting new observations.
+         \vspace{0.45cm}
+      \item $R^2$ for prediction : \\[0.25cm] $R_{prediction}^2=1-\frac{PRESS}{SST}$: gives indication of the prediction capability of the regression model.
+         \vspace{0.45cm}
+      \item Using PRESS, we may compare model.
+   \end{itemize}    
+\end{frame}
+
+\begin{frame}
+   \frametitle{Variable Selection}
+   \begin{itemize}
+      \item Criteria for Evaluating Subset Regression Models:
+         \vspace{0.45cm}
+         \begin{itemize}
+            \item $R^2$
+               \vspace{0.25cm}
+            \item $R^2_{Adj}$
+               \vspace{0.25cm}
+            \item Residual Mean Square : $MS_{Res}(p) \equiv R^2_{Adj}$.
+               \vspace{0.25cm}
+            \item Partial Correlation
+               \vspace{0.25cm}
+            \item PRESS Statistic
+         \end{itemize}
+         \vspace{0.45cm}
+      \item Techniques:
+         \begin{itemize}
+            \item All possible Regression.
+               \vspace{0.25cm}
+            \item Step-wise Type Procedures :
+               \begin{itemize}
+                  \item Forward Selection : $F=\frac{SS_{R}(x_2|x_1)}{MS_{Res}(x_1,x_2)}$
+                     \vspace{0.15cm}
+                  \item Backward elimination
+                     \vspace{0.15cm}
+                  \item Step-wise Regression
+               \end{itemize}
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
 % \begin{frame}
 %    \frametitle{Multicollinearity}
 %    \begin{itemize}
