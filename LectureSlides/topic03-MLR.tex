@@ -362,4 +362,183 @@
    \end{itemize}	
 \end{frame}
 
+
+\begin{frame}
+	\frametitle{Estimation of Error Variance ($\sigma^2$)}
+	\begin{itemize}
+		\item It can be shown that 
+		$$E(SS_{Res}) = (n-p-1) \sigma^2$$
+		\vspace{0.01cm}
+		
+		\item Hence, $\hat\sigma^2 = \frac{SS_{Res}}{n-p-1} = MS_{Res}$ is an unbiased estimator of $\sigma^2$. Here $MS_{Res}$ is residual mean square. 
+		\vspace{0.25cm}
+		
+		\item Observed value of $\hat\sigma^2 = \frac{SS_{Res}}{n-p-1}$ is called \emph{\textbf{Residual variance}}. It's \textbf{square root is called \emph{residual standard error}.}
+		\bigskip
+\item $\frac{(n-p-1) MS_{Res}}{\sigma^2} \sim \chi_{n-p-1}^2$. 
+		\vspace{0.25cm}
+		
+		\item Here, 
+		$$SS_{Res} = \sum_{i=1}^{n} e_{i}^{2} = y^{T}y - \hat{\beta_1^T} X^Ty, $$ 
+%		where $$SS_{T} = \sum_{i=1}^{n}(y_i - \bar{y})^2.$$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hypothesis Testing: Test for Significance of Regression}
+	\begin{itemize}
+      \item Assumption: $\boldsymbol{\epsilon}\sim N_n(0, \sigma^2 I_n)$.
+      \item Want to test the hypothesis if there is a linear
+         relationship between the response $y$ and any of the regressors $x_1,
+         \cdots, x_n$:
+         $$H_0: \beta_1 = \beta_{2} = \cdots = \beta_p = 0 \mbox{ ag. } H_1:
+         \beta_j \neq 0 \mbox{ for atleast one } j = 1,\cdots, p $$
+		\item The test statistic is 
+         $$ F_0 = \frac{SS_{Reg}/p}{\hat\sigma^2} =
+         \frac{SS_{Reg}/p}{SS_{Res}/(n-p-1)} \sim F_{p, n-p-1}, \mbox{ under }
+         H_0. $$
+		\item Reject $H_0$ iff $F_0 >  F_{p, n-p-1; \alpha}$ (at level $\alpha$) 
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hypothesis Testing: Significance of regression coefficients}
+	\begin{itemize}
+		\item Want to test
+		$$H_0: \beta_j = 0 \mbox{ ag. } H_1: \beta_j \neq 0 $$
+      \smallskip
+   \item Note that $$\hat\beta \sim N_p \left( \beta,\, \sigma^2 \left( X^TX
+      \right)^{-1} \right) \implies \hat\beta_j \sim N \left( \beta_j,\,
+      \sigma^2 C_{jj} \right),$$
+		where $C_{jj}$ is the $j$-th diagonal element of $(X^TX)^{-1}$
+		\item The test statistic is 
+		$$t_0 = \frac{\hat{\beta_j} }{\sqrt{MS_{Res} C_{jj}}} \sim t_{n-p-1} \mbox{ under } H_0$$
+		\item Reject $H_0$ iff $|t_0| > t_{n-p-1, \alpha/2}$ (at level $\alpha$) 
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Test of contribution of a subset of the regressors}
+	\begin{itemize}
+		\item \begin{eqnarray}
+      y &=& X \beta + \epsilon \implies y = (X_1, X_2) \begin{pmatrix} \beta_1
+      \\ \beta_2 \end{pmatrix} + \epsilon \nonumber 
+		\end{eqnarray}
+   \item Want to test:
+		$$H_0: {\beta_2} = 0 \mbox{ ag. } H_1: {\beta_2} \neq 0 $$
+   \item Based on the full model (${y} =
+      {X} {\beta} + {\epsilon}$),
+      ${\hat\beta} = (X^TX)^{-1}X^Ty$ and
+      $SS_{Reg}({\beta})$ has $p$ degrees of freedom. 
+		\vspace{0.2cm}
+      \item To find the contribution of ${\beta_2}$, fit the model
+         assuming ${\beta_2} = 0$. 
+         \vspace{0.2cm}		
+      \item The reduced model is ${y} =
+         {X_1} {\beta_1} + {\epsilon}$,
+         ${\hat\beta_1} = (X_1^TX_1)^{-1}X_1^Ty$ and
+         $SS_{Reg}({\beta_1})$ has $ p-r$ degrees of freedom. Where
+         $r$ denotes the number of components in ${\beta_2}$
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Test of contribution of a subset of the regressors}
+	\begin{itemize}
+      \item $SS_{Reg}({\beta_2} \mid {\beta_1}) =
+         SS_{Reg}({\beta}) - SS_{Reg}({\beta_1})$ can be
+         used as a measure of contribution of ${\beta_2}$
+         \vspace{0.5cm}
+      \item Note that if ${\beta_2}$ has significant contribution
+         then $SS_{Reg}({\beta_2} \mid {\beta_1})$ is large
+         \vspace{0.5cm}		
+      \item Therefore, the test statistic is 
+         $$ F_0 = \frac{SS_{Reg}({\beta_2} \mid {\beta_1})/r}{\hat\sigma^2} =
+         \frac{SS_{Reg}({\beta_2} \mid {\beta_1})/r}{SS_{Res}/(n-p-1)} \sim F_{r, n-p-1}, \mbox{
+         under } H_0$$
+      \item Reject $H_0$ iff $F_0 >  F_{r, n-p-1; \alpha}$ (at level $\alpha$)
+   \end{itemize}	
+\end{frame}
+
+% \begin{frame}
+%    \frametitle{Testing of general linear hypothesis}
+%    \begin{itemize}
+%       \item Want to test:
+%          $$H_0: T\undertilde{\beta} = 0 \mbox{ ag. } H_1: T\undertilde{\beta} \neq 0, $$
+%          where $T$ is a $m\times (p+1)$ matrix of constants. 
+%          \vspace{0.1cm}
+%       \item Examples: $y = \beta_0 + \beta_1x_{1} + \beta_2x_{2} + \beta_3x_{3} + \epsilon$
+%          \vspace{0.1cm}
+%          \begin{itemize}
+%             \item 	$H_0: \beta_1 = \beta_{3}  \mbox{ ag. } H_1: \beta_1 \neq \beta_{3}$. Take, $T = \begin{bmatrix}
+%                   0 & 1 & 0 & -1
+%                \end{bmatrix} $. 
+%                \vspace{0.2cm}
+%             \item 	$H_0: \beta_1 = \beta_{3}, \beta_{2}=0 \mbox{ ag. } H_1: \beta_1 \neq \beta_{3} \mbox{ or } \beta_{2} \neq 0$. Take, 
+%                $$T = \begin{bmatrix}
+%                   0 & 1 & 0 & -1  \\
+%                   0 & 0 & 1 & 0 
+%                \end{bmatrix} $$. 
+%          \end{itemize}	
+%
+%       \item The full model (FM) is $\undertilde{y} = \undertilde{X}\undertilde{\beta} + \undertilde{\epsilon}$, $\undertilde{\hat\beta} = (X^TX)^{-1}X^Ty$ and $SS_{Res}(FM)= y^{T}y - \hat{\beta^T} X^Ty$ has $n-p-1$ degrees of freedom. 
+%          \vspace{0.1cm}		
+%       \item  Now assume that $T$ has $r (\leq m)$ independent rows. Then $T\undertilde{\beta}$ can be solved and $r$ of the $\beta_j$'s in FM can be written in terms of other $(p+1 - r)$ $\beta_j$'s.
+%    \end{itemize}	
+%
+% \end{frame}
+%
+% \begin{frame}
+% 	\frametitle{Testing of general linear hypothesis}
+% \begin{itemize}
+% 	\item This lead to the reduced model (RM)  $$\undertilde{y} = \undertilde{Z}\undertilde{\gamma} + \undertilde{\epsilon^*},$$ where $Z$ is $n\times \overline{p+1-r}$ matrix. 
+% 	$$\undertilde{\hat\gamma} = (Z^TZ)^{-1}Z^Ty, \mbox{ and } SS_{Res}(RM)= y^{T}y - \hat{\gamma^T} Z^Ty $$ 
+% 	 has $n-p-1 + r$ degrees of freedom.
+% 	 \vspace{0.2cm}
+% 	 \item $SS_{Res}(FM) \leq SS_{Res}(RM)$
+% 	 	 \vspace{0.2cm}
+% 	 \item Consider $SS_{H} = SS_{Res}(RM) - SS_{Res}(FM)$ with d.f $(n-p-1 + r) - (n-p-1) = r$
+% 	 	 \vspace{0.2cm}
+% 	 	 		\item Therefore, the test statistic is 
+% 	 	 $$ F_0 =  \frac{SS_{H}/r}{SS_{Res}(FM)/(n-p-1)} \sim F_{r, n-p-1}, \mbox{ under } H_0. $$
+% \vspace{0.5cm}
+% \item Reject $H_0$ iff $F_0 >  F_{r, n-p-1; \alpha}$ (at level $\alpha$). 
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}
+   \frametitle{Confidence intervals for $\beta_j$: }
+   \begin{itemize}
+      \item Confidence Interval of individual regression coefficient $\hat\beta_j$
+         \vspace{0.5cm}
+      \item Pivot is
+         $$ \frac{\hat{\beta_j} - \beta_{j}}{\sqrt{MS_{Res}C_{jj}}} \sim t_{n-p-1}, $$
+         where $C_{jj}$ is the diagonal element of $(X^TX)^{-1}$ matrix. 
+         \vspace{0.5cm}
+      \item A $100(1-\alpha)\%$ CI for $\beta_j$ is 
+         $$\Bigg[\hat{\beta_j} \pm t_{n-p-1, \alpha/2} \sqrt{MS_{Res}C_{jj}} \Bigg]. $$
+   \end{itemize}	
+\end{frame}
+
+\begin{frame}
+   \frametitle{Confidence interval for mean response: }
+   \begin{itemize}
+      \item  Let ${x_0} = \begin{pmatrix}
+            1 \\ x_{01} \\ \vdots \\ x_{0p}
+         \end{pmatrix}$ be a value of the regressor vector
+      \item The mean response at
+         ${x_0}$ is ${x_0}^T\beta$. 
+         \vspace{0.2cm}		
+      % \item Confidence Interval for mean response  $\undertilde{x_0}^T\undertilde{\beta}$
+      %    \vspace{0.2cm}
+      \item Pivot is
+      $ \frac{\hat{y}_0- {x_0}^T{\beta}}{\sqrt{MS_{Res} {x_0}^T
+         (X^TX)^{-1} {x_0}} } \sim t_{n-p-1}. $
+         \vspace{0.2cm}
+      \item A $100(1-\alpha)\%$ CI for  ${x_0}^T {\beta}$ is 
+         $$\Bigg[{\hat{y_0}} \pm t_{n-p-1, \alpha/2} \sqrt{MS_{Res}
+         {x_0}^T (X^TX)^{-1} {x_0}} \Bigg]. $$
+   \end{itemize}	
+\end{frame}
+
 \end{document}
