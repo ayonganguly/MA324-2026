@@ -527,18 +527,404 @@
             1 \\ x_{01} \\ \vdots \\ x_{0p}
          \end{pmatrix}$ be a value of the regressor vector
       \item The mean response at
-         ${x_0}$ is ${x_0}^T\beta$. 
+         ${x_0}$ is ${x_0}^T\beta$ 
          \vspace{0.2cm}		
       % \item Confidence Interval for mean response  $\undertilde{x_0}^T\undertilde{\beta}$
       %    \vspace{0.2cm}
       \item Pivot is
       $ \frac{\hat{y}_0- {x_0}^T{\beta}}{\sqrt{MS_{Res} {x_0}^T
-         (X^TX)^{-1} {x_0}} } \sim t_{n-p-1}. $
+         (X^TX)^{-1} {x_0}} } \sim t_{n-p-1}$
          \vspace{0.2cm}
       \item A $100(1-\alpha)\%$ CI for  ${x_0}^T {\beta}$ is 
          $$\Bigg[{\hat{y_0}} \pm t_{n-p-1, \alpha/2} \sqrt{MS_{Res}
-         {x_0}^T (X^TX)^{-1} {x_0}} \Bigg]. $$
+         {x_0}^T (X^TX)^{-1} {x_0}} \Bigg] $$
    \end{itemize}	
 \end{frame}
+
+\begin{frame}
+   \frametitle{Prediction Interval for New Observation}
+   \begin{itemize}
+      \item Consider a level of regressor $x_0$. 
+         \vspace{0.25cm}
+      \item Let $y_0$ be the corresponding value of the response.
+         \vspace{0.25cm}
+      \item We want a prediction interval for $y_0$.
+         \vspace{0.25cm}
+      \item Let $\Psi =
+         y_0-\hat{y_0}=y_0-{x_0}^{T}\hat{{\beta}} \sim
+         N(0,\sigma^2(1+{x_0}^{T}(X^{'}X)^{-1}{x_0})).$
+         \vspace{0.25cm}
+      \item A pivot is
+         $\frac{\Psi-0}{\sqrt{MS_{Res}(1+{x_0}^{T}(X^{'}X)^{-1}{x_0})}}
+         \sim t_{n-p-1}.$
+         \vspace{0.25cm}
+      \item A $100(1-\alpha)\%$ prediction interval of $y_0$ is
+         $$\left[ \hat{y_0} \mp
+         t_{n-p-1;\frac{\alpha}{2}}\sqrt{MS_{Res}(1+{x_0}^{T}(X^{'}X)^{-1}{x_0})}
+         \right]$$
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Standardized Regression Coefficients}
+   \begin{itemize}
+      \item Difficult to compare regression coefficients. The magnitude of
+         $\beta_j$ reflects the unit of measurement of regressor $x_j$.
+         \vspace{0.75cm}	
+      \item For example, $y=5+x_1+1000x_2$, where $y$ is measured in liters,
+         $x_1$ in milliliters, and $x_2$ in liters. Here, $\beta_2>>\beta_1$.
+         But the effects of both regressor on $y$ are identical.
+         \vspace{0.75cm}		
+      \item Wayout is to standardized the regressors and response so that they become unit free.
+   \end{itemize}	
+\end{frame}
+
+\begin{frame}
+   \frametitle{Standardized Regression Coefficients}
+   \begin{itemize}
+      \item A popular approach is as follows:
+         \begin{itemize}
+            \item Define $W_{ij}=\frac{x_{ij}-\overline{x}_j}{\sqrt{S_{jj}}}$,
+               $i=1,2,...,n;j=1,2,...,p.$ \\
+               $y_i^*=\frac{y_i-\overline{y}}{\sqrt{SS_{T}}}$, $i=1,2,...,n.$\\
+               Here $S_{jj}=\sum_{i=1}^n(x_{ij}-\overline{x_j})^2$,
+               $j=1,2,...,p.$
+               \vspace{0.5cm}
+            \item $\overline{W}_j=0$ and
+               $\sqrt{\sum_{i=1}^n(W_{ij}-\overline{W}_j)^2}=\sqrt{\sum_{i=1}^nW_{ij}^2}=1$
+               \\ $\overline{y}^*=0$ and $\sqrt{\sum_{i=1}^n(y_i^*)^2}=1$
+               \vspace{0.5cm}
+            \item In terms of $y^*,W_1,...,W_p$, the regression model becomes,
+               $$y^*=b_1W_1+b_2W_2+...+b_pW_p+\epsilon$$
+               %			\vspace{0.5cm}
+            \item In matrix notation: ${y}^*=W{b}+{\epsilon}$.
+               \vspace{0.5cm}
+            \item LSE: $\hat{{b}}=(W^{'}W)^{-1}W^{'}{y}^*$.
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Standardized Regression Coefficients}
+   \begin{itemize}
+      \item $W^{'}W=\begin{pmatrix}
+            1 & r_{12} & . & . & . & r_{1p}\\
+            r_{21} & 1 & . & . & . & r_{2p}\\ . & . & & & & . \\ . & . & & & & . \\ . & . & & & & . \\ r_{p1} & r_{p2} & . & . & . & 1
+            \end{pmatrix}_{p \times p}$ $W^{'}{y}^* = \begin{pmatrix}
+            r_{1y} \\ r_{2y} \\ . \\ . \\ . \\ r_{py}
+         \end{pmatrix}_{p \times 1}$
+      \item $r_{ij} = \frac{\sum_{u=1}^{n}(x_{ui} - \bar{x}_i)(x_{uj} -
+         \bar{x}_j)}{\sqrt{S_{jj}S_{ii}}} =\frac{S_{ij}}{\sqrt{S_{jj}S_{ii}}}$
+      \item $r_{iy}= \frac{\sum_{u=1}^{n}(x_{ui} - \bar{x}_i)(y_{u} -
+         \bar{y})}{\sqrt{S_{jj}S_{ii}}} = \frac{S_{jy}}{\sqrt{S_{jj}SS_{T}}}$
+      % \item Drawback : $\hat{b}_j$ are affected by the range of values of
+      %    regressor variables. Consequently, it may be dangerous to use the
+      %    magnitude of $\hat{b}_j$ as a measure of relative importance of
+      %    regressor $x_j$.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Model Adequacy Checking}
+   \begin{itemize}
+      \item Major assumptions
+         \vspace{0.5cm}
+         \begin{itemize}
+            \item linear relationship
+               \vspace{0.25cm}
+            \item Error mean zero
+               \vspace{0.25cm}
+            \item Error variance is constant
+               \vspace{0.25cm}
+            \item Error are uncorrelated
+               \vspace{0.25cm}
+            \item Error are normally distributed
+         \end{itemize}
+         \vspace{0.5cm}
+      \item Gross violation of the assumptions may lead to a totally different model with opposite conclusions. 	
+         \vspace{0.5cm}
+      \item We perform the checking using residuals.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \begin{itemize}
+      \item We now define $3$ types of residuals.
+         \vspace{0.5cm}
+      \item Residual: $e_i=y_i-\hat{y_i}$.
+         \vspace{0.5cm}
+      \item Standardized residual: $d_i=\frac{e_i}{\sqrt{MS_{Res}}}$
+         \vspace{0.5cm}
+      \item Studentized residual: \\[0.5cm] ${e}=(I-H)\epsilon
+         \Rightarrow Var({e})=\sigma^2(I-H)$. \\[0.5cm]
+         $Var(e_i)=\sigma^2(1-h_{ii})$ and $Cov(e_i,e_j)=-\sigma^2h_{ij}$.
+         \\[0.5cm] It can be shown that $0 \leq h_{ii} \leq 1$. \\[0.5cm]
+         $r_i=\frac{e_{i}}{\sqrt{MS_{Res}(1-h_{ii})}}$.
+   \end{itemize}    
+\end{frame}
+%
+\begin{frame}
+   \frametitle{Residual Plots: Q-Q Plot (Test for normality)}
+
+
+   %\includegraphics[page=78, trim= 1.5cm 6cm 1.5cm 10.5cm, clip=true, width=17cm, height=10cm, scale=0.2]{Faraway_book.pdf}
+   %\includegraphics[page=78, trim= 1.5cm 6cm 1.5cm 10.5cm, clip=true, scale=0.5]{Faraway_book.pdf}
+
+   \begin{columns}
+      \begin{column}{0.4\textwidth}
+         \begin{itemize}
+            \item The residuals can be \textbf{assessed for normality} using a Q--Q plot. This \textbf{compares the residuals to ``ideal" normal} observations.
+               \vspace{0.2cm}
+            \item  We\textbf{ plot the quantiles corresponding to sorted residuals ($e_i$) against} $\Phi^{-1}(\frac{i}{n+1})$ for $i =1,\cdots, n$.
+               \vspace{0.2cm}	
+            \item Four Q-Q plots are: \textbf{Normal:} ideal;\\ 
+               \textbf{Lognormal}: an example of a skewed distribution; \\
+               \textbf{Cauchy:} an example of a long-tailed (platykurtic) distribution; 
+               %	\item \textbf{Histograms and boxplots are not suitable} for checking normality. In case of histogram, The choice of width and placement of these bins is problematic.
+               %	\item Ideal case, heavy tail, light tail (positively) skewed, (negatively) skewed.
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.6\textwidth}  %%<--- here
+         \begin{center}
+            %			\includegraphics[page=78, trim= 1.5cm 6cm 1.5cm 10.5cm, clip=true, scale=0.5]{Faraway_book.pdf}
+            \includegraphics[page=78, trim= 1.5cm 6cm 1.5cm 10.5cm, clip=true, width=7.5cm, height=5cm]{Faraway_book.pdf}
+         \end{center}
+         \begin{itemize}
+            \item 
+               \textbf{Uniform:} an example of a short-tailed (leptokurtic) distribution
+            \item Source (book): Linear Models with R by Julian J.Faraway
+               %\vspace{0.5cm}
+         \end{itemize}	
+      \end{column}
+   \end{columns}
+
+\end{frame}
+
+% %\begin{frame}
+% %		\frametitle{Residual Plots: Q-Q Plot (Test for normality)}
+% %\begin{itemize}
+% %	\item Normal
+% %	Lognormal?an example of a skewed distribution
+% %	Cauchy?an example of a long-tailed (platykurtic) distribution
+% %	Uniform?an example of a short-tailed (leptokurtic) distribution
+% %\end{itemize}		
+% %%\includegraphics[page=245, trim= 0cm 3cm 2cm 6.5cm, clip=true, width=7.5cm, height=6cm]{Intro_Regression_Montgomery.pdf}
+% %%
+% %%\begin{itemize}
+% %%	\item Source: Introduction to Linear Regression Analysis, by Montgomery, Peck, Vining; 2006.  
+% %%\end{itemize}
+% %\end{frame}
+%
+% \begin{frame}
+%    \frametitle{Residual Plots: Plot of residual against Fitted values}
+%    \begin{itemize}
+%       \item Plot $\hat{y_i}$ vs $e_i(or\ d_i\ or\ r_i)$: (Test of constant variance and non-linear relation)
+%    \end{itemize}
+%
+%    \includegraphics[page=82, trim= 2cm 16.5cm 2cm 3.9cm, clip=true, width=12cm, height=5cm]{Faraway-PRA.pdf}
+%
+%    \textbf{Residuals vs Fitted plots} - the \textbf{first} suggests \textbf{no change} to the current model while the \textbf{second} shows \textbf{non-constant variance} and the \textbf{third} indicates \textbf{some nonlinearity} which should prompt some change in the structural form of the model
+%
+% \end{frame}
+%
+% \begin{frame}
+%    \frametitle{Residual Plots}
+%    \begin{itemize}
+%
+%       \item Plot of residual against regressor
+%          \vspace{0.5cm}
+%          \begin{itemize}
+%             \item Plot $x_{ij}$ vs $e_i \forall j$
+%                \vspace{0.5cm}
+%             \item In previous plot, replace `fitted' by $x_{ij}$ to find similar interpretation.
+%                \vspace{0.5cm}
+%             \item Repeat it for all the regressors. 
+%
+%          \end{itemize}
+%    \end{itemize}
+% \end{frame}
+%
+%
+% \begin{frame}
+%    \begin{itemize}
+%       \item Partial Regression Plot:
+%          \vspace{0.5cm}
+%          \begin{itemize}
+%             \item Complete/correct marginal effect
+%                \vspace{0.5cm}
+%             \item Let we want to study the marginal effect of $x_j$ on $y$
+%                \vspace{0.5cm}
+%             \item $y$ is regressed on $x_1,...,x_k$ except $x_j$.
+%                \vspace{0.5cm}
+%             \item $x_j$ is regressed on $x_1,...,x_k$ except $x_j$.
+%                \vspace{0.5cm}
+%             \item Plot $y$ residual, $e_i(y|x_1,...,x_{j-1},x_{j+1},...,x_k)$
+%                against $x_j$ residual, $e_i(x_j|x_1,...,x_{j-1},x_{j+1},...,x_k)$
+%                \vspace{0.5cm}
+%             \item For ideal scenario, the partial regression plot should show a linear relationship (straight line with non-zero slop). 
+%                \vspace{0.5cm}
+%             \item Curvilinear band: indicates higher order terms in $x_j$ or it's transformation. 
+%                \vspace{0.5cm}
+%             \item Horizontal band: indicates no additional useful information in $x_j$
+%          \end{itemize}
+%    \end{itemize}
+% \end{frame}
+%
+%
+% \begin{frame}
+%    \frametitle{The PRESS Statistic}
+%    \begin{itemize}
+%       \item Delete $i^{th}$ observation. Fit the model on remaining $(n-1)$ observations. Now, predict $y_i$. Let the corresponding prediction error be $e_{(i)}=y-\hat{y}_{(i)}$ (PRESS Residual).
+%          \vspace{0.25cm}
+%       \item $e_{(i)}=\frac{e_i}{1-h_{ii}}$.
+%          \vspace{0.25cm}
+%       \item Large values of $e_{(i)}$ implies potential influential observations.
+%          \vspace{0.25cm}
+%       \item Large difference between $e_i$ and $e_{(i)}$ indicates an observation where model fit is quite well but a model built without that predicts poorly.
+%          \vspace{0.25cm}
+%       \item $Var(e_{(i)})=\frac{\sigma^2}{1-h_{ii}}$.
+%    \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%    \begin{itemize}
+%       \item Standardized PRESS residual is $\frac{e_{(i)}}{\sqrt{Var(e_{(i)})}}=\frac{e_i}{\sqrt{\sigma^2(1-h_{ii})}}$, which is standardized residual if we estimate $\sigma^2$ by $MS_{Res}$.
+%          \vspace{0.45cm}
+%       \item $PRESS=\sum_{i=1}^n e_{(i)}^2=\sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2$.
+%          \vspace{0.45cm}
+%       \item PRESS is a measure of how well a regression model perform in predicting new observations.
+%          \vspace{0.45cm}
+%       \item $R^2$ for prediction : \\[0.25cm] $R_{prediction}^2=1-\frac{PRESS}{SST}$: gives indication of the prediction capability of the regression model.
+%          \vspace{0.45cm}
+%       \item Using PRESS, we may compare model.
+%    \end{itemize}    
+% \end{frame}
+% \begin{frame}
+%    \frametitle{Variable Selection}
+%    \begin{itemize}
+%       \item Criteria for Evaluating Subset Regression Models:
+%          \vspace{0.45cm}
+%          \begin{itemize}
+%             \item $R^2$
+%                \vspace{0.25cm}
+%             \item $R^2_{Adj}$
+%                \vspace{0.25cm}
+%             \item Residual Mean Square : $MS_{Res}(p) \equiv R^2_{Adj}$.
+%                \vspace{0.25cm}
+%             \item Partial Correlation
+%                \vspace{0.25cm}
+%             \item PRESS Statistic
+%          \end{itemize}
+%          \vspace{0.45cm}
+%       \item Techniques:
+%          \begin{itemize}
+%             \item All possible Regression.
+%                \vspace{0.25cm}
+%             \item Step-wise Type Procedures :
+%                \begin{itemize}
+%                   \item Forward Selection : $F=\frac{SS_{R}(x_2|x_1)}{MS_{Res}(x_1,x_2)}$
+%                      \vspace{0.15cm}
+%                   \item Backward elimination
+%                      \vspace{0.15cm}
+%                   \item Step-wise Regression
+%                \end{itemize}
+%          \end{itemize}
+%    \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%    \frametitle{Multicollinearity}
+%    \begin{itemize}
+%       \item Near linear relationship among regressor $(\sum_{j=1}^p t_{j}\undertilde{x_j} \simeq 0)$
+%          \vspace{0.45cm}
+%       \item Effect of Multicollinearity:
+%          \begin{itemize}
+%             \item Consider scaled response and regressor (length unit).
+%                \vspace{0.35cm}
+%             \item Consider $y=\beta_1x_1+\beta_2x_2++\epsilon$.
+%                \vspace{0.35cm}
+%             \item $\hat{\beta_1}=\frac{r_{1y}-r_{12}r_{2y}}{1-r_{12}^2}$, and $\hat{\beta_2}=\frac{r_{2y}-r_{12}r_{1y}}{1-r_{12}^2}$.
+%                \vspace{0.35cm}
+%             \item $Var(\hat{\beta_{j}})=\frac{\sigma^2}{1-r_{12}^2}$, $Cov(\hat{\beta_1},\hat{\beta_2})=\frac{-r_{12}\sigma^2}{1-r_{12}^2}$.
+%                \vspace{0.35cm}
+%             \item If $|r_{12}| \rightarrow 1$, $Var(\hat{\beta_j}) \rightarrow \infty$, and $|Cov(\hat{\beta_1},\hat{\beta_2})| \rightarrow \infty$.
+%          \end{itemize}
+%    \end{itemize}
+%
+% \end{frame}
+%
+% \begin{frame}
+%    \begin{itemize}
+%       \item Effect of Multicollinearity (contd.):
+%          \begin{itemize}
+%             \item $L_1^2 = (\hat{\beta}-\beta)^{T}(\hat{\beta}-\beta)$.
+%                \vspace{0.35cm}
+%             \item $E(L_1^2)=\sum_{j=1}^p Var(\hat{\beta_j}) = \sigma^2 Tr(X^{'}X)^{-1} = \sigma^2 \sum_{j=1}^p \frac{1}{\lambda_j}$, where $\lambda_j$'s are eigenvalues of $(X^{'}X)$.
+%                \vspace{0.35cm}
+%             \item If $(X^{'}X)$ is ill-conditioned then at least one $\lambda_j$ will be small $\Rightarrow E(L_1^2)$ is big.
+%                \vspace{0.35cm}
+%             \item 
+%                Therefore, we have $E(\hat{\undertilde{\beta}}^{T}\hat{\undertilde{\beta}}) = \undertilde{\beta}^{'}\undertilde{\beta} + \sigma^2 Tr(X^{'}X)^{-1}$, implies magnitude of $\hat{\undertilde{\beta}}$ are large.
+%          \end{itemize}    
+%
+%    \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%    \frametitle{Multicollinearity Diagnostics}
+%    \begin{itemize}
+%       \item Examination of correlation matrix $(X^{'}X)$:
+%          \begin{itemize}
+%             \item If $x_{i}$ and $x_{j}$ are nearly linearly dependent, then $|r_{ij}|$ should be close to $1$.
+%                \vspace{0.25cm}
+%             \item However, this procedure is helpful to detect near linear dependence between a pair of regressors only.
+%          \end{itemize}
+%          \vspace{0.45cm}
+%       \item Variance Inflation Factors (VIFs):
+%          \begin{itemize}
+%             \item It can be shown that $Var(\hat{\beta_j})=c_{jj}=(1-R_{j}^2)^{-1}=\frac{1}{1-R_{j}^2}$, where $R_{j}^2$ is the coefficient of determination obtained when $x_{j}$ is regressed on remaining $(k-1)$ regressors.
+%                \vspace{0.25cm}
+%             \item $VIF_{j}=\frac{1}{1-R_{j}^2}$: This measures the factor by which the variance of $\hat{\beta_{j}}$ inflated due to the near linear dependence.
+%                \vspace{0.25cm}
+%             \item Rule of thumb : If any of $VIF>5$, the associated coefficient is estimated poorly due to multicollinearity.
+%          \end{itemize}
+%    \end{itemize}
+% \end{frame}
+% \begin{frame}
+%    \begin{itemize}
+%       \item Eigen system Analysis of $(X^{'}X)$:
+%          \begin{itemize}
+%             \item The eigen values, $\lambda_1,\lambda_2,...,\lambda_p$, can be used to see the extent of multicollinearity.
+%                \vspace{0.25cm}
+%             \item Small eigen values (one or more) $\Rightarrow$ multicollinearity.
+%                \vspace{0.25cm}
+%             \item Condition number $=k=\frac{\lambda_{max}}{\lambda_{min}}$.
+%                \vspace{0.25cm}
+%             \item Rule of thumb : \\[0.15cm] $k<100 \rightarrow$ No serious problem with multicollinearity. \\[0.15cm]
+%                $100 \leq k <1000 \rightarrow$ moderate to strong multicollinearity. \\[0.15cm]
+%                $k \geq 1000 \rightarrow$ severe multicollinearity.
+%                \vspace{0.25cm}
+%             \item Condition indices : $k_{j}=\frac{\lambda_{max}}{\lambda_{j}},\ j=1,2,...,p$ \\[0.15cm]
+%                $k_{j} \geq 1000 \rightarrow$ provide useful information on the number of near linear dependence.
+%          \end{itemize}
+%    \end{itemize}    
+% \end{frame}
+%
+% \begin{frame}
+%    \frametitle{Method for dealing with multicollinearity}
+%    \begin{itemize}
+%       \item Source of multicollinearity:
+%          \vspace{0.75cm}
+%          \begin{itemize}
+%             \item Data collection method $\rightarrow$ collecting more data.
+%                \vspace{0.45cm}
+%             \item Constraints in model or population $\rightarrow$ Model respecification
+%                \vspace{0.45cm}
+%             \item Model specification $\rightarrow$ Model respecification
+%                \vspace{0.45cm}
+%             \item An overdefined model $\rightarrow$ Model respecification, and other method of estimate like Ridge regression.
+%          \end{itemize}
+%    \end{itemize}
+% \end{frame}
 
 \end{document}
