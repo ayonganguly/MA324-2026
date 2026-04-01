@@ -629,10 +629,9 @@
 \end{frame}
 
 \begin{frame}
-   \frametitle{Model Adequacy Checking}
+   \frametitle{Model Adequacy Checking (Regression Diagnostics)}
    \begin{itemize}
       \item Major assumptions
-         \vspace{0.5cm}
          \begin{itemize}
             \item linear relationship
                \vspace{0.25cm}
@@ -644,14 +643,18 @@
                \vspace{0.25cm}
             \item Error are normally distributed
          \end{itemize}
-         \vspace{0.5cm}
-      \item Gross violation of the assumptions may lead to a totally different model with opposite conclusions. 	
-         \vspace{0.5cm}
+      \item Gross violation of the assumptions may lead to a totally different
+         model with opposite conclusions. 	
+      \item Unusual observations: Sometimes just a few observations do not fit
+         the model.  These few observations might change the choice and fit of
+         the model.
+         % \vspace{0.5cm}
       \item We perform the checking using residuals.
    \end{itemize}
 \end{frame}
 
 \begin{frame}
+   \frametitle{Different Residuals}
    \begin{itemize}
       \item We now define $3$ types of residuals.
          \vspace{0.5cm}
@@ -659,11 +662,16 @@
          \vspace{0.5cm}
       \item Standardized residual: $d_i=\frac{e_i}{\sqrt{MS_{Res}}}$
          \vspace{0.5cm}
-      \item Studentized residual: \\[0.5cm] ${e}=(I-H)\epsilon
-         \Rightarrow Var({e})=\sigma^2(I-H)$. \\[0.5cm]
-         $Var(e_i)=\sigma^2(1-h_{ii})$ and $Cov(e_i,e_j)=-\sigma^2h_{ij}$.
-         \\[0.5cm] It can be shown that $0 \leq h_{ii} \leq 1$. \\[0.5cm]
-         $r_i=\frac{e_{i}}{\sqrt{MS_{Res}(1-h_{ii})}}$.
+      \item Studentized residual:
+         \begin{itemize}
+            \item ${e}=(I-H)\epsilon \Rightarrow Var({e})=\sigma^2(I-H)$.
+               \smallskip
+            \item $Var(e_i)=\sigma^2(1-h_{ii})$ and $Cov(e_i,e_j)=-\sigma^2h_{ij}$.
+               \smallskip
+            \item It can be shown that $0 \leq h_{ii} \leq 1$.
+               \smallskip
+            \item $r_i=\frac{e_{i}}{\sqrt{MS_{Res}(1-h_{ii})}}$.
+         \end{itemize}
    \end{itemize}    
 \end{frame}
 %
@@ -701,6 +709,20 @@
          \end{itemize}	
       \end{column}
    \end{columns}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: If non-Normal?
+\begin{frame}
+   \frametitle{If non-Normal?}
+   \begin{itemize}
+      \item For short-tailed distributions, the consequences of nonnormality are
+         not serious and can reasonably be ignored. 
+      \item For skewed errors, a transformation of the response may solve the problem.
+      \item For heavy-tailed errors, we might just accept the nonnormality and
+         base the inference on the assumption of another distribution or use
+         resampling methods such as the bootstrap.
+   \end{itemize}
 \end{frame}
 
 %\begin{frame}
@@ -748,94 +770,125 @@
    \end{itemize}
 \end{frame}
 
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: If nonconstant variance?
+\begin{frame}
+   \frametitle{If nonconstant variance?}
+   \begin{itemize}
+      \item Two approaches
+         \begin{itemize}
+            \item Weighted least squares
+            \item Transformation of variables
+         \end{itemize}
+      \item Let $h$ be a transformation that is applied on response
+         \begin{align*}
+            & h(y) = h(Ey) + (y - Ey)h'(Ey) + \cdots \\
+            & \text{var } h(y) = h'(Ey)^2\text{var } y + \cdots
+         \end{align*}
+         We ignore the higher order terms. For $\text{var } h(y)$ to be constant we need
+         $$ h'(Ey) \propto (\text{var } y)^{-1/2}, $$
+         which suggests
+         $$ h(y) = \int \frac{dy}{\sqrt{\text{var } y}} == \int
+         \frac{dy}{\text{SDy}}. $$
+      \item If $\text{var } y = \text{var } \varepsilon \propto
+         (Ey)^2$, then $h(y)=\log y$ is suggested.
+      \item If $\text{var } \varepsilon \propto (Ey)$, then $h(y) = \sqrt{y}$.
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Checking Correlated Errors
+\begin{frame}
+   \frametitle{Checking Correlated Errors}
+   \begin{itemize}
+      \item Index plot: Plot residual against index (time).
+      \item Plot $e_i$ against $e_{i-1}$.
+      \item Remedy: Use generalized least squares method
+   \end{itemize}
+\end{frame}
 
 \begin{frame}
+   \frametitle{Checking the Structure of the Model}
    \begin{itemize}
+      \item How do we check whether the systematic part $(Ey=X\beta)$ of the model is correct?
       \item Partial Regression Plot:
-         \vspace{0.5cm}
          \begin{itemize}
             \item Complete/correct marginal effect
-               \vspace{0.5cm}
             \item Let we want to study the marginal effect of $x_j$ on $y$
-               \vspace{0.5cm}
             \item $y$ is regressed on $x_1,...,x_k$ except $x_j$.
-               \vspace{0.5cm}
             \item $x_j$ is regressed on $x_1,...,x_k$ except $x_j$.
-               \vspace{0.5cm}
             \item Plot $y$ residual, $e_i(y|x_1,...,x_{j-1},x_{j+1},...,x_k)$
                against $x_j$ residual, $e_i(x_j|x_1,...,x_{j-1},x_{j+1},...,x_k)$
-               \vspace{0.5cm}
             \item For ideal scenario, the partial regression plot should show a
                linear relationship (straight line with non-zero slope). 
-               \vspace{0.5cm}
             \item Curvilinear band: indicates higher order terms in $x_j$ or it's transformation. 
-               \vspace{0.5cm}
             \item Horizontal band: indicates no additional useful information in $x_j$
          \end{itemize}
+      \item Remedy: Change you model and/or add other regressors.
    \end{itemize}
 \end{frame}
 
-\begin{frame}
-   \frametitle{The PRESS Statistic}
-   \begin{itemize}
-      \item Delete $i^{th}$ observation. Fit the model on remaining $(n-1)$ observations. Now, predict $y_i$. Let the corresponding prediction error be $e_{(i)}=y-\hat{y}_{(i)}$ (PRESS Residual).
-         \vspace{0.25cm}
-      \item $e_{(i)}=\frac{e_i}{1-h_{ii}}$.
-         \vspace{0.25cm}
-      \item Large values of $e_{(i)}$ implies potential influential observations.
-         \vspace{0.25cm}
-      \item Large difference between $e_i$ and $e_{(i)}$ indicates an observation where model fit is quite well but a model built without that predicts poorly.
-         \vspace{0.25cm}
-      \item $Var(e_{(i)})=\frac{\sigma^2}{1-h_{ii}}$.
-   \end{itemize}
-\end{frame}
+% \begin{frame}
+%    \frametitle{The PRESS Statistic}
+%    \begin{itemize}
+%       \item Delete $i^{th}$ observation. Fit the model on remaining $(n-1)$ observations. Now, predict $y_i$. Let the corresponding prediction error be $e_{(i)}=y-\hat{y}_{(i)}$ (PRESS Residual).
+%          \vspace{0.25cm}
+%       \item $e_{(i)}=\frac{e_i}{1-h_{ii}}$.
+%          \vspace{0.25cm}
+%       \item Large values of $e_{(i)}$ implies potential influential observations.
+%          \vspace{0.25cm}
+%       \item Large difference between $e_i$ and $e_{(i)}$ indicates an observation where model fit is quite well but a model built without that predicts poorly.
+%          \vspace{0.25cm}
+%       \item $Var(e_{(i)})=\frac{\sigma^2}{1-h_{ii}}$.
+%    \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%    \begin{itemize}
+%       \item Standardized PRESS residual is $\frac{e_{(i)}}{\sqrt{Var(e_{(i)})}}=\frac{e_i}{\sqrt{\sigma^2(1-h_{ii})}}$, which is standardized residual if we estimate $\sigma^2$ by $MS_{Res}$.
+%          \vspace{0.45cm}
+%       \item $PRESS=\sum_{i=1}^n e_{(i)}^2=\sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2$.
+%          \vspace{0.45cm}
+%       \item PRESS is a measure of how well a regression model perform in predicting new observations.
+%          \vspace{0.45cm}
+%       \item $R^2$ for prediction : \\[0.25cm] $R_{prediction}^2=1-\frac{PRESS}{SST}$: gives indication of the prediction capability of the regression model.
+%          \vspace{0.45cm}
+%       \item Using PRESS, we may compare model.
+%    \end{itemize}    
+% \end{frame}
 
-\begin{frame}
-   \begin{itemize}
-      \item Standardized PRESS residual is $\frac{e_{(i)}}{\sqrt{Var(e_{(i)})}}=\frac{e_i}{\sqrt{\sigma^2(1-h_{ii})}}$, which is standardized residual if we estimate $\sigma^2$ by $MS_{Res}$.
-         \vspace{0.45cm}
-      \item $PRESS=\sum_{i=1}^n e_{(i)}^2=\sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2$.
-         \vspace{0.45cm}
-      \item PRESS is a measure of how well a regression model perform in predicting new observations.
-         \vspace{0.45cm}
-      \item $R^2$ for prediction : \\[0.25cm] $R_{prediction}^2=1-\frac{PRESS}{SST}$: gives indication of the prediction capability of the regression model.
-         \vspace{0.45cm}
-      \item Using PRESS, we may compare model.
-   \end{itemize}    
-\end{frame}
-
-\begin{frame}
-   \frametitle{Variable Selection}
-   \begin{itemize}
-      \item Criteria for Evaluating Subset Regression Models:
-         \vspace{0.45cm}
-         \begin{itemize}
-            \item $R^2$
-               \vspace{0.25cm}
-            \item $R^2_{Adj}$
-               \vspace{0.25cm}
-            \item Residual Mean Square : $MS_{Res}(p) \equiv R^2_{Adj}$.
-               \vspace{0.25cm}
-            \item Partial Correlation
-               \vspace{0.25cm}
-            \item PRESS Statistic
-         \end{itemize}
-         \vspace{0.45cm}
-      \item Techniques:
-         \begin{itemize}
-            \item All possible Regression.
-               \vspace{0.25cm}
-            \item Step-wise Type Procedures :
-               \begin{itemize}
-                  \item Forward Selection : $F=\frac{SS_{R}(x_2|x_1)}{MS_{Res}(x_1,x_2)}$
-                     \vspace{0.15cm}
-                  \item Backward elimination
-                     \vspace{0.15cm}
-                  \item Step-wise Regression
-               \end{itemize}
-         \end{itemize}
-   \end{itemize}
-\end{frame}
+% \begin{frame}
+%    \frametitle{Variable Selection}
+%    \begin{itemize}
+%       \item Criteria for Evaluating Subset Regression Models:
+%          \vspace{0.45cm}
+%          \begin{itemize}
+%             \item $R^2$
+%                \vspace{0.25cm}
+%             \item $R^2_{Adj}$
+%                \vspace{0.25cm}
+%             \item Residual Mean Square : $MS_{Res}(p) \equiv R^2_{Adj}$.
+%                \vspace{0.25cm}
+%             \item Partial Correlation
+%                \vspace{0.25cm}
+%             \item PRESS Statistic
+%          \end{itemize}
+%          \vspace{0.45cm}
+%       \item Techniques:
+%          \begin{itemize}
+%             \item All possible Regression.
+%                \vspace{0.25cm}
+%             \item Step-wise Type Procedures :
+%                \begin{itemize}
+%                   \item Forward Selection : $F=\frac{SS_{R}(x_2|x_1)}{MS_{Res}(x_1,x_2)}$
+%                      \vspace{0.15cm}
+%                   \item Backward elimination
+%                      \vspace{0.15cm}
+%                   \item Step-wise Regression
+%                \end{itemize}
+%          \end{itemize}
+%    \end{itemize}
+% \end{frame}
 
 % \begin{frame}
 %    \frametitle{Multicollinearity}
