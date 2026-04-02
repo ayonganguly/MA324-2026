@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}%\makeatletter
+\oddsidemargin -0.4in \evensidemargin -0.4in \textwidth 7.3in
+\topmargin -.50in \textheight 24cm
+\usepackage{amsmath,amssymb,amsthm,mathrsfs,booktabs,multirow,rccol,graphics,graphicx,subfigure,esdiff,float,mathtools}
+\usepackage[mathscr]{euscript}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+% \newcommand{\uD}{\underline{D}}
+% \newcommand{\uL}{\underline{L}}
+% \newcommand{\uLzero}{\underline{L_0}}
+% \newcommand{\uP}{\underline{P}}
+% \newcommand{\uY}{\underline{Y}}
+% \newcommand{\ubeta}{\underline{\beta}}
+% \newcommand{\ulam}{\underline{\lambda}}
+% \newcommand{\uep}{\underline{\epsilon}}
+% \newcommand{\uzero}{\underline{0}}
+% \newcommand{\bX}{\boldsymbol{X}}
+% \newcommand{\bI}{\boldsymbol{I}}
+
+\begin{document}
+
+\parskip = 10pt
+
+\begin{center}
+   \textbf{Indian Institute of Technology Guwahati\\ Statistical Inference and
+      Multivariate Analysis (MA324) \\ Problem Set : Linear Regression}
+\end{center}
+
+%\doublespacing
+\singlespacing
+
+\begin{enumerate}[leftmargin=*]
+
+   % \item Consider the simple linear regression model $y=\beta_0 + \beta_1 x +
+   %    \varepsilon$, with usual assumptions on $\varepsilon$. Show that
+   %    \begin{align*}
+   %       Cov\left( \widehat{\beta}_0,\, \widehat{\beta}_1 \right) = - \frac{\overline{x}
+   %       \sigma^2}{S_{xx}} \quad\text{and}\quad Cov\left( \overline{y},\,
+   %    \widehat{\beta}_0 \right) = \frac{\sigma^2}{n}.
+   %    \end{align*}
+
+   \item Consider the simple linear regression model $y=\beta_0 + \beta_1 x +
+      \varepsilon$ with usual assumptions on $\varepsilon$. Show that
+      \begin{align*}
+         E\left( MS_R \right) = \sigma^2 + \beta_1^2 S_{xx} \quad\text{and}\quad E\left(
+         MS_{Res} \right) = \sigma^2.
+      \end{align*}
+
+   \item Suppose that we have fit a simple linear regression model $\widehat
+      y=\widehat\beta_0+\widehat\beta_1x_1$, but the response is affected by a second
+      variable $x_2$ such that the true regression is
+      $y=\beta_0+\beta_1x_1+\beta_2x_2+\epsilon$. Is the least square estimator
+      $\widehat\beta_1$ in the simple linear regression model unbiased?
+
+   \item Consider the simple linear regression model $y=\beta_0 + \beta_1 x +
+      \varepsilon$, where $\varepsilon$'s are independent and identicall $N(0,\,\sigma^2)$
+      random variables. Find the MLEs of $\beta_0$, $\beta_1$, and $\sigma^2$. Is the MLE
+      of $\sigma^2$ UE?
+
+   \item Suppose that we are fitting a straight line and wish to make standard error of
+      the slope as small as possible. Suppose that the region of interest for $ x$ is
+      $-1\le x\le 1$. Where should the observations $x_1,\,x_2,\,\ldots,\,x_n$ be taken?
+
+   \item Consider the simple linear regression model $y=\beta_0 + \beta_1 x +
+      \varepsilon$, with usual assumptions on $\varepsilon$. Also assume that $\beta_0$ is
+      known. Find the LSE of $\beta_1$ and its' variance.
+
+   % \item Consider the multiple linear regression model
+   %    $$y=\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3+\beta_4x_4+\varepsilon.$$ 
+   %    Using the procedure for testing a general linear hypothesis, show how to test
+   %    \begin{enumerate}
+   %       \item $H_0:\,\beta_1=\beta_2,\,\beta_3=\beta_4$.
+   %       \item $H_0:\,\beta_1-2\beta_2=4\beta_3,\,\beta_1+2\beta_2=0$.
+   %    \end{enumerate}
+
+   % \item Prove that the matrices $H$ and $I-H$ are idempotent.
+
+   \item Show that $Var(\widehat{\boldsymbol{y}})=\sigma^2 H$.
+
+   \item Consider the multiple linear regression model $\boldsymbol{y} = X
+      \boldsymbol{\beta} + \boldsymbol{\varepsilon}$. Show that LSE of
+      $\boldsymbol{\beta}$ can be written as $\widehat{\boldsymbol{\beta}} =
+      \boldsymbol{\beta} + R \boldsymbol{\varepsilon}$, where $R=\left( X^T X
+      \right)^{-1}X^T$.
+
+   % \item Show that the residual from a linear regression model can be expressed as
+   %    $\boldsymbol{e} = \left( I-H \right)\boldsymbol{\varepsilon}$.
+
+   \item Prove that $R^2$ is the square of the sample correlation between
+      $\boldsymbol{y}$ and $\widehat{\boldsymbol{y}}$.
+
+   \item Consider the following two models with usual assumptions on error.
+      Model A: $\boldsymbol{y} = X_1\boldsymbol{\beta}_1 + \varepsilon$,
+      Model B: $\boldsymbol{y} = X_1\boldsymbol{\beta}_1 + X_2\boldsymbol{\beta}_2 +
+      \varepsilon$.
+      Show that $R^2_A\le R^2_B$.
+
+   % \item Show that the residual from a linear regression model can be expressed as
+   %    $\boldsymbol{e} = \left( I-H \right)\boldsymbol{\varepsilon}$.
+
+   \item Consider the linear regression $y=\beta_0+\beta_1x_1+\ldots+\beta_px_p+\epsilon$,
+      with usual assumptions on $\epsilon$. Assuming that $X$ is a full column rank
+      matrix, show that $$\sum_{i=1}^nVar(\widehat y_i)=(p+1)\sigma^2.$$
+
+   % \item Show that $0\le h_{ii}\le 1$.
+
+   \item Show that $e_{(i)} = \frac{e_i}{1-h_{ii}}$.
+
+   % \item In the setup of multiple linear regression, show that $Var(\widehat{\beta}_j) =
+   %    \frac{\sigma^2}{1-R^2_j}$, where $R^2_j$ is the coefficient of determination obtained when
+   %    $x_j$ is regressed on remaining $(k-1)$ regressors.
+
+
+\end{enumerate}
+
+\end{document}
