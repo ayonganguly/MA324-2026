@@ -8,25 +8,13 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata}
 
-% \newcommand{\uD}{\underline{D}}
-% \newcommand{\uL}{\underline{L}}
-% \newcommand{\uLzero}{\underline{L_0}}
-% \newcommand{\uP}{\underline{P}}
-% \newcommand{\uY}{\underline{Y}}
-% \newcommand{\ubeta}{\underline{\beta}}
-% \newcommand{\ulam}{\underline{\lambda}}
-% \newcommand{\uep}{\underline{\epsilon}}
-% \newcommand{\uzero}{\underline{0}}
-% \newcommand{\bX}{\boldsymbol{X}}
-% \newcommand{\bI}{\boldsymbol{I}}
-
 \begin{document}
 
 \parskip = 10pt
 
 \begin{center}
    \textbf{Indian Institute of Technology Guwahati\\ Statistical Inference and
-      Multivariate Analysis (MA324) \\ Problem Set : Linear Regression}
+   Multivariate Analysis (MA324) \\ Problem Set : Delta Method and Bootstrap}
 \end{center}
 
 %\doublespacing
@@ -34,85 +22,109 @@
 
 \begin{enumerate}[leftmargin=*]
 
-   % \item Consider the simple linear regression model $y=\beta_0 + \beta_1 x +
-   %    \varepsilon$, with usual assumptions on $\varepsilon$. Show that
-   %    \begin{align*}
-   %       Cov\left( \widehat{\beta}_0,\, \widehat{\beta}_1 \right) = - \frac{\overline{x}
-   %       \sigma^2}{S_{xx}} \quad\text{and}\quad Cov\left( \overline{y},\,
-   %    \widehat{\beta}_0 \right) = \frac{\sigma^2}{n}.
-   %    \end{align*}
+   \item Let $X_1, X_2, \dots, X_n$ be an i.i.d.~sample from a $N(\mu,
+      \sigma^2)$ distribution. Define the transformation $g(\bar{X}_n) =
+      (\bar{X}_n - \mu)^2$.
+      \begin{enumerate}
+         \item[(a)] Demonstrate why the standard first-order Delta Method fails
+            to find the asymptotic distribution of $\sqrt{n}(g(\bar{X}_n) -
+            g(\mu))$.
+         \item[(b)] Derive the correct asymptotic distribution using the
+            second-order Taylor expansion and state the appropriate normalizing
+            sequence (rate of convergence).
+      \end{enumerate}
 
-   \item Consider the simple linear regression model $y=\beta_0 + \beta_1 x +
-      \varepsilon$ with usual assumptions on $\varepsilon$. Show that
-      \begin{align*}
-         E\left( MS_R \right) = \sigma^2 + \beta_1^2 S_{xx} \quad\text{and}\quad E\left(
-         MS_{Res} \right) = \sigma^2.
-      \end{align*}
+      % \vspace{0.5cm}
+      % \noindent\textbf{Solution:}
+      %
+      % \noindent\textbf{(a) Failure of the First-Order Method:} \\
+      % The first-order Delta method relies on the Taylor expansion
+      % $g(\bar{X}_n) \approx g(\mu) + g'(\mu)(\bar{X}_n - \mu)$. The asymptotic
+      % variance is given by $[g'(\mu)]^2 \sigma^2$. Here, $g(x) = (x - \mu)^2$,
+      % so $g'(x) = 2(x - \mu)$. Evaluated at the true mean, $g'(\mu) = 2(\mu -
+      % \mu) = 0$. Consequently, $\sqrt{n}(g(\bar{X}_n) - g(\mu))
+      % \xrightarrow{d} N(0, 0)$. The asymptotic distribution collapses to a
+      % degenerate point mass at zero, providing no useful information about the
+      % sampling variability.
+      %
+      % \vspace{0.3cm}
+      % \noindent\textbf{(b) Second-Order Derivation:} \\
+      % Because the first derivative vanishes, we must use the second-order Taylor expansion:
+      % $$g(\bar{X}_n) \approx g(\mu) + g'(\mu)(\bar{X}_n - \mu) + \frac{1}{2}g''(\mu)(\bar{X}_n - \mu)^2$$
+      % Since $g(\mu) = 0$, $g'(\mu) = 0$, and $g''(x) = 2$ everywhere, this simplifies exactly to:
+      % $$g(\bar{X}_n) - g(\mu) = \frac{1}{2}(2)(\bar{X}_n - \mu)^2 = (\bar{X}_n - \mu)^2$$
+      % To find a non-degenerate limiting distribution, we scale by $n$ (not $\sqrt{n}$):
+      % $$n(g(\bar{X}_n) - g(\mu)) = n(\bar{X}_n - \mu)^2 = \left( \sqrt{n}
+      % \frac{\bar{X}_n - \mu}{\sigma} \right)^2 \sigma^2$$
+      % By the Central Limit Theorem, $\sqrt{n}(\bar{X}_n - \mu)/\sigma
+      % \xrightarrow{d} Z \sim N(0,1)$. The square of a standard normal is a
+      % Chi-square random variable with 1 degree of freedom. Therefore:
+      % $$n(g(\bar{X}_n) - g(\mu)) \xrightarrow{d} \sigma^2 \chi^2_1$$
+      % The appropriate normalizing sequence is $n$.
+      %
+      % \vspace{1cm}
 
-   \item Suppose that we have fit a simple linear regression model $\widehat
-      y=\widehat\beta_0+\widehat\beta_1x_1$, but the response is affected by a second
-      variable $x_2$ such that the true regression is
-      $y=\beta_0+\beta_1x_1+\beta_2x_2+\epsilon$. Is the least square estimator
-      $\widehat\beta_1$ in the simple linear regression model unbiased?
+   \item Let $X_1, X_2, \dots, X_n$ be an i.i.d. random sample from a
+      distribution where the mean is $\mu$ and the variance is $\sigma^2(\mu) =
+      c\mu^2$ for some known constant $c > 0$. 
+      \begin{enumerate}
+         \item[(a)] Derive a variance-stabilizing transformation $g(\bar{X}_n)$
+            such that the asymptotic variance of $g(\bar{X}_n)$ does not depend
+            on $\mu$. 
+         \item[(b)] Prove the asymptotic normality of your transformed statistic.
+      \end{enumerate}
 
-   \item Consider the simple linear regression model $y=\beta_0 + \beta_1 x +
-      \varepsilon$, where $\varepsilon$'s are independent and identicall $N(0,\,\sigma^2)$
-      random variables. Find the MLEs of $\beta_0$, $\beta_1$, and $\sigma^2$. Is the MLE
-      of $\sigma^2$ UE?
+      % \vspace{0.5cm}
+      % \noindent\textbf{Solution:}
+      %
+      % \noindent\textbf{(a) Derivation:} \\
+      % We require the Delta method variance, $[g'(\mu)]^2 \sigma^2(\mu)$, to
+      % equal a constant, say $1$. Given $\sigma^2(\mu) = c\mu^2$:
+      % $$[g'(\mu)]^2 c\mu^2 = 1 \implies g'(\mu) = \frac{1}{\sqrt{c}\mu}$$
+      % Integrating with respect to $\mu$ gives the transformation:
+      % $$g(\mu) = \frac{1}{\sqrt{c}} \ln(\mu) + k$$
+      % Setting $k=0$, the variance-stabilizing transformation is $g(\bar{X}_n)
+      % = \frac{1}{\sqrt{c}} \ln(\bar{X}_n)$.
+      %
+      % \vspace{0.3cm}
+      % \noindent\textbf{(b) Proof of Normality:} \\
+      % By the CLT, $\sqrt{n}(\bar{X}_n - \mu) \xrightarrow{d} N(0, c\mu^2)$.
+      % Applying the Delta method with $g(x) = \frac{1}{\sqrt{c}} \ln(x)$:
+      % $$\sqrt{n}(g(\bar{X}_n) - g(\mu)) \xrightarrow{d} N\left(0, [g'(\mu)]^2 c\mu^2\right)$$
+      % $$\sqrt{n}\left( \frac{1}{\sqrt{c}} \ln(\bar{X}_n) - \frac{1}{\sqrt{c}}
+      % \ln(\mu) \right) \xrightarrow{d} N\left(0, \left( \frac{1}{\sqrt{c}\mu}
+      % \right)^2 c\mu^2\right) = N(0, 1)$$
+      %
+      % \vspace{1cm}
 
-   \item Suppose that we are fitting a straight line and wish to make standard error of
-      the slope as small as possible. Suppose that the region of interest for $ x$ is
-      $-1\le x\le 1$. Where should the observations $x_1,\,x_2,\,\ldots,\,x_n$ be taken?
+   \item Let $X_1, \dots, X_n$ be i.i.d. $Uniform(0, \theta)$. It is a known
+      result that the maximum order statistic $X_{(n)}$ converges in
+      distribution to a non-degenerate limit when scaled by $n$: $n(\theta -
+      X_{(n)}) \xrightarrow{d} Exp(1/\theta)$. 
+      \begin{enumerate}
+         \item[(a)] Prove analytically why the standard non-parametric bootstrap
+            fails to provide a consistent estimator for the sampling
+            distribution of $X_{(n)}$. 
+         \item[(b)] Read (online) about $m$-out-of-$n$ bootstrap as an
+            alternative resampling strategy that resolves this inconsistency.
+      \end{enumerate}
 
-   \item Consider the simple linear regression model $y=\beta_0 + \beta_1 x +
-      \varepsilon$, with usual assumptions on $\varepsilon$. Also assume that $\beta_0$ is
-      known. Find the LSE of $\beta_1$ and its' variance.
-
-   % \item Consider the multiple linear regression model
-   %    $$y=\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3+\beta_4x_4+\varepsilon.$$ 
-   %    Using the procedure for testing a general linear hypothesis, show how to test
-   %    \begin{enumerate}
-   %       \item $H_0:\,\beta_1=\beta_2,\,\beta_3=\beta_4$.
-   %       \item $H_0:\,\beta_1-2\beta_2=4\beta_3,\,\beta_1+2\beta_2=0$.
-   %    \end{enumerate}
-
-   % \item Prove that the matrices $H$ and $I-H$ are idempotent.
-
-   \item Show that $Var(\widehat{\boldsymbol{y}})=\sigma^2 H$.
-
-   \item Consider the multiple linear regression model $\boldsymbol{y} = X
-      \boldsymbol{\beta} + \boldsymbol{\varepsilon}$. Show that LSE of
-      $\boldsymbol{\beta}$ can be written as $\widehat{\boldsymbol{\beta}} =
-      \boldsymbol{\beta} + R \boldsymbol{\varepsilon}$, where $R=\left( X^T X
-      \right)^{-1}X^T$.
-
-   % \item Show that the residual from a linear regression model can be expressed as
-   %    $\boldsymbol{e} = \left( I-H \right)\boldsymbol{\varepsilon}$.
-
-   \item Prove that $R^2$ is the square of the sample correlation between
-      $\boldsymbol{y}$ and $\widehat{\boldsymbol{y}}$.
-
-   \item Consider the following two models with usual assumptions on error.
-      Model A: $\boldsymbol{y} = X_1\boldsymbol{\beta}_1 + \varepsilon$,
-      Model B: $\boldsymbol{y} = X_1\boldsymbol{\beta}_1 + X_2\boldsymbol{\beta}_2 +
-      \varepsilon$.
-      Show that $R^2_A\le R^2_B$.
-
-   % \item Show that the residual from a linear regression model can be expressed as
-   %    $\boldsymbol{e} = \left( I-H \right)\boldsymbol{\varepsilon}$.
-
-   \item Consider the linear regression $y=\beta_0+\beta_1x_1+\ldots+\beta_px_p+\epsilon$,
-      with usual assumptions on $\epsilon$. Assuming that $X$ is a full column rank
-      matrix, show that $$\sum_{i=1}^nVar(\widehat y_i)=(p+1)\sigma^2.$$
-
-   % \item Show that $0\le h_{ii}\le 1$.
-
-   \item Show that $e_{(i)} = \frac{e_i}{1-h_{ii}}$.
-
-   % \item In the setup of multiple linear regression, show that $Var(\widehat{\beta}_j) =
-   %    \frac{\sigma^2}{1-R^2_j}$, where $R^2_j$ is the coefficient of determination obtained when
-   %    $x_j$ is regressed on remaining $(k-1)$ regressors.
-
+   \item Let $X_1, X_2, \dots, X_n$ be an i.i.d. random sample from a population
+      modeled by a two-component Weibull mixture distribution. The probability
+      density function is given by 
+      $$f(x; \boldsymbol{\theta}) = p \cdot w(x; \alpha_1,
+      \gamma_1) + (1-p) \cdot w(x; \alpha_2, \gamma_2),$$
+      where the Weibull density is parameterized by shape $\alpha > 0$ and rate
+      $\gamma > 0$ as:
+      $$w(x; \alpha, \gamma) = \alpha \gamma x^{\alpha-1} \exp(-\gamma x^\alpha)
+      \quad \text{for } x \ge 0$$
+      The parameter vector $\boldsymbol{\theta} = (\alpha_1, \gamma_1, \alpha_2,
+      \gamma_2, p)$ is estimated via maximum likelihood to obtain
+      $\boldsymbol{\hat{\theta}}$.
+      Write down the step-by-step algorithmic
+      procedure (pseudo code) to construct a $95\%$ parametric (and
+      non-parametric) bootstrap confidence interval for the mixture weight
+      parameter. Then, implement the procedure using a language of your choice.
 
 \end{enumerate}
 
