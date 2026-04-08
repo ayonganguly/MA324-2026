@@ -828,67 +828,262 @@
    \end{itemize}
 \end{frame}
 
-% \begin{frame}
-%    \frametitle{The PRESS Statistic}
-%    \begin{itemize}
-%       \item Delete $i^{th}$ observation. Fit the model on remaining $(n-1)$ observations. Now, predict $y_i$. Let the corresponding prediction error be $e_{(i)}=y-\hat{y}_{(i)}$ (PRESS Residual).
-%          \vspace{0.25cm}
-%       \item $e_{(i)}=\frac{e_i}{1-h_{ii}}$.
-%          \vspace{0.25cm}
-%       \item Large values of $e_{(i)}$ implies potential influential observations.
-%          \vspace{0.25cm}
-%       \item Large difference between $e_i$ and $e_{(i)}$ indicates an observation where model fit is quite well but a model built without that predicts poorly.
-%          \vspace{0.25cm}
-%       \item $Var(e_{(i)})=\frac{\sigma^2}{1-h_{ii}}$.
-%    \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%    \begin{itemize}
-%       \item Standardized PRESS residual is $\frac{e_{(i)}}{\sqrt{Var(e_{(i)})}}=\frac{e_i}{\sqrt{\sigma^2(1-h_{ii})}}$, which is standardized residual if we estimate $\sigma^2$ by $MS_{Res}$.
-%          \vspace{0.45cm}
-%       \item $PRESS=\sum_{i=1}^n e_{(i)}^2=\sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2$.
-%          \vspace{0.45cm}
-%       \item PRESS is a measure of how well a regression model perform in predicting new observations.
-%          \vspace{0.45cm}
-%       \item $R^2$ for prediction : \\[0.25cm] $R_{prediction}^2=1-\frac{PRESS}{SST}$: gives indication of the prediction capability of the regression model.
-%          \vspace{0.45cm}
-%       \item Using PRESS, we may compare model.
-%    \end{itemize}    
-% \end{frame}
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Finding Unusual Observations
+\begin{frame}
+   \frametitle{Finding Unusual Observations}
+   \begin{itemize}
+      \item Outliers: Observations that do not fit the model well.
+         \smallskip
+      \item Influential observations: Observations that change the fit of the
+         model in a substantive manner.
+         \smallskip
+      \item A point can be none, one or both of these.
+         \smallskip
+      \item Leverage points: Observations that are unusual in the predictor
+         space. It also has the potential to influence the fit.
+   \end{itemize}
+\end{frame}
 
-% \begin{frame}
-%    \frametitle{Variable Selection}
-%    \begin{itemize}
-%       \item Criteria for Evaluating Subset Regression Models:
-%          \vspace{0.45cm}
-%          \begin{itemize}
-%             \item $R^2$
-%                \vspace{0.25cm}
-%             \item $R^2_{Adj}$
-%                \vspace{0.25cm}
-%             \item Residual Mean Square : $MS_{Res}(p) \equiv R^2_{Adj}$.
-%                \vspace{0.25cm}
-%             \item Partial Correlation
-%                \vspace{0.25cm}
-%             \item PRESS Statistic
-%          \end{itemize}
-%          \vspace{0.45cm}
-%       \item Techniques:
-%          \begin{itemize}
-%             \item All possible Regression.
-%                \vspace{0.25cm}
-%             \item Step-wise Type Procedures :
-%                \begin{itemize}
-%                   \item Forward Selection : $F=\frac{SS_{R}(x_2|x_1)}{MS_{Res}(x_1,x_2)}$
-%                      \vspace{0.15cm}
-%                   \item Backward elimination
-%                      \vspace{0.15cm}
-%                   \item Step-wise Regression
-%                \end{itemize}
-%          \end{itemize}
-%    \end{itemize}
-% \end{frame}
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Unusual Observations
+\begin{frame}
+   \frametitle{Unusual Observations}
+   \begin{center}
+      \includegraphics[page=85, trim= 1.5cm 14.5cm 1.5cm 1.5cm, clip=true,
+      width=7.5cm, height=5cm]{Faraway_book.pdf}
+   \end{center}
+   \begin{itemize}
+      \item The solid line is the fit including the $\blacktriangle$ point but
+         not the $\bullet$ point.
+      \item The dotted line is the fit without both $\blacktriangle$ and
+         $\bullet$ points.
+      \item The dashed line is the fit with the $\bullet$ point but not the
+         $\blacktriangle$ point.
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Finding Outliers
+\begin{frame}
+   \frametitle{Finding Outliers}
+   \begin{itemize}
+      \item Order scaled residuals : 
+          \begin{align*}
+            \frac{\left\vert e_i \right\vert}{\sqrt{\sum_{i=1}^{n} e_i^2}}
+         \end{align*}
+      \item The maximum one considerable larger (3 or 4 times) than others indicated potential
+         outlier in $y$-space
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Some points about outliers
+\begin{frame}
+   \frametitle{Some points about outliers}
+   \begin{itemize}
+      \item Two or more outliers next to each other can hide each other.
+      \item An outlier in one model may not be an outlier in another when the
+         variables have been changed or transformed. 
+      \item The error distribution may not be normal and so larger residuals may be expected.
+      \item Individual outliers are usually much less of a problem in larger datasets. 
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Remedy
+\begin{frame}
+   \frametitle{Remedy}
+   \begin{itemize}
+      \item Check for a data-entry error first. These are relatively common.
+         Unfortunately, the original source of the data may have been lost. 
+      \item Examine the physical context—why did it happen?
+         % Sometimes, the discovery of an outlier may be of singular interest.
+         % Some scientific discoveries spring from noticing unexpected
+         % aberrations. Another example of the importance of outliers is in the
+         % statistical analysis of credit card transactions. Outliers in this case
+         % may represent fraudulent use.
+      \item Exclude the point from the analysis but try reincluding it later if
+         the model is changed. 
+         % The exclusion of one or more observations may make the difference
+         % between getting a statistically significant result or having some
+         % unpublishable research. This can lead to a difficult decision about
+         % what exclusions are reasonable. To avoid any suggestion of dishonesty,
+         % always report the existence of outliers even if you do not include them
+         % in your final model.
+      \item Suppose you find outliers that cannot reasonably be identified as
+         mistakes or aberrations, but are viewed as naturally occurring -- Use
+         robust estimation
+      \item It is dangerous to exclude outliers in an automatic manner.
+         % National Aeronautics and Space Administation (NASA) launched the Nimbus
+         % 7 satellite to record atmospheric information. After several years of
+         % operation in 1985, the British Antarctic Survey observed a large
+         % decrease in atmospheric ozone over the Antarctic. On further exami-
+         % nation of the NASA data, it was found that the data processing program
+         % automatically discarded observations that were extremely low and
+         % assumed to be mistakes. Thus the discovery of the Antarctic ozone hole
+         % was delayed several years. Perhaps, if this had been known earlier, the
+         % chlorofluorocarbon (CFC) phaseout would have been agreed upon earlier
+         % and the damage could have been limited. See Stolarski et al. (1986) for
+         % more.
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Leverage
+\begin{frame}
+   \frametitle{Leverage}
+   \begin{itemize}
+      \item $h_{ii}$: the $i$-th diagonal of hat matrix $H$ 
+         \smallskip
+      \item $h_{ii}$'s are called leverages
+         \smallskip
+      \item Note that
+         \begin{align*}
+            h_{ii} = x_i^{\prime} \left( X^\prime X \right)^{-1} x_i =
+            \frac{1}{n} + \frac{MD_i^2}{n-1}
+         \end{align*}
+         \smallskip
+      \item $MD_i^2 = (x_i - \bar{x})^T S^{-1} (x_i - \bar{x})$: Mahalanobis distance
+         \smallskip
+      \item Large values of $h_{ii}$ indicates that the $i$-th observation is a
+         leverage point
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Leverage
+\begin{frame}
+   \frametitle{Leverage (continued)}
+   \begin{itemize}
+      \item $\sum_{i=1}^{n} h_{ii} = p$ (as $trace(H)=rank(H)=rank(X)=p$)
+         \smallskip
+      \item Average size of diagonals is $\frac{p}{n}$ 
+         \smallskip
+      \item $h_{ii}> \frac{2p}{n}$: $i$-th observation is assumed to be leverage
+         point
+         \smallskip
+      \item Not all leverage points are going to be influential
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Finding influential observations
+\begin{frame}
+   \frametitle{Finding influential observations}
+   \begin{center}
+      \includegraphics[page=85, trim= 1.5cm 14.5cm 1.5cm 1.5cm, clip=true,
+      width=7.5cm, height=5cm]{Faraway_book.pdf}
+   \end{center}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Finding influential observations
+\begin{frame}
+   \frametitle{Finding influential observations}
+   \begin{itemize}
+      \item Cook's $D$ :
+         \begin{align*}
+            D_i = \frac{(\hat{\beta} - \hat{\beta}_{(-i)})^\prime (X^\prime X)
+            (\hat{\beta} - \hat{\beta}_{(-i)})}{p \cdot \text{MSE}}
+            = \frac{\sum_{j=1}^{n} (\hat{y}_j - \hat{y}_{j(-i)})^2}{p \cdot \text{MSE}}
+            = \frac{r_i^2}{p} \times \frac{h_{ii}}{1 - h_{ii}}
+         \end{align*}
+      \item $\widehat{\beta}_{(-i)}$ : LSE of $\beta$ obtained by deleting the
+         $i$-th observation
+         \smallskip
+      \item $\widehat{y}_{j(-i)}$ : Fitted value of $y_i$ obtained by deleting
+         the $i$-th observation
+         \smallskip
+      \item $r_i$ : $i$-th Studentized residual
+         \smallskip
+      \item Rule of thumb: $D_i>1$ indicates $i$-th point is influential point
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{The PRESS Statistic}
+   \begin{itemize}
+      \item How do you measure prediction capability of a fitted model?
+         \smallskip
+      \item Delete $i^{th}$ observation. Fit the model on remaining $(n-1)$ observations. Now, predict $y_i$. Let the corresponding prediction error be $e_{(i)}=y-\hat{y}_{(i)}$ (PRESS Residual).
+         \vspace{0.25cm}
+      \item $e_{(i)}=\frac{e_i}{1-h_{ii}}$. (Prove it by yourself)
+         \vspace{0.25cm}
+      % \item Large values of $e_{(i)}$ implies potential influential observations.
+      %    \vspace{0.25cm}
+      % \item Large difference between $e_i$ and $e_{(i)}$ indicates an observation where model fit is quite well but a model built without that predicts poorly.
+      %    \vspace{0.25cm}
+      \item $Var(e_{(i)})=\frac{\sigma^2}{1-h_{ii}}$.
+         \smallskip
+      \item Standardized PRESS residual is
+         $\frac{e_{(i)}}{\sqrt{Var(e_{(i)})}}=\frac{e_i}{\sqrt{\sigma^2(1-h_{ii})}}$,
+         which is standardized residual if we estimate $\sigma^2$ by $MS_{Res}$.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{The PRESS Statistic (continued)}
+   \begin{itemize}
+      \item $PRESS=\sum_{i=1}^n e_{(i)}^2=\sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2$.
+         \vspace{0.45cm}
+      \item PRESS is a measure of how well a regression model perform in predicting new observations.
+         \vspace{0.45cm}
+      \item $R^2$ for prediction : \\[0.25cm] $R_{prediction}^2=1-\frac{PRESS}{SST}$: gives indication of the prediction capability of the regression model.
+         \vspace{0.45cm}
+      \item Using PRESS, we may compare model.
+   \end{itemize}    
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Adjuested $R^2$
+\begin{frame}
+   \frametitle{Adjuested $R^2$}
+   \begin{itemize}
+      \item In MLR, adding a variable to a model can increase the value of $R^{2}$.
+         \smallskip
+      \item To overcome this problem:
+
+         \[ 
+            \mbox{Adjusted } R^{2}: \hspace{0.5cm}  R^{2}_{adj}  = 1 -
+            \frac{\sum_{i}(y_{i} - \hat y_{i})^{2}/(n-p-1)}{\sum_{i}(y_{i} -
+            \bar y)^{2}/(n-1)}.
+         \]
+   \end{itemize}  
+\end{frame}
+
+\begin{frame}
+   \frametitle{Variable Selection}
+   \begin{itemize}
+      \item Criteria for Evaluating Subset Regression Models:
+         \vspace{0.45cm}
+         \begin{itemize}
+            \item $R^2$
+               \vspace{0.25cm}
+            \item $R^2_{Adj}$
+               \vspace{0.25cm}
+            \item Residual Mean Square : $MS_{Res}(p) \equiv R^2_{Adj}$.
+               \vspace{0.25cm}
+            \item Partial Correlation
+               \vspace{0.25cm}
+            \item PRESS Statistic
+         \end{itemize}
+         \vspace{0.45cm}
+      \item Techniques:
+         \begin{itemize}
+            \item All possible Regression.
+               \vspace{0.25cm}
+            \item Step-wise Type Procedures :
+               \begin{itemize}
+                  \item Forward Selection : $F=\frac{SS_{R}(x_2|x_1)}{MS_{Res}(x_1,x_2)}$
+                     \vspace{0.15cm}
+                  \item Backward elimination
+                     \vspace{0.15cm}
+                  \item Step-wise Regression
+               \end{itemize}
+         \end{itemize}
+   \end{itemize}
+\end{frame}
 
 % \begin{frame}
 %    \frametitle{Multicollinearity}
