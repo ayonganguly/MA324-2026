@@ -1085,99 +1085,239 @@
    \end{itemize}
 \end{frame}
 
-% \begin{frame}
-%    \frametitle{Multicollinearity}
-%    \begin{itemize}
-%       \item Near linear relationship among regressor $(\sum_{j=1}^p t_{j}\undertilde{x_j} \simeq 0)$
-%          \vspace{0.45cm}
-%       \item Effect of Multicollinearity:
-%          \begin{itemize}
-%             \item Consider scaled response and regressor (length unit).
-%                \vspace{0.35cm}
-%             \item Consider $y=\beta_1x_1+\beta_2x_2++\epsilon$.
-%                \vspace{0.35cm}
-%             \item $\hat{\beta_1}=\frac{r_{1y}-r_{12}r_{2y}}{1-r_{12}^2}$, and $\hat{\beta_2}=\frac{r_{2y}-r_{12}r_{1y}}{1-r_{12}^2}$.
-%                \vspace{0.35cm}
-%             \item $Var(\hat{\beta_{j}})=\frac{\sigma^2}{1-r_{12}^2}$, $Cov(\hat{\beta_1},\hat{\beta_2})=\frac{-r_{12}\sigma^2}{1-r_{12}^2}$.
-%                \vspace{0.35cm}
-%             \item If $|r_{12}| \rightarrow 1$, $Var(\hat{\beta_j}) \rightarrow \infty$, and $|Cov(\hat{\beta_1},\hat{\beta_2})| \rightarrow \infty$.
-%          \end{itemize}
-%    \end{itemize}
-%
-% \end{frame}
-%
-% \begin{frame}
-%    \begin{itemize}
-%       \item Effect of Multicollinearity (contd.):
-%          \begin{itemize}
-%             \item $L_1^2 = (\hat{\beta}-\beta)^{T}(\hat{\beta}-\beta)$.
-%                \vspace{0.35cm}
-%             \item $E(L_1^2)=\sum_{j=1}^p Var(\hat{\beta_j}) = \sigma^2 Tr(X^{'}X)^{-1} = \sigma^2 \sum_{j=1}^p \frac{1}{\lambda_j}$, where $\lambda_j$'s are eigenvalues of $(X^{'}X)$.
-%                \vspace{0.35cm}
-%             \item If $(X^{'}X)$ is ill-conditioned then at least one $\lambda_j$ will be small $\Rightarrow E(L_1^2)$ is big.
-%                \vspace{0.35cm}
-%             \item 
-%                Therefore, we have $E(\hat{\undertilde{\beta}}^{T}\hat{\undertilde{\beta}}) = \undertilde{\beta}^{'}\undertilde{\beta} + \sigma^2 Tr(X^{'}X)^{-1}$, implies magnitude of $\hat{\undertilde{\beta}}$ are large.
-%          \end{itemize}    
-%
-%    \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%    \frametitle{Multicollinearity Diagnostics}
-%    \begin{itemize}
-%       \item Examination of correlation matrix $(X^{'}X)$:
-%          \begin{itemize}
-%             \item If $x_{i}$ and $x_{j}$ are nearly linearly dependent, then $|r_{ij}|$ should be close to $1$.
-%                \vspace{0.25cm}
-%             \item However, this procedure is helpful to detect near linear dependence between a pair of regressors only.
-%          \end{itemize}
-%          \vspace{0.45cm}
-%       \item Variance Inflation Factors (VIFs):
-%          \begin{itemize}
-%             \item It can be shown that $Var(\hat{\beta_j})=c_{jj}=(1-R_{j}^2)^{-1}=\frac{1}{1-R_{j}^2}$, where $R_{j}^2$ is the coefficient of determination obtained when $x_{j}$ is regressed on remaining $(k-1)$ regressors.
-%                \vspace{0.25cm}
-%             \item $VIF_{j}=\frac{1}{1-R_{j}^2}$: This measures the factor by which the variance of $\hat{\beta_{j}}$ inflated due to the near linear dependence.
-%                \vspace{0.25cm}
-%             \item Rule of thumb : If any of $VIF>5$, the associated coefficient is estimated poorly due to multicollinearity.
-%          \end{itemize}
-%    \end{itemize}
-% \end{frame}
-% \begin{frame}
-%    \begin{itemize}
-%       \item Eigen system Analysis of $(X^{'}X)$:
-%          \begin{itemize}
-%             \item The eigen values, $\lambda_1,\lambda_2,...,\lambda_p$, can be used to see the extent of multicollinearity.
-%                \vspace{0.25cm}
-%             \item Small eigen values (one or more) $\Rightarrow$ multicollinearity.
-%                \vspace{0.25cm}
-%             \item Condition number $=k=\frac{\lambda_{max}}{\lambda_{min}}$.
-%                \vspace{0.25cm}
-%             \item Rule of thumb : \\[0.15cm] $k<100 \rightarrow$ No serious problem with multicollinearity. \\[0.15cm]
-%                $100 \leq k <1000 \rightarrow$ moderate to strong multicollinearity. \\[0.15cm]
-%                $k \geq 1000 \rightarrow$ severe multicollinearity.
-%                \vspace{0.25cm}
-%             \item Condition indices : $k_{j}=\frac{\lambda_{max}}{\lambda_{j}},\ j=1,2,...,p$ \\[0.15cm]
-%                $k_{j} \geq 1000 \rightarrow$ provide useful information on the number of near linear dependence.
-%          \end{itemize}
-%    \end{itemize}    
-% \end{frame}
-%
-% \begin{frame}
-%    \frametitle{Method for dealing with multicollinearity}
-%    \begin{itemize}
-%       \item Source of multicollinearity:
-%          \vspace{0.75cm}
-%          \begin{itemize}
-%             \item Data collection method $\rightarrow$ collecting more data.
-%                \vspace{0.45cm}
-%             \item Constraints in model or population $\rightarrow$ Model respecification
-%                \vspace{0.45cm}
-%             \item Model specification $\rightarrow$ Model respecification
-%                \vspace{0.45cm}
-%             \item An overdefined model $\rightarrow$ Model respecification, and other method of estimate like Ridge regression.
-%          \end{itemize}
-%    \end{itemize}
-% \end{frame}
+\begin{frame}
+   \frametitle{Multicollinearity}
+   \begin{itemize}
+      \item Near linear relationship among regressors $(\sum_{j=1}^p
+         t_{j}\boldsymbol{x}_j \simeq 0)$
+         \vspace{0.45cm}
+      \item Effect of Multicollinearity:
+         \begin{itemize}
+            \item Consider scaled response and regressor (length unit).
+               \vspace{0.35cm}
+            \item Consider $y=\beta_1x_1+\beta_2x_2+\epsilon$.
+               \vspace{0.35cm}
+            \item $\hat{\beta_1}=\frac{r_{1y}-r_{12}r_{2y}}{1-r_{12}^2}$, and
+               $\hat{\beta_2}=\frac{r_{2y}-r_{12}r_{1y}}{1-r_{12}^2}$.
+               \vspace{0.35cm}
+            \item $Var(\hat{\beta_{j}})=\frac{\sigma^2}{1-r_{12}^2}$,
+               $Cov(\hat{\beta_1},\hat{\beta_2})=\frac{-r_{12}\sigma^2}{1-r_{12}^2}$.
+               \vspace{0.35cm}
+            \item If $|r_{12}| \rightarrow 1$, $Var(\hat{\beta_j}) \rightarrow
+               \infty$, and $|Cov(\hat{\beta_1},\hat{\beta_2})| \rightarrow
+               \infty$.
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \begin{itemize}
+      \item Effect of Multicollinearity (contd.):
+         \begin{itemize}
+            \item $L_1^2 = (\hat{\beta}-\beta)^{T}(\hat{\beta}-\beta)$.
+               \vspace{0.35cm}
+            \item $E(L_1^2)=\sum_{j=1}^p Var(\hat{\beta_j}) = \sigma^2
+               Tr(X^{'}X)^{-1} = \sigma^2 \sum_{j=1}^p \frac{1}{\lambda_j}$,
+               where $\lambda_j$'s are eigenvalues of $(X^{'}X)$.
+               \vspace{0.35cm}
+            \item If $(X^{'}X)$ is ill-conditioned then at least one $\lambda_j$
+               will be small $\Rightarrow E(L_1^2)$ is big.
+               \vspace{0.35cm}
+            \item Therefore, we have
+               $E(\hat{\boldsymbol{\beta}}^{T}\hat{\boldsymbol{\beta}}) =
+               \boldsymbol{\beta}^{'}\boldsymbol{\beta} + \sigma^2
+               Tr(X^{'}X)^{-1}$, implies magnitude of $\hat{\boldsymbol{\beta}}$
+               are large.
+         \end{itemize}    
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Multicollinearity Diagnostics}
+   \begin{itemize}
+      \item Examination of correlation matrix $(X^{'}X)$:
+         \begin{itemize}
+            \item If $x_{i}$ and $x_{j}$ are nearly linearly dependent, then
+               $|r_{ij}|$ should be close to $1$.
+               \vspace{0.25cm}
+            \item However, this procedure is helpful to detect near linear
+               dependence between a pair of regressors only.
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Multicollinearity Diagnostics (Contd.)}
+   \begin{itemize}
+      \item Variance Inflation Factors (VIFs):
+         \begin{itemize}
+            \item It can be shown that
+               $$Var(\hat{\beta_j})=C_{jj}=(1-R_{j}^2)^{-1}=\frac{1}{1-R_{j}^2},$$
+               where $R_{j}^2$ is the coefficient of determination obtained when
+               $x_{j}$ is regressed on remaining $(k-1)$ regressors.
+               \vspace{0.25cm}
+            \item $VIF_{j}=C_{jj}$: This measures the factor by
+               which the variance of $\hat{\beta_{j}}$ inflated due to the near
+               linear dependence.
+               \vspace{0.25cm}
+            \item Rule of thumb : If any of $VIF>5$, the associated coefficient
+               is estimated poorly due to multicollinearity.
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Multicollinearity Diagnostics (Contd.)}
+   \begin{itemize}
+      \item Eigen System Analysis of $(X^{'}X)$:
+         \begin{itemize}
+            \item The eigen values, $\lambda_1,\lambda_2,...,\lambda_p$, can be
+               used to see the extent of multicollinearity.
+               \vspace{0.25cm}
+            \item Small eigen values (one or more) $\Rightarrow$ multicollinearity.
+               \vspace{0.25cm}
+            \item Condition number $=\kappa=\frac{\lambda_{max}}{\lambda_{min}}$.
+               \vspace{0.25cm}
+            \item Rule of thumb : \\[0.15cm] $\kappa<100 \rightarrow$ No serious
+               problem with multicollinearity. \\[0.15cm]
+               $100 \leq \kappa <1000 \rightarrow$ moderate to strong multicollinearity. \\[0.15cm]
+               $\kappa \geq 1000 \rightarrow$ severe multicollinearity.
+               \vspace{0.25cm}
+            \item Condition indices : $\kappa_{j}=\frac{\lambda_{max}}{\lambda_{j}},\
+               j=1,2,...,p$ \\[0.15cm]
+               $\kappa_{j} \geq 1000 \rightarrow$ provide useful information on the
+               number of near linear dependence.
+         \end{itemize}
+   \end{itemize}    
+\end{frame}
+
+\begin{frame}{Singular Value Decomposition (SVD)}
+    Let $\mathbf{X}$ be the $n \times p$ matrix of regressors (usually centered and scaled). The SVD of $\mathbf{X}$ is:
+    $$\mathbf{X} = \mathbf{U}\mathbf{\Gamma}\mathbf{V}^T$$
+    where:
+    \begin{itemize}
+        \item $\mathbf{U}$ is an $n \times p$ matrix such that $\mathbf{U}^T\mathbf{U} = \mathbf{I}_p$.
+        \item $\mathbf{V}$ is a $p \times p$ orthogonal matrix ($\mathbf{V}^T\mathbf{V} = \mathbf{I}_p$). The columns of $\mathbf{V}$ are the eigenvectors of $\mathbf{X}^T\mathbf{X}$.
+        \item $\mathbf{\Gamma}$ is a $p \times p$ diagonal matrix of \textbf{singular values} $\lambda_1, \lambda_2, \dots, \lambda_p$.
+    \end{itemize}
+    \vspace{0.2cm}
+    Note: The eigenvalues of $\mathbf{X}^T\mathbf{X}$ are $\mu_j = \lambda_j^2$.
+\end{frame}
+
+\begin{frame}{Condition Number and Condition Indices}
+    The \textbf{Condition Number} of the matrix $\mathbf{X}$ is defined as:
+    $$\kappa = \frac{\lambda_{\max}}{\lambda_{\min}}$$
+    The \textbf{Condition Indices} of the matrix $\mathbf{X}$  as:
+    $$\eta_j = \frac{\lambda_{\max}}{\lambda_j}, \quad j = 1, 2, \dots, p$$
+    \begin{block}{Thresholds for $\eta_j$}
+        \begin{itemize}
+            \item $\eta_j < 30$: Weak dependency.
+            \item $30 < \eta_j < 100$: Moderate to strong dependency.
+            \item $\eta_j > 100$: Severe multicollinearity.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Variance Decomposition Proportions}
+    The covariance matrix of $\hat{\boldsymbol{\beta}}$ is $\text{Var}(\hat{\boldsymbol{\beta}}) = \sigma^2 (\mathbf{X}^T\mathbf{X})^{-1}$. Using SVD:
+    $$\text{Var}(\hat{\beta}_j) = \sigma^2 \sum_{k=1}^{p} \frac{v_{jk}^2}{\lambda_k^2}$$
+    The \textbf{Variance Decomposition Proportion} (VDP) for the $j$-th regression coefficient associated with the $k$-th component is:
+    $$\pi_{kj} = \frac{v_{jk}^2 / \lambda_k^2}{\sum_{i=1}^{p} v_{ji}^2 / \lambda_i^2}$$
+    \begin{itemize}
+        \item $\pi_{kj}$ represents the proportion of the variance of $\hat{\beta}_j$ explained by the $k$-th singular value.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Diagnostic Rule}
+    A multicollinearity problem is diagnosed when:
+    \begin{enumerate}
+        \item A condition index $\eta_k$ is large (typically $> 30$).
+        \item Two or more regressors have large variance decomposition proportions $\pi_{kj}$ (typically $> 0.5$) associated with that large $\eta_k$.
+    \end{enumerate}
+    % \vfill
+    % \begin{itemize}
+    %     \item \textbf{Why two?} A single large VDP might just indicate a small singular value unrelated to a linear dependency between specific variables. 
+    %     \item Near-linear dependencies involve at least two variables.
+    % \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Method for dealing with multicollinearity}
+   \begin{itemize}
+      \item Source of multicollinearity:
+         \vspace{0.75cm}
+         \begin{itemize}
+            \item Data collection method $\rightarrow$ collecting more data.
+               \vspace{0.45cm}
+            \item Constraints in model or population $\rightarrow$ Model respecification
+               \vspace{0.45cm}
+            \item Model specification $\rightarrow$ Model respecification
+               \vspace{0.45cm}
+            \item An overdefined model $\rightarrow$ Model respecification, and
+               other method of estimate (like Ridge regression).
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{How to attack the data analysis/model fitting}
+   \begin{itemize}
+      \item Understand the \textbf{research question(s)}. Understand the \textbf{data} you have. 
+         \vspace{0.2cm}			
+         \begin{enumerate}
+            \item How the \textbf{data was collected}?
+               \vspace{0.2cm}			
+            \item What type of the \textbf{study design used}:
+               \textit{Randomized or Observational; Prospective or Retrospective
+               etc. }
+               \vspace{0.2cm}						
+            \item Can you make \textbf{connection with the primary research
+               question and the data}? Is the \textbf{research question
+               feasible} based on the data you have?
+               \vspace{0.2cm}			
+            \item Are there \textbf{secondary research questions}?
+               \vspace{0.2cm}			
+            \item  What are the \textbf{potential source of bias}? Sample (data)
+               \textbf{may not be} a representative of the target (source)
+               population.
+               \vspace{0.2cm}			
+            \item Are there any \textbf{confounders}? \\
+               \textbf{Confounders}: A confounder (also known as confounding
+               variable, confounding factor) is \textbf{a variable that
+               influences both the dependent variable and independent variable},
+               causing a spurious association. \textbf{Confounding is a causal
+               concept}, and as such, cannot be described in terms of
+               correlations or associations.
+               \vspace{0.2cm}			
+            \item  Are the \textbf{number of observations/individuals} in the
+               data \textbf{sufficient}? Is it a \textbf{small data}?
+         \end{enumerate}
+   \end{itemize}	
+\end{frame}
+
+
+\begin{frame}
+   \frametitle{How to attack the data analysis/model fitting}
+   \begin{itemize}
+      \item Do the \textbf{scatter plot}(s): response vs. input variable(s).
+         \vspace{0.2cm}
+      \item \textbf{Fit the regression} model(s) (or other type of model(s)).
+         \vspace{0.2cm}
+      \item \textbf{Interpret} the output from the fitted models:
+         \vspace{0.2cm}
+         \begin{enumerate}
+            \item Are all the results expected? Whether the \textbf{results go
+               well with existing domain} (basic science) knowledge?
+               \vspace{0.2cm}	
+            \item If not, what are the \textbf{reasons behind the aberration} from the expected results.  
+         \end{enumerate}
+      \item \textbf{Check the diagnostics} for model assumptions. If you find
+         problem, go back and correct (if you can) the chosen model; or, take
+         decision about the outliers/influential points. 
+         \vspace{0.2cm}
+      \item Always remember: 	\emph{\textcolor{blue}{``Essentially, all models
+         are wrong, but some are useful'' -- Box}}
+   \end{itemize}	
+\end{frame}
 
 \end{document}
