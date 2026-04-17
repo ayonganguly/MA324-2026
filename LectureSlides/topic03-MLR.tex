@@ -1152,7 +1152,7 @@
       \item Variance Inflation Factors (VIFs):
          \begin{itemize}
             \item It can be shown that
-               $$Var(\hat{\beta_j})=C_{jj}=(1-R_{j}^2)^{-1}=\frac{1}{1-R_{j}^2},$$
+               $$Var(\hat{\beta_j}) = \sigma^2 C_{jj}=\frac{\sigma^2}{1-R_{j}^2},$$
                where $R_{j}^2$ is the coefficient of determination obtained when
                $x_{j}$ is regressed on remaining $(k-1)$ regressors.
                \vspace{0.25cm}
@@ -1198,17 +1198,18 @@
     \begin{itemize}
         \item $\mathbf{U}$ is an $n \times p$ matrix such that $\mathbf{U}^T\mathbf{U} = \mathbf{I}_p$.
         \item $\mathbf{V}$ is a $p \times p$ orthogonal matrix ($\mathbf{V}^T\mathbf{V} = \mathbf{I}_p$). The columns of $\mathbf{V}$ are the eigenvectors of $\mathbf{X}^T\mathbf{X}$.
-        \item $\mathbf{\Gamma}$ is a $p \times p$ diagonal matrix of \textbf{singular values} $\lambda_1, \lambda_2, \dots, \lambda_p$.
+        \item $\mathbf{\Gamma}$ is a $p \times p$ diagonal matrix of
+           \textbf{singular values} $\mu_1, \mu_2, \dots, \mu_p$.
     \end{itemize}
     \vspace{0.2cm}
-    Note: The eigenvalues of $\mathbf{X}^T\mathbf{X}$ are $\mu_j = \lambda_j^2$.
+    Note: The eigenvalues of $\mathbf{X}^T\mathbf{X}$ are $\lambda_j = \mu_j^2$.
 \end{frame}
 
 \begin{frame}{Condition Number and Condition Indices}
     The \textbf{Condition Number} of the matrix $\mathbf{X}$ is defined as:
-    $$\kappa = \frac{\lambda_{\max}}{\lambda_{\min}}$$
+    $$\eta = \frac{\mu_{\max}}{\mu_{\min}}$$
     The \textbf{Condition Indices} of the matrix $\mathbf{X}$  as:
-    $$\eta_j = \frac{\lambda_{\max}}{\lambda_j}, \quad j = 1, 2, \dots, p$$
+    $$\eta_j = \frac{\mu_{\max}}{\mu_j}, \quad j = 1, 2, \dots, p$$
     \begin{block}{Thresholds for $\eta_j$}
         \begin{itemize}
             \item $\eta_j < 30$: Weak dependency.
@@ -1220,9 +1221,9 @@
 
 \begin{frame}{Variance Decomposition Proportions}
     The covariance matrix of $\hat{\boldsymbol{\beta}}$ is $\text{Var}(\hat{\boldsymbol{\beta}}) = \sigma^2 (\mathbf{X}^T\mathbf{X})^{-1}$. Using SVD:
-    $$\text{Var}(\hat{\beta}_j) = \sigma^2 \sum_{k=1}^{p} \frac{v_{jk}^2}{\lambda_k^2}$$
+    $$\text{Var}(\hat{\beta}_j) = \sigma^2 \sum_{k=1}^{p} \frac{v_{jk}^2}{\mu_k^2}$$
     The \textbf{Variance Decomposition Proportion} (VDP) for the $j$-th regression coefficient associated with the $k$-th component is:
-    $$\pi_{kj} = \frac{v_{jk}^2 / \lambda_k^2}{\sum_{i=1}^{p} v_{ji}^2 / \lambda_i^2}$$
+    $$\pi_{kj} = \frac{v_{jk}^2 / \mu_k^2}{\sum_{i=1}^{p} v_{ji}^2 / \mu_i^2}$$
     \begin{itemize}
         \item $\pi_{kj}$ represents the proportion of the variance of $\hat{\beta}_j$ explained by the $k$-th singular value.
     \end{itemize}
