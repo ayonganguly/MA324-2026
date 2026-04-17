@@ -1,0 +1,276 @@
+\documentclass[a4paper]{article}
+% \oddsidemargin -0.4in \evensidemargin -0.4in \textwidth 10in
+% \topmargin -.65in \textheight 24cm
+
+
+% \setlength{\textwidth}{7in}
+
+%\usepackage[utf8x]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{tikz,multicol}
+\usepackage{amsmath, amssymb}
+% \usepackage{lastpage}
+\usepackage{multicol}
+% \usepackage{fp}
+\usepackage{totcount}
+\regtotcounter{AMCquestionaff}
+
+\usepackage[box]{automultiplechoice}
+\usepackage{multicol}
+
+\newcommand{\amark}[1]{\scoring{mz=#1}
+   (#1 point\ifdim#1pt=1pt%
+   \else
+      s%
+   \fi) 
+}
+
+\newcommand{\push}{\hspace*{\stretch{1}}}
+
+%******************** Course Details *********************************
+\newcommand{\testname}{Quiz III}
+\newcommand{\courseno}{MA 324}
+\newcommand{\coursename}{Statistical Inference and Multivariate Analysis}
+\newcommand{\instiname}{IIT GUWAHATI}
+\newcommand{\testdate}{April 08, 2026}
+\newcommand{\testtime}{16:05--16:50 IST}
+% \newcommand{\semester}{2025-26 Odd}
+
+
+\begin{document}
+
+\AMCrandomseed{1237893}
+
+\def\multiSymbole{}
+\def\AMCbeginQuestion#1#2{\par\noindent{\bf Question #1:} #2\hspace*{-1mm}}
+\def\AMCformQuestion#1{{\bf Question #1:}}    
+% 555555
+\AMCsetScoreZoneAnswerSheet{width=1.5em,height=1.5ex,depth=.5ex,position=question}
+
+\AMCformHSpace=1em
+\AMCformVSpace=5ex
+
+%\setdefaultgroupmode{withoutreplacement}
+%\scoring{default}
+
+%GATE 22: q54
+\element{mcqgroup}{
+   \begin{questionmult}{q1} \amark{2}
+      Let a linear model $Y = \beta_0 + \beta_1X + \epsilon$ be fitted to the
+      following data, where $\epsilon$ is normally distributed with mean $0$ and
+      unknown variance $\sigma^2 > 0$.
+
+      $$
+      \begin{array}{|c|c|c|c|c|c|}
+         \hline
+         x_i & 0 & 1 & 2 & 3 & 4 \\
+         \hline
+         y_i & 3 & 4 & 5 & 6 & 7 \\
+         \hline
+      \end{array}
+      $$
+
+      Let $\widehat{Y}_0$ denote the ordinary least-square estimator of $Y$ at $X =
+      6$. If $E \left( \widehat{Y} \right)=c_0\beta_0+c_1\beta_1$ and $Var\left(
+      \widehat{Y}_0 \right) = d\sigma^2$, then which of the
+      following is/are true?
+      % the value of the
+      % real constant $c$ (\textbf{rounded off to one decimal place}) is equal to
+      % \underline{\hspace{2cm}}
+      \begin{multicols}{2}
+         \begin{choices}
+            \wrongchoice{$c_1=6,\, c_2=1,\, 1.7\le d\le 1.9$}
+            \correctchoice{$c_1=1,\, c_2=6,\, 1.7\le d\le 1.9$}
+            \correctchoice{$c_1+c_2+d\le 8.8$}
+            \correctchoice{$3.1\le c_2-c_1-d \le 3.5$}
+         \end{choices}
+      \end{multicols}
+   \end{questionmult}
+}
+
+%GATE 21: q55
+\element{mcqgroup}{
+   \begin{questionmult}{q2} \amark{3}
+       Let $y_i = \beta_0 + \beta_1x_{1,i} + \beta_2x_{2,i} + \cdots +
+       \beta_{22}x_{22,i} + \epsilon_i, i = 1, 2, \cdots, 123$, where,
+       $x_{1,i}, \cdots, x_{22,i}$ are fixed input (independent) variables; and,
+       for $j=0,1,2, \cdots, 22$;  $\beta_j$ are unknown parameters, and
+       $\epsilon_i$'s are independent and identically distributed normal random
+       variables with mean zero and finite variance. If $SS_{Reg} = 338.92$ and
+       $SS_T = 522.30$ and the value of $R_{adj}^2$ (adjusted $R^2$) equals to
+       $t$. Then which of the following statements is/are true?
+       %% ANS: 0.57     
+       \begin{multicols}{2}
+          \begin{choices}
+             \wrongchoice{$0.61 < t < 0.69$}
+             \wrongchoice{$0.43 < t < 0.54$}
+             \correctchoice{$0.51 < t < 0.59$}
+             \correctchoice{$0.53 \leq t < 0.63$}
+          \end{choices}
+       \end{multicols}
+    \end{questionmult}
+ }
+
+%ISSexam: 2018II: Q42
+\element{mcqgroup}{
+	\begin{questionmult}{q3} \amark{2}
+      Consider a multiple linear regression problem. Which of the following statements is/are true?
+      \begin{choices}
+         \wrongchoice{A leverage point is always influential point}
+         \correctchoice{PRESS is a measure of how well a regression model perform in predicting new observations}
+         \correctchoice{Q-Q plot is used to test for normality}
+         \correctchoice{A linear model is linear in the parameters, but not necessarily in the independent variables}
+      \end{choices}
+   \end{questionmult}
+}
+
+%Seber-Lee: Page-95, Q-5
+\element{mcqgroup}{
+   \begin{questionmult}{q4} \amark{3}
+      Consider the multiple linear regression problem 
+      $$ Y = X \beta + \epsilon, \mbox{ and } \hat{Y} = X \hat{\beta}$$
+      where $Y = (Y_1, \cdots, Y_n)'$ is a $n\times 1$ vector of response
+      variable, $X$ is a $n \times p$ design matrix with full rank (largest
+      possible rank), $\beta$ is a $p \times 1$ vector of parameters, and
+      $\epsilon$ is a $n \times 1$ vector of errors; $n>p$. The first element of
+      $\beta$ is the intercept of the model. Then which of the following
+      statements is/are true?
+      \begin{multicols}{2}
+         \begin{choices}
+            \wrongchoice{$\sum_{i=1}^{n} Var(\hat{Y}_i) = \sigma^2 n$}
+            \wrongchoice{$\sum_{i=1}^{n} Var(\hat{Y}_i) < \sigma^2 p$}
+            \correctchoice{$\sum_{i=1}^{n} Var(\hat{Y}_i) < \sigma^2 n$}
+            \correctchoice{$\sum_{i=1}^{n} Var(\hat{Y}_i) = \sigma^2 p$}
+         \end{choices}
+      \end{multicols}
+   \end{questionmult}
+}
+
+%GATE 25: q54
+\element{mcqgroup}{
+   \begin{questionmult}{q5} \amark{3}
+      For $Y \in \mathbb{R}^n, X \in \mathbb{R}^{n \times p}$, and $\beta \in
+      \mathbb{R}^p$, consider a regression model
+      $$Y = X \beta + \epsilon,$$
+      where $\epsilon$ has an $n$-dimensional multivariate normal distribution
+      with zero mean vector and identity covariance matrix. Let $I_p$ denote the
+      identity matrix of order $p$. For $\lambda > 0$, let
+      $$\widehat{\beta}_n = (X^T X + \lambda I_p)^{-1} X^T Y,$$
+      be an estimator of $\beta$. Then which of the following options is/are
+      correct?
+      \begin{choices}
+         \wrongchoice{$\widehat{\beta}_n$ is an unbiased estimator of $\beta$}
+         \correctchoice{$(X^T X + \lambda I_p)$ is a positive definite matrix}
+         \correctchoice{$\widehat{\beta}_n$ has a multivariate normal distribution}
+         \wrongchoice{$\text{Var}(\widehat{\beta}_n) = (X^T X + \lambda I_p)^{-1}$}
+      \end{choices}
+   \end{questionmult}
+}
+
+%
+\element{mcqgroup}{
+   \begin{questionmult}{q6} \amark{2}
+      Consider the linear model
+      $$ \begin{aligned} 
+         Y_1 &= \beta_1 + \beta_2 + \epsilon_1 \\ 
+         Y_2 &= \beta_1 + 2\beta_2 + \epsilon_2 \\ 
+         Y_3 &= \beta_1 + c\beta_2 + \epsilon_3, 
+      \end{aligned} $$
+      where $\beta_1, \beta_2 \in \mathbb{R}$ are unknown parameters, and the
+      uncorrelated errors $\epsilon_i, i = 1, 2, 3$ have zero mean and finite
+      variance $\sigma^2(> 0)$. The constant $c$ is such that $\hat{\beta}_1$
+      and $\hat{\beta}_2$ are uncorrelated, where $\hat{\beta}_1$ and
+      $\hat{\beta}_2$ are the best linear unbiased estimators of $\beta_1$ and
+      $\beta_2$, respectively. Then $(\text{Var}(\hat{\beta}_1),
+      \text{Var}(\hat{\beta}_2))$ equals
+      \begin{multicols}{4}
+         \begin{choices}
+            \correctchoice{$\left( \frac{\sigma^2}{3}, \frac{\sigma^2}{14} \right)$}
+            \wrongchoice{$(3\sigma^2, \frac{\sigma^2}{14})$}
+            \wrongchoice{$\left( \frac{\sigma^2}{14}, \frac{\sigma^2}{3} \right)$}
+            \wrongchoice{$(\frac{\sigma^2}{3}, 14\sigma^2)$}
+         \end{choices}
+      \end{multicols}
+   \end{questionmult}
+}
+
+
+% == == == == == == == == == == == == == == == == == == == ==
+% This is for defining default grading strategy for questionmult
+% \scoringDefaultM{formula=(NMC>0 ? 0 : M*NBC/NB)}
+% == == == == == == == == == == == == == == == == == == == ==
+
+\onecopy{85}{
+
+%% beginning of the test sheet header:
+
+\noindent\textsc{{\normalsize\courseno \push \testname}\smallskip\\
+{\normalsize\coursename \push \testtime}\smallskip\\
+{\normalsize\instiname \push \testdate}}
+
+%\AMCcleardoublepage    
+
+\AMCformBegin
+
+\AMCboxDimensions{shape=oval}
+
+\begin{center}
+   \em Answers must be given \textbf{exclusively on this sheet}: answers given on the other sheets
+   \textbf{will be ignored}. This question paper has \textbf{\total{AMCquestionaff} questions} and 2
+   pages.
+\end{center}
+
+\noindent\hrulefill\raisebox{-2pt}{\footnotesize\fbox{\textsc{Name and Roll Number}}}\hrulefill
+
+%%% beginning of the answer sheet header
+
+\noindent
+\begin{minipage}{0.5\linewidth}
+Please mark your Roll No:\\[2mm]
+   \AMCcode{rollno}{9}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+   \namefield{\fbox{  
+         \begin{minipage}{\linewidth}
+         Name of the Student:
+
+         \vspace*{.3cm} \namefielddots
+
+         Roll Number of the Student:
+
+         \vspace*{.3cm}\namefielddots
+
+         Signature of the Student:
+            
+         \vspace*{.3cm}\namefielddots
+
+         Signature of the Invigilator:
+            
+         \vspace*{.3cm}\namefielddots
+         \end{minipage}
+   }}
+\end{minipage}
+
+\vspace*{5mm}
+
+\vspace{5mm}
+
+\noindent\hrulefill\raisebox{-2pt}{\footnotesize\fbox{\textsc{Questions and Responses}}}\hrulefill
+
+\vspace*{4mm}
+
+\shufflegroup{mcqgroup}
+\insertgroup{mcqgroup}
+
+%\noindent\hrulefill\raisebox{-2pt}{\tiny\fbox{\textsc{Response}}}\hrulefill
+
+%\begin{center}
+%\AMCform
+%\end{center}
+
+\AMCaddpagesto{2} 
+
+}
+
+\end{document}
+
