@@ -7,6 +7,7 @@
 \usepackage{times}
 %\usepackage{tikz}
 \usepackage{tikz}
+\usetikzlibrary{chains}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18} % Ensures compatibility for the plot
 \usepackage{amsmath}
@@ -118,11 +119,24 @@
 
 \graphicspath{{plots/}}
 
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
 \begin{document}
 
 % ===================================================================== Frame : Title Page
 \thispagestyle{empty}
 \maketitle
+
+\section{Principal Component Analysis}
 
 \begin{frame}
    \frametitle{Principal Component Analysis}
@@ -453,5 +467,442 @@
 %          pp. 1343-1349.
 %    \end{itemize}
 % \end{frame}
+
+% == == == == == == == == == == == == == == == == == == == ==
+\section{Cluster Analysis}
+
+\begin{frame}
+   \frametitle{Cluster Analysis}
+   \begin{itemize}
+      \item Cluster analysis or clustering is the task of \textbf{grouping a set
+         of objects} in such a way that objects in the \textbf{same group}
+         (called a cluster) are \textbf{more similar} (in some sense) to each
+         other than to those in other groups (clusters).  
+         \vspace{0.5cm}
+      \item Clustering can therefore be formulated as a \textbf{multi-objective optimization} problem.
+         \vspace{0.5cm}
+      \item Cluster analysis as such is not an automatic task, but an
+         \textbf{iterative process} of knowledge discovery or interactive
+         multi-objective optimization that involves trial and failure.
+         \vspace{0.5cm}
+      \item The basic objective in cluster analysis is to \textbf{discover
+         natural groupings} of the items (or variables).
+   \end{itemize}
+\end{frame}
+
+
+% \begin{frame}
+%    \frametitle{Application of Cluster Analysis...}
+%
+%    \begin{itemize}
+%       \item 	Image analysis
+%       \item Pattern recognition
+%       \item Information Retrieval
+%       \item Data compression
+%       \item Bioinformatics
+%       \item Computer graphics
+%       \item Anomaly detection
+%       \item Medical science
+%       \item Natural language processing (NLP)
+%       \item Crime analysis
+%       \item Social science
+%       \item Robotics
+%       \item Finance
+%       \item Petroleum geology
+%       \item Food Industry
+%    \end{itemize}
+%
+% \end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Difference with classification
+\begin{frame}
+   \frametitle{Difference with classification}
+   What is the difference between a Classification problem and a Clustering
+   problem?
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Different Grouping
+\begin{frame}
+   \frametitle{Different Grouping}
+   \begin{center}
+   \includegraphics[page = 690, trim = 5cm 12.5cm 1cm 1.5cm, scale = 0.5,
+   clip=true]{Applied multivariate statistical analysis_Johnson_Wichern-5Ed_2002.pdf}
+   \end{center}
+   {\tiny Reference: Applied Multivariate Statistical Analysis by Johnson and
+   Wichern.}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Similarity Measures : Understanding Proximity}
+   \begin{itemize}
+      \item In cluster analysis, we must first develop a quantitative scale on
+         which to \textbf{measure the association (similarity)} between objects.
+         \vspace{0.50cm}	
+      \item To understand the "\textbf{closeness}" or "\textbf{similarity}"
+         among clusters, there can be two different methods:
+         \vspace{0.50cm}		
+         \begin{itemize}
+            \item \textbf{Distance Measure} : Distances and Similarity
+               Coefficients for Pairs of Items.
+               \vspace{0.25cm}
+            \item \textbf{Association Measure} : Similarities and Association
+               Measures for Pairs of Variables. 
+         \end{itemize}
+   \end{itemize}	
+
+\end{frame}
+
+
+\begin{frame}
+   \frametitle{Distance Measure}
+   Several distance measures between two $p$-dimensional observations,
+   $\mathbf{x}^{'}=[x_1,...,x_p]$ and $\mathbf{y}^{'} = [y_1,...,y_p]$:
+   \vspace{0.5cm}
+   \begin{itemize}
+      \item \textbf{Euclidean distance} between two observations:
+         \begin{equation*}
+            d(\mathbf{x},\mathbf{y}) =
+            \sqrt{(\mathbf{x}-\mathbf{y})^{'}(\mathbf{x}-\mathbf{y})}.
+         \end{equation*}
+      \item \textbf{Mahalanobis distance} (Statistical Distance) between two
+         observations:
+         \begin{equation*}
+            d(\mathbf{x},\mathbf{y}) =
+            \sqrt{(\mathbf{x}-\mathbf{y})^{'}\mathbf{S}^{-1}(\mathbf{x}-\mathbf{y})}.
+         \end{equation*}
+         where $\mathbf{S}$ is the matrix of sample variance-covariance matrix.
+         \vspace{0.5cm}
+      \item \textbf{Minkowski} metric between two observations:
+         \begin{equation*}
+            d(\mathbf{x},\mathbf{y}) =
+            \left[\sum_{i=1}^p|x_i-y_i|^{m}\right]^{\frac{1}{m}}.
+         \end{equation*}
+   \end{itemize}
+\end{frame}
+
+% \begin{frame}
+%    \begin{itemize}
+%       \item \textbf{Canberra} metric,
+%          \begin{equation*}
+%             d(\mathbf{x},\mathbf{y}) = \sum_{i=1}^p\frac{|x_i-y_i|}{(x_i+y_i)}
+%          \end{equation*}
+%          \vspace{0.5cm}
+%       \item \textbf{Czekanowski} coefficient,
+%          \begin{equation*}
+%             d(\mathbf{x},\mathbf{y}) = 1-\frac{2 \sum_{i=1}^pmin(x_i,y_i)}{\sum_{i=1}^p (x_i+y_i)}
+%          \end{equation*}
+%    \end{itemize}
+% \end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Similarity Measure
+\begin{frame}
+   \frametitle{Similarity Measure}
+   \begin{itemize}
+      \item Sometimes items cannot be represented by meaningful $p$-dim
+         measurements
+      \item In such cases, pair of items may be compared based on presence or
+         absence of certain characteristics.
+   \end{itemize}
+   \begin{center}
+      \includegraphics[page = 692, trim = 8cm 1cm 5cm 24cm, scale = 0.7,
+      clip=true]{Applied multivariate statistical analysis_Johnson_Wichern-5Ed_2002.pdf}
+   \end{center}
+   \vspace*{-2em}
+
+   \begin{flushright}
+      {\tiny  Reference: Applied Multivariate Statistical Analysis by Johnson and Wichern.}
+   \end{flushright}
+   \begin{itemize}
+      \item Now, one can consider distance between $x^\prime = [1\, 0\, 0\, 1\,
+         1]$ and $y=[1\, 1\, 0\, 1\, 0]$ 
+      \item The Euclidean distance is 2
+      \item Lower (higher) distance $\implies$ more (less) similarity
+      \item Drawback: 1-1 match and 0-0 match has same importance
+   \end{itemize}
+\end{frame}
+
+% == == == == == == == == == == == == == == == == == == == == 
+% Frame: Similarity Measure (Contd.)
+\begin{frame}
+   \frametitle{Similarity Measure (Contd.)}
+   \begin{itemize}
+      \item Construct frequency table
+         \begin{center}
+            \includegraphics[page = 695, trim = 5cm 19.5cm 5cm 5cm, scale = 0.7,
+            clip=true]{Applied multivariate statistical analysis_Johnson_Wichern-5Ed_2002.pdf}
+         \end{center}
+         \hfill
+
+      \item Then one can consider measures as follows:
+         \begin{center}
+            \includegraphics[page = 695, trim = 5.5cm 9.8cm 1cm 13.4cm, scale = 0.7,
+            clip=true]{Applied multivariate statistical analysis_Johnson_Wichern-5Ed_2002.pdf}
+         \end{center}
+   \end{itemize}
+   \begin{flushright}
+      {\tiny  Reference: Applied Multivariate Statistical Analysis by Johnson and Wichern.}
+   \end{flushright}
+\end{frame}
+
+
+\begin{frame}
+   \frametitle{Similarity Measure (Contd.)}
+   \begin{itemize}
+      \item In some applications, it is more meaningful to use sample
+         correlation coefficient as measure of similarity.
+      \item
+         % The \textbf{moment correlation coefficient}  is \textbf{related} to
+         % the \textbf{Chi-square statistic} $\left(r^2=\frac{\chi^2}{n}\right)$
+         % for testing the independence of two categorical variables. 
+         Keeping $n$ fixed, a \textbf{large similarity} (or correlation) is
+         \textbf{consistent} with the \textbf{absence of independence}.  
+      \item In some cases, you may need to take absolute value of correlation
+         coefficient.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Similarity Measure (Contd.)}
+   \begin{itemize}
+      \item When the variables are binary, the data can again be arranged in the
+         form of a contingency table. In such a situation, it is better to get a
+         measure of association among the variables.
+         \begin{center}\small
+            \begin{tabular}{|c|cc|c|}
+               \toprule 
+               {} &  \multicolumn{2}{c|}{Variable $k$} & \\ 
+               \cmidrule{2-3} 
+               \multirow{-2.5}{*}{Variable $i$}  & {1} & {0} & Total\\ 
+               \midrule 
+               1 & $a$ & $b$ & $a + b$ \\[-2mm]
+               0 & $c$ & $d$ & $c + d$ \\
+               \bottomrule 
+               Total & $a + c$  & $b + d$ & $n = a + b +c + d$ \\
+               \bottomrule 
+            \end{tabular} 
+         \end{center}
+      \item The usual \textbf{product moment correlation} formula applied to the
+         binary variables in the contingency table is,
+         \begin{equation*}
+            r=\frac{ad-bc}{\left[(a+b)(c+d)(a+c)(b+d)\right]^{\frac{1}{2}}}
+         \end{equation*}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Cluster Creation}
+   Now, in cluster analysis, the main aim is to \textbf{create the clusters}
+   using any one of the two major techniques, namely
+   \vspace{0.5cm}
+   \begin{itemize}
+      \item \textbf{Hierarchical Clustering} : which mainly  proceeds by either
+         a series of successive mergers or a series of successive divisions. The
+         two types of hierarchical clustering are :
+         \begin{itemize}
+            \item Agglomerative hierarchical methods
+            \item Divisive hierarchical methods (Self Study)
+         \end{itemize}
+         \vspace{0.75cm}
+      \item \textbf{Non-Hierarchical Clustering} : technique is mainly designed
+         to group items, rather than variables, into a collection of $K$
+         clusters. The most common methodology is:
+         \begin{itemize}
+            \item K-Means Method
+         \end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Agglomerative Hierarchical Methods}
+   \begin{itemize}
+      \item This methodology of clustering, start with the individual objects.
+         \vspace{0.5cm}
+      \item Initially as many clusters as objects.
+         \vspace{0.5cm}
+      \item The most similar objects are first grouped, and these initial groups
+         are merged according to their similarities.
+         \vspace{0.5cm}
+      \item As clustering progresses, similarity decreases, and all subgroups
+         are eventually fused into a single cluster.
+         \vspace{0.5cm}
+      \item One of the most common method of Agglomerative Hierarchical Method
+         is \textbf{\textit{Linkage Method}}.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Algorithm for Agglomerative Hierarchical Clustering}
+   Usually while doing an agglomerative clustering methodology for grouping of
+   $\textbf{\textit{N}}$ objects, the below steps (or algorithm) is followed:
+   \vspace{0.25cm}
+   \begin{itemize}
+      \item Starting with $\textbf{\textit{N}}$ clusters, each one containing a
+         single entity and an $\textit{N} \times \textit{N}$ symmetric matrix of
+         distances (or similarities) $\textbf{D} = {d_{ik}}$.
+         \vspace{0.25cm}
+      \item  The distance matrix for the nearest (most similar) pair of clusters
+         are observed. Let the \textbf{distance between "most similar" clusters}
+         $\textit{U}$ and $\textit{V}$ be $d_{UV}$
+         \vspace{0.25cm}
+      \item After merge, clusters $\textit{U}$ and $\textit{V}$ as one newly
+         formed cluster $(\textit{UV})$, the entries in the distance matrix are
+         updated:
+         \vspace{0.25cm}
+         \begin{itemize}
+            \item \textbf{Deleting} the rows and columns corresponding to
+               clusters $\textit{U}$ and $\textit{V}$.
+               \vspace{0.25cm}
+            \item \textbf{Adding} a row and column for the distances between
+               newly formed cluster $\textit{(UV)}$ and the remaining clusters.
+         \end{itemize} 
+         \vspace{0.25cm}
+      \item The above steps are \textbf{repeated} for a total of $N-1$ times.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Linkage Method}
+   In the above mentioned algorithm, different forms of metric
+   $\mathbf{D}(d_{ik})$ gives rise to different types of linkages and hence
+   different types of clustering methodologies. The three used, linkages are: 
+   \vspace{0.5cm}
+   \begin{itemize}
+      \item \textbf{Single Linkage} : $d_{(UV)W} = min\{ d_{UW},d_{VW}\}$
+         \vspace{0.25cm}
+      \item \textbf{Complete Linkage} : $d_{(UV)W} = max\{ d_{UW},d_{VW}\}$
+         \vspace{0.25cm}
+      \item \textbf{Averagre Linkage} : $d_{(UV)W} =
+         \frac{\sum_{i}\sum_{k}d_{ik}}{N_{(UV)}N_W}$, where $N_{(UV)}$ and $N_W$
+         are the number of items in clusters $\mathit{(UV)}$ and $\mathit{W}$,
+         and $d_{ik}$ is the distance between $i^{th}$ object of cluster
+         $\mathit{(UV)}$ and $k^{th}$ object of cluster $\mathit{W}$.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Clustering using single linkage:}
+   \begin{figure}[htb]
+      \centering
+      \begin{tikzpicture}[start chain=going right,nodes={on chain,join},
+         every join/.style={-latex},node distance=2em]
+         \node{\includegraphics[width=4cm]{Single_Linkage-1.jpg}};
+         \node{\includegraphics[width=4cm]{Single_Linkage-2.jpg}};
+         \node{};
+      \end{tikzpicture}
+      %		\caption{Two graphics.}
+   \end{figure}
+
+   \begin{figure}[htb]
+      \centering
+      \begin{tikzpicture}[start chain=going right,nodes={on chain,join},
+         every join/.style={-latex},node distance=2em]
+         \node{\includegraphics[width=4cm]{Single_Linkage-3.jpg}};
+         \node{\includegraphics[width=4cm]{Single_Linkage-4.jpg}};
+      \end{tikzpicture}
+      %	\caption{Two graphics.}
+   \end{figure}	
+   \begin{flushright}
+   {\tiny Reference: Applied Multivariate Statistical Analysis by Johnson and
+   Wichern.}
+   \end{flushright}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Dendrogram}
+   The result of the previous single linkage clustering can be graphically
+   observed using a \textbf{dendrogram} or a \textbf{tree diagram}. In
+   hierarchical clustering, the dendrogram \textbf{illustrates the arrangement
+   of the clusters} produced by the corresponding cluster analyses.
+
+   \vspace{0.2cm}
+   \includegraphics[page = 704, trim = 5cm 19.5cm 1cm 1.5cm, scale = 0.7,
+   clip=true]{Applied multivariate statistical analysis_Johnson_Wichern-5Ed_2002.pdf}
+   \vspace{0.2cm}
+
+   \begin{flushright}
+   {\tiny Reference: Applied Multivariate Statistical Analysis by Johnson and
+   Wichern.}
+   \end{flushright}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Non-Hierarchical Clustering Methods}
+   \begin{itemize}
+      \item These techniques are commonly designed to \textbf{group items,
+         rather than variables}, into a collection of $\mathit{K}$ clusters.
+         \vspace{0.45cm}
+      \item The \textbf{number of clusters}, $\mathit{K}$, may either be
+         \textbf{specified in advance or determined as part} of the clustering
+         procedure.
+         \vspace{0.45cm}
+      \item The Nonhierarchical clustering methods usually can start from any one of the two points :
+         \vspace{0.15cm}
+         \begin{itemize}
+            \item an \textbf{initial partition} of items into groups.
+               \vspace{0.25cm}
+            \item an \textbf{initial set of seed points}, which will form the main nuclei of clusters.
+         \end{itemize}
+         \vspace{0.45cm}
+      \item One of the \textbf{unbiased way} to start the clustering procedure
+         is to, \textbf{randomly select seed points} from among the items or to
+         randomly partition the items into initial groups.
+   \end{itemize}    
+\end{frame}
+
+\begin{frame}
+   \frametitle{K-Means Clustering}
+   K-means is used to describe an algorithm that \textbf{assigns each item} to
+   the \textbf{cluster having the nearest centroid (mean)}. The process mainly
+   comprises of three steps :
+   \vspace{0.3cm}
+
+   \begin{itemize}
+      \item First of all, \textbf{partition} the items into $\mathit{K}$
+         \textbf{initial} clusters. [Or, specify $K$ initial centroids (seed
+         points)]
+         \vspace{0.45cm}
+      \item Now, for each of list of items, \textbf{assigning an item} to the
+         \textbf{cluster} whose \textbf{centroid} (mean) is \textbf{nearest}.
+         (It has to be observed, distance is usually computed using Euclidean
+         distance with either standardized or unstandardized observations.).
+         \vspace{0.45cm}
+      \item  Further, \textbf{recalculate the centroid} for the cluster
+         receiving the new item and also for the cluster losing the item.
+         \vspace{0.45cm}
+      \item The above two steps are \textbf{repeated until no further reassignments} take place.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Clustering using $K$-means method:}
+   We measured two variables $X_1$ and $X_2$ for each of four items A, B, C, and
+   D. The data are given in the following table. The \textbf{objective} is to
+   \textbf{divide these items} into $K = 2$ \textbf{clusters} such that the
+   items \textbf{within a cluster are closer} to one another than they are to
+   the items in different clusters.
+
+   \begin{figure}[htb]
+      \centering
+      \begin{tikzpicture}[start chain=going right,nodes={on chain,join},
+         every join/.style={-latex},node distance=2em]
+         \node{\includegraphics[width=4cm]{K-means-1.jpg}};
+         \node{\includegraphics[width=4cm]{K-means-2.jpg}};
+         \node{};
+      \end{tikzpicture}
+   \end{figure}
+
+   \begin{figure}[htb]
+      \centering
+      \begin{tikzpicture}[start chain=going right,nodes={on chain,join},
+         every join/.style={-latex},node distance=2em]
+         \node{\includegraphics[width=4cm]{K-means-3.jpg}};
+         \node{\includegraphics[width=4cm]{K-means-4.jpg}};
+      \end{tikzpicture}
+   \end{figure}	
+   Reference: Applied Multivariate Statistical Analysis by Johnson and Wichern. 
+\end{frame}
 
 \end{document}
