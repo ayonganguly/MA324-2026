@@ -905,18 +905,26 @@
    Reference: Applied Multivariate Statistical Analysis by Johnson and Wichern. 
 \end{frame}
 
+% == == == == == == == == == == == == == == == == == == == ==
 \section{Canonical Correlation Analysis}
 
 \begin{frame}
 	\frametitle{Canonical Correlation Analysis}
 	\begin{itemize}
-		\item Canonical correlation analysis aims to \textbf{measure the associations between two sets of variables}. 
-		\vspace{0.25cm}
-		\item Relating your current \textbf{``academic performance''} variables with COVID period \textbf{``achievement''} variables. 
-		\vspace{0.25cm}
-		\item The objective of the canonical correlation analysis is to find the correlation \textbf{between a linear combination} of the variables in one set and a linear combination of the variables in another set. 
-		\vspace{0.25cm}
-		\item It is \textbf{high-dimensional relationship} between the two sets of variables into a few pairs of canonical variables. 
+      \item Canonical correlation analysis aims to \textbf{measure the
+         associations between two sets of variables}. 
+         \vspace{0.25cm}
+
+      % \item Relating your current \textbf{``academic performance''} variables
+      % with COVID period \textbf{``achievement''} variables. 
+		% \vspace{0.25cm}
+      \item The objective of the canonical correlation analysis is to find the
+         correlation \textbf{between a linear combination} of the variables in
+         one set and a linear combination of the variables in another set. 
+         \vspace{0.25cm}
+
+      \item It is \textbf{high-dimensional relationship} between the two sets of
+         variables into a few pairs of canonical variables. 
 	\end{itemize}
 \end{frame}
 
@@ -936,298 +944,334 @@
 \begin{frame}
 	\frametitle{Canonical Correlation Analysis}
 	\begin{itemize}
-		\item Let $\boldsymbol{X}^{(1)}_{p \times 1}$ and $\boldsymbol{X}^{(2)}_{q \times 1}$ be two random vector.
-		\vspace{0.25cm}
-		\item We assume that $p \leq q$.
-		\vspace{0.25cm}
-		\item $E(\boldsymbol{X}^{(1)}) = \boldsymbol{\mu}^{(1)}$, $E(\boldsymbol{X}^{(2)}) = \boldsymbol{\mu}^{(2)}$.
-		\vspace{0.25cm}
+      \item Let $\boldsymbol{X}^{(1)}_{p \times 1}$ and $\boldsymbol{X}^{(2)}_{q
+         \times 1}$ be two random vector
+         \vspace{0.25cm}
+		\item We assume that $p \leq q$
+         \vspace{0.25cm}
+		% \item $E(\boldsymbol{X}^{(1)}) = \boldsymbol{\mu}^{(1)}$, $E(\boldsymbol{X}^{(2)}) = \boldsymbol{\mu}^{(2)}$.
+		% \vspace{0.25cm}
 		\item $Var(\boldsymbol{X}^{(1)})=\Sigma_{11}$, $Var(\boldsymbol{X}^{(2)})=\Sigma_{22}$
-		\vspace{0.25cm}
-		\item $Cov(\boldsymbol{X}^{(1)},\boldsymbol{X}^{(2)}) = (\Sigma_{12})_{p \times q}$, $Cov(\boldsymbol{X}^{(2)},\boldsymbol{X}^{(1)}) = (\Sigma_{21})_{q \times p}$ \\ In this case $\Sigma_{12}=\Sigma_{21}^{'}$
+         \vspace{0.25cm}
+      \item $Cov(\boldsymbol{X}^{(1)},\boldsymbol{X}^{(2)}) = (\Sigma_{12})_{p
+         \times q}$, $Cov(\boldsymbol{X}^{(2)},\boldsymbol{X}^{(1)}) =
+         (\Sigma_{21})_{q \times p}$
+         \vspace{0.25cm}
+      \item In this case $\Sigma_{12}=\Sigma_{21}^{'}$
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\begin{itemize}
-		\item $(\boldsymbol{X})_{(p+q) \times 1} = \begin{pmatrix}
-		\boldsymbol{X}^{(1)} \\ \boldsymbol{X}^{(2)}
-		\end{pmatrix}$, $(\boldsymbol{\mu})_{(p+q) \times 1} = \begin{pmatrix}
-		\boldsymbol{\mu}^{(1)} \\ \boldsymbol{\mu}^{(2)}
-		\end{pmatrix}=E(\boldsymbol{X})$, $\Sigma_{(p+q) \times (p+q)} = \begin{pmatrix}
-		\Sigma_{11} & \Sigma_{12} \\
-		\Sigma_{21} & \Sigma_{22}
-		\end{pmatrix}=Var(\boldsymbol{X})$
-		\vspace{0.25cm}
-		\item First we want to find $\boldsymbol{a}$ and $\boldsymbol{b}$ such that $Corr(U_1=\boldsymbol{a_{1}'}\boldsymbol{X}^{(1)},V_1=\boldsymbol{b_1}^{'}\boldsymbol{X}^{(2)})$ is maximum.
-		\vspace{0.25cm}
-		\item Note that, \begin{equation*}
-			Corr(U_1,V_1)=\frac{\boldsymbol{a_{1}'}\Sigma_{12}\boldsymbol{b_1}}{\sqrt{\boldsymbol{a_{1}'}\Sigma_{11}\boldsymbol{a_1}}\sqrt{\boldsymbol{b_1}^{'}\Sigma_{22}\boldsymbol{b_1}}}
-		\end{equation*}
-	\end{itemize}   
+   \begin{itemize}
+      \item $\boldsymbol{X}_{(p+q) \times 1} = \begin{pmatrix}
+            \boldsymbol{X}^{(1)} \\ \boldsymbol{X}^{(2)}
+            \end{pmatrix}$
+      \item $Var(\boldsymbol{X}) = \Sigma_{(p+q) \times (p+q)} = \begin{pmatrix}
+            \Sigma_{11} & \Sigma_{12} \\
+            \Sigma_{21} & \Sigma_{22}
+            \end{pmatrix}$
+            \vspace{0.25cm}
+      \item First we want to find $\boldsymbol{a}$ and $\boldsymbol{b}$ such
+         that
+         $$Corr(U_1=\boldsymbol{a_{1}'}\boldsymbol{X}^{(1)},V_1=\boldsymbol{b_1}^{'}\boldsymbol{X}^{(2)})
+            =\frac{\boldsymbol{a_{1}'}\Sigma_{12}\boldsymbol{b_1}}{\sqrt{\boldsymbol{a_{1}'}\Sigma_{11}\boldsymbol{a_1}}\sqrt{\boldsymbol{b_1}^{'}\Sigma_{22}\boldsymbol{b_1}}}
+            $$
+         is maximum
+      \item The above optimization problem is ill-posed
+   \end{itemize}   
 \end{frame}
 
 \begin{frame}
 	\begin{itemize}
 		\item We need to solve the optimization problem,
 		\begin{eqnarray}
-			&&	\operatorname*{max}_{\boldsymbol{a_1},\boldsymbol{b_1}}  \frac{\boldsymbol{a_{1}'}\Sigma_{12}\boldsymbol{b_1}}{\sqrt{\boldsymbol{a_{1}'}\Sigma_{11}\boldsymbol{a_1}}\sqrt{\boldsymbol{b_1}^{'}\Sigma_{22}\boldsymbol{b_1}}},\ subject\ to\ Var(U_1)=Var(V_1)=1 \nonumber
+         &&	\operatorname*{max}_{\boldsymbol{a_1},\boldsymbol{b_1}}
+         \frac{\boldsymbol{a_{1}'}\Sigma_{12}\boldsymbol{b_1}}{\sqrt{\boldsymbol{a_{1}'}\Sigma_{11}\boldsymbol{a_1}}\sqrt{\boldsymbol{b_1}^{'}\Sigma_{22}\boldsymbol{b_1}}},\
+         \text{subject to } Var(U_1)=Var(V_1)=1. \nonumber
 		\end{eqnarray}
-		\vspace{0.25cm}
-		\item The \textbf{first pair} of canonical variables is the \textbf{pair of linear combinations} $U_1$ and $V_1$ having \textbf{unit variance}, which \textbf{maximizes} the \textbf{correlation} between $U_1$ and $V_1$.
-		\vspace{0.25cm}
-		\item The $k^{th}$ pair of canonical variables is the \textbf{pair of linear combinations} $U_k$ and $V_k$ having \textbf{unit variance}, which \textbf{maximizes} the \textbf{correlation} between $U_k$ and $V_k$ among all choices \textbf{uncorrelated with the previou}s $(k-1)$ canonical variables.
+
+      \item The $\mathbf{1^{st}}$ \textbf{pair} of canonical variables is the
+         pair of linear combinations $U_1$ and $V_1$ having unit variance, which
+         maximizes the correlation between $U_1$ and $V_1$.
+
+      \item The $\mathbf{2^{nd}}$ \textbf{pair} of canonical variables is the
+         pair of linear combinations $U_2$ and $V_2$ having unit variance, which
+         maximizes the correlation between $U_2$ and $V_2$ among all choices
+         uncorrelated with the first pair of canonical variables. 
+
+      \item The $\mathbf{k^{th}}$ \textbf{pair} of canonical variables is the
+         pair of linear combinations $U_k$ and $V_k$ having unit variance, which
+         maximizes the correlation between $U_k$ and $V_k$ among all choices
+         uncorrelated with the previous $(k-1)$ canonical variables.
 	\end{itemize}    
 \end{frame}
 
 \begin{frame}
 	\frametitle{Theorem}
-   Assume that $\Sigma$ has full rank. The \textbf{first pair of canonical
-   variables} are given by,
-   $U_1=\boldsymbol{e_1}^{'}\Sigma_{11}^{-\frac{1}{2}}\boldsymbol{X}^{(1)}$,
-   $V_1=\boldsymbol{f_1}^{'}\Sigma_{22}^{-\frac{1}{2}}\boldsymbol{X}^{(2)}$ and
-   $Corr(U_1,V_1)=\rho_1^*$. \vspace{0.25cm} \\ The $k^{th}\ (k=1,2,...,p)$ pair
-   of canonical variables are given by,
-   $U_k=\boldsymbol{e_k}^{'}\Sigma_{11}^{-\frac{1}{2}}\boldsymbol{X}^{(1)}$,
-   $V_k=\boldsymbol{f_k}^{'}\Sigma_{22}^{-\frac{1}{2}}\boldsymbol{X}^{(2)}$ and
-   $Corr(U_k,V_k)=\rho_k^*$. \vspace{0.25cm} \\ Here $\rho_1^* \geq \rho_2^*
-   \geq ... \geq \rho_p^*$ are the \textbf{eigen values} of
+   Assume that $\Sigma$ has full rank. Let $\rho_1^* \geq \rho_2^* \geq ... \geq
+   \rho_p^*$ are the eigenvalues of
    $\Sigma_{11}^{-\frac{1}{2}}\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}\Sigma_{11}^{-\frac{1}{2}}$
-   and $\boldsymbol{e_1},...,\boldsymbol{e_p}$ are corresponding \textbf{eigen
-   vectors}. The quantities $\rho_1^*,...,\rho_p^*$ are \textbf{also} $p$
-   largest \textbf{eigen values} of the matrix,
+   and $\boldsymbol{e}_1,...,\boldsymbol{e}_p$ are corresponding eigenvectors.
+   The quantities $\rho_1^*,...,\rho_p^*$ are also $p$ largest eigenvalues of
+   the matrix,
    $\Sigma_{22}^{-\frac{1}{2}}\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}\Sigma_{22}^{-\frac{1}{2}}$
-   with corresponding \textbf{eigen vectors}
-   $\boldsymbol{f_1},...,\boldsymbol{f_p}$.
+   with corresponding eigenvectors $\boldsymbol{f}_1,...,\boldsymbol{f}_p$.
+   Then,
+   \begin{itemize}
+      \item The $1^{st}$ pair of canonical variables are given by
+         $$U_1=\boldsymbol{e_1}^{'}\Sigma_{11}^{-\frac{1}{2}}\boldsymbol{X}^{(1)},\,
+         V_1=\boldsymbol{f_1}^{'}\Sigma_{22}^{-\frac{1}{2}}\boldsymbol{X}^{(2)}
+         \text{ and } Corr(U_1,V_1)=\rho_1^*.$$
+      \item The $k^{th}\ (k=1,2,...,p)$ pair of canonical variables are given by
+         $$U_k=\boldsymbol{e_k}^{'}\Sigma_{11}^{-\frac{1}{2}}\boldsymbol{X}^{(1)},\,
+         V_k=\boldsymbol{f_k}^{'}\Sigma_{22}^{-\frac{1}{2}}\boldsymbol{X}^{(2)}
+         \text{ and } Corr(U_k,V_k)=\rho_k^*.$$
+   \end{itemize}
 \end{frame}
 
+\begin{frame}
+   \frametitle{Sample Version}
+   \begin{itemize}
+      \item Replace $\Sigma_{ij}$ by the sample version $S_{ij}$
+      \item Need to find eigenvalues and eigenvectors of $S_{22}^{-\frac{1}{2}}
+         S_{21} S_{11}^{-1} S_{12} S_{22}^{-\frac{1}{2}}$ and $S_{11}^{-\frac{1}{2}}
+         S_{12} S_{22}^{-1} S_{21} S_{11}^{-\frac{1}{2}}$.
+   \end{itemize}
+\end{frame}
 
-
+% == == == == == == == == == == == == == == == == == == == ==
 \section{Factor Analysis}
-	
-	\begin{frame}
-		\frametitle{Factor Analysis : Motivation}
-		\begin{itemize}
-			\item Try and understand, the \textbf{covariance relationships} \textbf{among many variables} in terms of \textbf{a few} underlying, but \textbf{unobservable, random quantities} called \textbf{factors}. 
-			\vspace{0.5cm}
-			\item Suppose all variables \textbf{within} a particular \textbf{group} are \textbf{highly correlated} among
-			themselves, but have relatively \textbf{small correlations} with variables in a \textbf{different group}.
-			\vspace{0.5cm}
-			\item Then it is conceivable that \textbf{each group of variables} represents a \textbf{single} underlying
-			\textbf{construct, or factor}, that is responsible for the observed correlations.
-			\vspace{0.5cm}
-			\item For example, correlations from the \textbf{group of test scores} in classics, Assamese (Asamiya), English, mathematics,
-			and music  may suggest an underlying ``\textbf{intelligence}'' factor. A \textbf{second group} of variables representing \textbf{physical-fitness scores}, may corresponds to another factor. 
-		\end{itemize}
-		
-		
-	\end{frame}
-	
-	
-	\begin{frame}
-\frametitle{Orthogonal Factor Model with $m$ common Factors}
-\begin{itemize}
-	\item $X$ be the observable random vector with $p$ components with mean $\mu$ and variance-covariance matrix $\Sigma$. 	
-\begin{eqnarray}
-		\underset{(p \times 1)}{\mathbf{X}} && =\underset{(p \times 1)}{\mathbf{\boldsymbol{\mu}}}+\underset{(p \times m)}{\mathbf{L}}\underset{(m \times 1)}{\mathbf{F}}+\underset{(p \times 1)}{\mathbf{\boldsymbol{\varepsilon}}} \nonumber \\
-	\implies  \underset{(p \times 1)}{\mathbf{X}} - \underset{(p \times 1)}{\mathbf{\boldsymbol{\mu}}} && = \underset{(p \times m)}{\mathbf{L}}\underset{(m \times 1)}{\mathbf{F}}+\underset{(p \times 1)}{\mathbf{\boldsymbol{\varepsilon}}} \nonumber \\
-		 \mu_{i} && = mean\ of\ variable\ i, i = 1, \cdots, p, \nonumber \\ 
-		 \varepsilon_{i} && =\ i^{th}\ specific\ factor (errors), i = 1, \cdots, p, \nonumber \\ 
-		 F_{j} && =\ j^{th}\ common\ factor, j = 1, \cdots, m, \nonumber \\
-		 l_{ij} && =\ loading\ of\ the\ i^{th}\ variable\ on\ j^{th}\ factor.\nonumber \\
-		 F && = [F_1, \cdots, F_m]' ;  L = [l_{ij}] \nonumber 
-	\end{eqnarray}
-%	\vspace{0.2cm}	
-%	\item The unobservable random vectors $\mathbf{F}$ and $\mathbf{\boldsymbol{\varepsilon}}$ satisfy the following conditions:
-%	\vspace{0.1cm}		
-%	\begin{itemize}
-%		\item $\mathbf{F}$ and $\mathbf{\boldsymbol{\varepsilon}}$ are independent.
-%		\item $E(\mathbf{F})=\mathbf{0}$, $Cov(\mathbf{F})=\mathbf{I}$.
-%		\item $E(\mathbf{\boldsymbol{\varepsilon}}) = \mathbf{0}$, $Cov(\mathbf{\boldsymbol{\varepsilon}}) = \Psi$, where $\Psi$ is a diagonal matrix. 
-%	\end{itemize}
-\end{itemize}	
-		
-	\end{frame}
-	
-	\begin{frame}
-\frametitle{Covariance Structure for the Orthogonal Factor Model}
-\begin{itemize}
-	\item The unobservable random vectors $\mathbf{F}$ and $\mathbf{\boldsymbol{\varepsilon}}$ satisfy the following conditions:
-	\vspace{0.1cm}		
-	\begin{itemize}
-		\item $\mathbf{F}$ and $\mathbf{\boldsymbol{\varepsilon}}$ are independent.
-		\item $E(\mathbf{F})=\mathbf{0}$, $Cov(\mathbf{F})=\mathbf{I}$.
-		\item $E(\mathbf{\boldsymbol{\varepsilon}}) = \mathbf{0}$, $Cov(\mathbf{\boldsymbol{\varepsilon}}) = \Psi$, where $\Psi$ is a \textbf{diagonal} matrix. 
-		\item $Cov(\mathbf{\boldsymbol{\varepsilon}}, \mathbf{F} )= 0 $
-	\end{itemize}
-\vspace{0.25cm}
-	\item $Cov(\mathbf{X}) = \mathbf{L}\mathbf{L}^{'}+\mathbf{\Psi}$ \\ or it can also be expressed as, \\ 
-	$Var(X_i)=l_{i1}^2+l_{i2}^2+...+l_{im}^2+\psi_{i}$ \\ $Cov(X_i,X_k)=l_{i1}l_{k1}+...+l_{im}l_{km}.$
-	\vspace{0.25cm}
-	\item $Cov(\mathbf{X},\mathbf{F})=\mathbf{L}$ \\ or \\ $Cov(X_i,F_j) = l_{ij}.$
-	
-\end{itemize}
+
+\begin{frame}
+   \frametitle{Factor Analysis : Motivation}
+   \begin{itemize}
+      \item Try and understand, the \textbf{covariance relationships}
+         \textbf{among many variables} in terms of \textbf{a few} underlying,
+         but \textbf{unobservable, random quantities} called \textbf{factors}. 
+         \vspace{0.5cm}
+      \item Suppose all variables \textbf{within} a particular \textbf{group}
+         are \textbf{highly correlated} among themselves, but have relatively
+         \textbf{small correlations} with variables in a \textbf{different
+         group}.
+         \vspace{0.5cm}
+      \item Then it is conceivable that \textbf{each group of variables}
+         represents a \textbf{single} underlying \textbf{construct, or factor},
+         that is responsible for the observed correlations.
+         \vspace{0.5cm}
+      \item For example, correlations from the \textbf{group of test scores} in
+         classics, Assamese (Asamiya), English, mathematics, and music  may
+         suggest an underlying ``\textbf{intelligence}'' factor. A
+         \textbf{second group} of variables representing
+         \textbf{physical-fitness scores}, may corresponds to another factor. 
+   \end{itemize}
 \end{frame}
-	
-	\begin{frame}
-		\frametitle{Some Features}
-		\begin{itemize}
-			\item The model $\mathbf{X}-\boldsymbol{\mu} = \mathbf{L}\mathbf{F}+\mathbf{\boldsymbol{\varepsilon}}$ is linear in common factors.
-			\vspace{0.45cm}
-			\item The portion of the variance of the $i^{th}$ variable ($X_i$) contributed by the $m$ common factors is termed as the $i^{th}$ \textit{\textbf{communality}}.
-			$$Var(X_i)= \sigma_{ii} = \underbrace{l_{i1}^2+l_{i2}^2+...+l_{im}^2}_{communality} + \underbrace{\psi_{i}}_{specific \ variance}$$
-%			\vspace{0.45cm}
-			\item Also, the portion of $Var(X_i)=\sigma_{ii}$ due to the specific factor ($\epsilon_i$) is called the \textit{\textbf{uniqueness}}, or \textit{\textbf{specific variance}}.
-			\vspace{0.45cm}
-			\item Also, it can be seen easily that $\sigma_{ii} = h_i^2+\psi_i$, $i=1,2,...,p$, where $h_i^2 = l_{i1}^2+l_{i2}^2+...+l_{im}^2$.
-		\end{itemize}
-	\end{frame}
-	
+
+
+\begin{frame}
+   \frametitle{Orthogonal Factor Model with $m$ common Factors}
+   \begin{itemize}
+      \item $X$ be the observable random vector with $p$ components with mean $\mu$ and variance-covariance matrix $\Sigma$. 	
+         \begin{eqnarray}
+            \underset{(p \times 1)}{\mathbf{X}} && =\underset{(p \times 1)}{\mathbf{\boldsymbol{\mu}}}+\underset{(p \times m)}{\mathbf{L}}\underset{(m \times 1)}{\mathbf{F}}+\underset{(p \times 1)}{\mathbf{\boldsymbol{\varepsilon}}} \nonumber \\
+            \implies  \underset{(p \times 1)}{\mathbf{X}} - \underset{(p \times 1)}{\mathbf{\boldsymbol{\mu}}} && = \underset{(p \times m)}{\mathbf{L}}\underset{(m \times 1)}{\mathbf{F}}+\underset{(p \times 1)}{\mathbf{\boldsymbol{\varepsilon}}} \nonumber \\
+            \mu_{i} && = mean\ of\ variable\ i, i = 1, \cdots, p, \nonumber \\ 
+            \varepsilon_{i} && =\ i^{th}\ specific\ factor (errors), i = 1, \cdots, p, \nonumber \\ 
+            F_{j} && =\ j^{th}\ common\ factor, j = 1, \cdots, m, \nonumber \\
+            l_{ij} && =\ loading\ of\ the\ i^{th}\ variable\ on\ j^{th}\ factor.\nonumber \\
+            F && = [F_1, \cdots, F_m]' ;  L = [l_{ij}] \nonumber 
+         \end{eqnarray}
+         %	\vspace{0.2cm}	
+         %	\item The unobservable random vectors $\mathbf{F}$ and $\mathbf{\boldsymbol{\varepsilon}}$ satisfy the following conditions:
+         %	\vspace{0.1cm}		
+         %	\begin{itemize}
+         %		\item $\mathbf{F}$ and $\mathbf{\boldsymbol{\varepsilon}}$ are independent.
+         %		\item $E(\mathbf{F})=\mathbf{0}$, $Cov(\mathbf{F})=\mathbf{I}$.
+         %		\item $E(\mathbf{\boldsymbol{\varepsilon}}) = \mathbf{0}$, $Cov(\mathbf{\boldsymbol{\varepsilon}}) = \Psi$, where $\Psi$ is a diagonal matrix. 
+         %	\end{itemize}
+   \end{itemize}	
+
+\end{frame}
+
+\begin{frame}
+   \frametitle{Covariance Structure for the Orthogonal Factor Model}
+   \begin{itemize}
+      \item The unobservable random vectors $\mathbf{F}$ and $\mathbf{\boldsymbol{\varepsilon}}$ satisfy the following conditions:
+         \vspace{0.1cm}		
+         \begin{itemize}
+            \item $\mathbf{F}$ and $\mathbf{\boldsymbol{\varepsilon}}$ are independent.
+            \item $E(\mathbf{F})=\mathbf{0}$, $Cov(\mathbf{F})=\mathbf{I}$.
+            \item $E(\mathbf{\boldsymbol{\varepsilon}}) = \mathbf{0}$, $Cov(\mathbf{\boldsymbol{\varepsilon}}) = \Psi$, where $\Psi$ is a \textbf{diagonal} matrix. 
+            \item $Cov(\mathbf{\boldsymbol{\varepsilon}}, \mathbf{F} )= 0 $
+         \end{itemize}
+         \vspace{0.25cm}
+      \item $Cov(\mathbf{X}) = \mathbf{L}\mathbf{L}^{'}+\mathbf{\Psi}$ \\ or it can also be expressed as, \\ 
+         $Var(X_i)=l_{i1}^2+l_{i2}^2+...+l_{im}^2+\psi_{i}$ \\ $Cov(X_i,X_k)=l_{i1}l_{k1}+...+l_{im}l_{km}.$
+         \vspace{0.25cm}
+      \item $Cov(\mathbf{X},\mathbf{F})=\mathbf{L}$ \\ or \\ $Cov(X_i,F_j) = l_{ij}.$
+         \vspace{0.45cm}
+      \item The model $\mathbf{X}-\boldsymbol{\mu} =
+         \mathbf{L}\mathbf{F}+\mathbf{\boldsymbol{\varepsilon}}$ is linear in
+         common factors.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Communality and Uniqueness}
+   \begin{itemize}
+      \item The portion of the variance of the $i^{th}$ variable ($X_i$)
+         contributed by the $m$ common factors is termed as the $i^{th}$
+         \textit{\textbf{communality}}.
+         $$Var(X_i)= \sigma_{ii} =
+         \underbrace{l_{i1}^2+l_{i2}^2+...+l_{im}^2}_{\text{communality}} +
+         \underbrace{\psi_{i}}_{\text{specific variance}}$$
+         %			\vspace{0.45cm}
+      \item Also, the portion of $Var(X_i)=\sigma_{ii}$ due to the specific
+         factor ($\epsilon_i$) is called the \textit{\textbf{uniqueness}}, or
+         \textit{\textbf{specific variance}}.
+         \vspace{0.45cm}
+      \item Also, it can be seen easily that $\sigma_{ii} = h_i^2+\psi_i$,
+         $i=1,2,...,p$, where $h_i^2 = l_{i1}^2+l_{i2}^2+...+l_{im}^2$.
+   \end{itemize}
+\end{frame}
+
 \begin{frame}
 
-\begin{itemize}
-	\item If $m >1$, then there is always some \textbf{inherent ambiguity} associated with the factor model. Let $T$ be any $m \times m$ orthogonal matrix, so
-	$$\mathbf{X}-\boldsymbol{\mu} = \mathbf{L}\mathbf{F}+\mathbf{\boldsymbol{\varepsilon}} = \mathbf{L}\mathbf{T}\mathbf{T'}\mathbf{F}+\mathbf{\boldsymbol{\varepsilon}} = \mathbf{L^*}\mathbf{F^{*'}}+\mathbf{\boldsymbol{\varepsilon}}, $$
-	where $\mathbf{L^*} = \mathbf{L}\mathbf{T}$ and $\mathbf{F^{*'}} = \mathbf{T'}\mathbf{F} $
-	\vspace{0.25cm}
-	\item Factor loadings $\mathbf{L}$ are determined only up to an orthogonal matrix $\mathbf{T}$. Thus the loadings, \begin{equation*}
-		\mathbf{L}^{*} = \mathbf{L}\mathbf{T}\ and\ \mathbf{L} 
-	\end{equation*} \\  both give the same representation. The \textbf{communalities}, given by the diagonal elements of $\mathbf{L}\mathbf{L}^{'} = (\mathbf{L}^{*})(\mathbf{L}^{*})^{'}$ are also \textbf{unaffected} by the choice of $\mathbf{T}$.
-		\vspace{0.25cm}
-	\item The \textbf{analysis} of the factor model \textbf{proceeds by imposing conditions} that \textbf{allow} one to \textbf{uniquely estimate} $\mathbf{L}$ and $\Psi$. ($\mathbf{L}'\Psi^{-1}\mathbf{L} = \ diagonal \ matrix$).
-\end{itemize}
+   \begin{itemize}
+      \item If $m >1$, then there is always some \textbf{inherent ambiguity} associated with the factor model. Let $T$ be any $m \times m$ orthogonal matrix, so
+         $$\mathbf{X}-\boldsymbol{\mu} = \mathbf{L}\mathbf{F}+\mathbf{\boldsymbol{\varepsilon}} = \mathbf{L}\mathbf{T}\mathbf{T'}\mathbf{F}+\mathbf{\boldsymbol{\varepsilon}} = \mathbf{L^*}\mathbf{F^{*'}}+\mathbf{\boldsymbol{\varepsilon}}, $$
+         where $\mathbf{L^*} = \mathbf{L}\mathbf{T}$ and $\mathbf{F^{*'}} = \mathbf{T'}\mathbf{F} $
+         \vspace{0.25cm}
+      \item Factor loadings $\mathbf{L}$ are determined only up to an orthogonal matrix $\mathbf{T}$. Thus the loadings, \begin{equation*}
+            \mathbf{L}^{*} = \mathbf{L}\mathbf{T}\ and\ \mathbf{L} 
+         \end{equation*} \\  both give the same representation. The \textbf{communalities}, given by the diagonal elements of $\mathbf{L}\mathbf{L}^{'} = (\mathbf{L}^{*})(\mathbf{L}^{*})^{'}$ are also \textbf{unaffected} by the choice of $\mathbf{T}$.
+         \vspace{0.25cm}
+      \item The \textbf{analysis} of the factor model \textbf{proceeds by imposing conditions} that \textbf{allow} one to \textbf{uniquely estimate} $\mathbf{L}$ and $\Psi$. ($\mathbf{L}'\Psi^{-1}\mathbf{L} = \ diagonal \ matrix$).
+   \end{itemize}
 \end{frame}
-	
-	\begin{frame}
-		\frametitle{Methods of Estimation}
-		\begin{itemize}
-			\item The sample covariance matrix $\mathbf{S}$ is an estimator of the unknown population covariance matrix $\mathbf{\Sigma}$. 
-			\vspace{0.5cm}
-			\begin{itemize}
-				\item If the \textbf{off-diagonal elements} of matrix $\mathbf{S}$ are \textbf{small} or those of the sample
-				correlation matrix $\mathbf{R}$ essentially zero, the variables are not related, and a \textbf{factor analysis will not be useful} in that scenario. In these circumstances, the specific factors play the dominant role, whereas the \textbf{major aim} of factor analysis is to \textbf{determine a few important common factors}.
-				\vspace{0.5cm}
-				\item If $\mathbf{\Sigma}$ appears to \textbf{deviate significantly from any diagonal matrix}, then a factor model
-				can be fitted, With the initial problem being \textbf{estimating} the \textbf{factor loadings} $l_{ij}$
-				and \textbf{specific variances} $\psi_{i}$. 
-			\end{itemize}
-		\end{itemize}    
-	\end{frame}
-	
-	\begin{frame}
-		\begin{itemize}
-			\item The two most popular methods for parameter estimation are:
-			\vspace{0.75cm}
-			\begin{itemize}
-				\item Principal Component (or Principal Factor).
-				\vspace{0.5cm}
-				\item Maximum Likelihood (Self Study). 
-			\end{itemize}
-		\end{itemize}
-	\end{frame}
-	
-   \begin{frame}
-      \frametitle{Principal Component Solution of the Factor Model}
-      \begin{itemize}
-         \item The principal component factor analysis of the sample covariance
-            matrix $\mathbf{S}$ is specified in terms of its
-            eigenvalues-eigenvector pairs
-            $(\hat{\lambda}_1,\hat{\mathbf{e}}_1),(\hat{\lambda}_2, 
-            \hat{\mathbf{e}}_2),...,(\hat{\lambda}_p,\hat{\mathbf{e}}_p)$,
-            where $\hat{\lambda}_1 \geq \hat{\lambda}_2 \geq \hat{\lambda}_3
-            \geq ... \geq \hat{\lambda}_p$. Let $m<p$ be the number of common
-            factors. Then the matrix of estimated factor loadings
-            $\{\Tilde{l}_{ij}\}$ is obtained as,
-            %			\begin{equation*}
-            %				\Tilde{\mathbf{L}} = \left[\sqrt{\hat{\lambda}_1}\hat{\mathbf{e}}_1 \vdots \sqrt{\hat{\lambda}_2}\hat{\mathbf{e}}_2\vdots ... \vdots \sqrt{\hat{\lambda}_m}\hat{\mathbf{e}}_m \right]
-            %			\end{equation*}
-            \begin{equation*}
-               % \delimitershortfall=0pt
-               % \setlength{\dashlinegap}{2pt}
-               \Tilde{\mathbf{L}} =
-               \left[\begin{array}{c|c|c|c}
-                     \sqrt{\hat{\lambda}_1}\hat{\mathbf{e}}_1 &
-                     \sqrt{\hat{\lambda}_2}\hat{\mathbf{e}}_2 & \cdots &
-                     \sqrt{\hat{\lambda}_m}\hat{\mathbf{e}}_m
-                  \end{array}
-               \right]
-            \end{equation*}			
-      \end{itemize}
-   \end{frame}
-	
-	\begin{frame}
-		\begin{itemize}
-			\item The estimated specific variances are provided by the diagonal elements of the matrix $\mathbf{S}-\Tilde{\mathbf{L}}\Tilde{\mathbf{L}^{'}}$, so,
-			\begin{equation*}
-				\Tilde{\mathbf{\Psi}}=\left[
-				\begin{array}{cccc}
-					\Tilde{\psi}_1 & 0 & \cdots & 0 \\
-					0 & \Tilde{\psi}_2 & \cdots & 0 \\
-					\vdots & \vdots & \ddots & \vdots \\
-					0 & 0 & \cdots & \Tilde{\psi}_p
-				\end{array}
-				\right],\ with\ \Tilde{\psi}_i=s_{ii}-\sum_{j=1}^m \Tilde{l}_{ij}^2
-			\end{equation*}
-			\vspace{0.25cm}
-			\item \textbf{Communalities} are estimated as,
-			\begin{equation*}
-				\Tilde{h}_i^2 = \Tilde{l}_{i1}^2+\Tilde{l}_{i2}^2+...+\Tilde{l}_{im}^2.
-			\end{equation*}
-			\vspace{0.25cm}
-			\item The principal component \textbf{factor analysis of the sample correlation matrix} is obtained by starting with $\mathbf{R}$ in place of $\mathbf{S}$.
-		\end{itemize}
-	\end{frame}
 
-	\begin{frame}
-		\frametitle{Maximum Likelihood Method}
-		\begin{itemize}
-			\item If the common factors $\mathbf{F}$ and the specific factors $\boldsymbol{\varepsilon}$ can be assumed to be normally
-			distributed, then maximum likelihood estimates of the factor loadings and specific
-			variances may be obtained.
-			\vspace{0.45cm}
-			\item When $\mathbf{F}_j$ and $\boldsymbol{\varepsilon}_j$ are jointly normal, the observations $\mathbf{X}_j-\boldsymbol{\mu} = \mathbf{L}\mathbf{F}_j+\boldsymbol{\varepsilon}_j$ are then normal.
-			\vspace{0.45cm}
-			\item The corresponding likelihood is,
-			\begin{align*}
-				\mathit{L}(\boldsymbol{\mu},\boldsymbol{\Sigma}) & = \left(2\boldsymbol{\pi}\right)^{-\frac{(n-1)p}{2}}|\boldsymbol{\Sigma}|^{-\frac{(n-1)}{2}}\mathbf{e}^{-\left(\frac{1}{2}\right)tr\left[\boldsymbol{\Sigma}^{-1}\left(\sum_{j=1}^{n} (x_j-\overline{x})(x_j-\overline{x})^{'}\right)\right]} \\ & \times \left(2\boldsymbol{\pi}\right)^{-\frac{p}{2}}|\boldsymbol{\Sigma}|^{-\frac{1}{2}}\mathbf{e}^{-\left(\frac{n}{2}\right)(\overline{\mathbf{x}}-\boldsymbol{\mu})^{'}\boldsymbol{\Sigma}^{-1}(\overline{\mathbf{x}}-\boldsymbol{\mu})}
-			\end{align*}
-		\end{itemize}    
-	\end{frame}
-	
-	% \begin{frame}
-	% 	\begin{itemize}\begin{frame}
-	% 	\frametitle{Maximum Likelihood Method}
-	% 	\begin{itemize}
-   %       \item If the common factors $\mathbf{F}$ and the specific factors
-   %          $\boldsymbol{\varepsilon}$ can be assumed to be normally …{\mu})}
-	% 		\end{align*}
-	% 	\end{itemize}    
-	% \end{frame}
-	
-	\begin{frame}
-		\begin{itemize}
-			\item The above likelihood depends on  $\mathbf{L}$ and $\boldsymbol{\Psi}$ through $\boldsymbol{\Sigma} = \mathbf{L}\mathbf{L}^{'}+\boldsymbol{\Psi}$.
-			\vspace{0.45cm}
-			\item $\mathbf{L}$ is made well defined by imposing the computationally convenient uniqueness condition by,
-			\begin{equation*}
-				\mathbf{L}^{'}\boldsymbol{\Psi}^{-1}\mathbf{L} = \boldsymbol{\Delta},\ a\ diagonal\ matrix.
-			\end{equation*}
-			\vspace{0.45cm}
-			\item The maximum likelihood estimates $\mathbf{\hat{L}}$ and $\boldsymbol{\hat{\Psi}}$ must be obtained by numerical maximization of the above likelihood function.
-		\end{itemize}
-	\end{frame}
-	
-	\begin{frame}
-		\frametitle{Result}
-		
-		Let $\mathbf{X}_1,\mathbf{X}_2,...,\mathbf{X}_n$ be a random sample from $\mathit{N}_p\left(\boldsymbol{\mu},\boldsymbol{\Sigma}\right)$, where $\boldsymbol{\Sigma} = \mathbf{L}\mathbf{L}^{'}+\boldsymbol{\Psi}$ is the covariance matrix for the Orthogonal Factor Model with $m$ common factors. The
-		maximum likelihood estimators $\mathbf{\hat{L}}$, $\boldsymbol{\hat{\Psi}}$, and $\boldsymbol{\hat{\mu}}=\mathbf{\overline{x}}$ maximizes the above likelihood function subject to the condition, $\mathbf{L}^{'}\boldsymbol{\Psi}^{-1}\mathbf{L}$ being diagonal. \\ \vspace{0.25cm} The maximum likelihood estimates of the communalities are, \begin{equation*}
-			\hat{h}_i^2=\hat{l}_{i1}^2+\hat{l}_{i2}^2+...+\hat{l}_{im}^2,\ for\ i=1,2,...,p
-		\end{equation*},\\ \vspace{0.25cm} so, it can be said, 
-		\begin{equation*}
-			Proportion\ of\ total\ sample\ variance\ due\ to\ j^{th}\ factor = \frac{\hat{l}_{1j}^2+\hat{l}_{2j}^2+...+\hat{l}_{pj}^2}{s_{11}+s_{22}+...+s_{pp}}
-		\end{equation*}
-		
-	\end{frame}
+\begin{frame}
+   \frametitle{Methods of Estimation}
+   \begin{itemize}
+      \item The sample covariance matrix $\mathbf{S}$ is an estimator of the
+         unknown population covariance matrix $\mathbf{\Sigma}$. 
+         \begin{itemize}
+            \item If the \textbf{off-diagonal elements} of matrix $\mathbf{S}$
+               are \textbf{small} or those of the sample correlation matrix
+               $\mathbf{R}$ essentially zero, the variables are not related, and
+               a \textbf{factor analysis will not be useful} in that scenario.
+               In these circumstances, the specific factors play the dominant
+               role, whereas the \textbf{major aim} of factor analysis is to
+               \textbf{determine a few important common factors}.
+            \item If $\mathbf{\Sigma}$ appears to \textbf{deviate significantly
+               from any diagonal matrix}, then a factor model can be fitted,
+               With the initial problem being \textbf{estimating} the
+               \textbf{factor loadings} $l_{ij}$ and \textbf{specific variances}
+               $\psi_{i}$. 
+         \end{itemize}
+
+         \hfill
+
+      \item The two most popular methods for parameter estimation are:
+         \begin{itemize}
+            \item Principal Component (or Principal Factor)
+            \item Maximum Likelihood %(Self Study). 
+         \end{itemize}
+   \end{itemize}    
+\end{frame}
+
+\begin{frame}
+   \frametitle{Principal Component Solution of the Factor Model}
+   \begin{itemize}
+      \item The principal component factor analysis of the sample covariance
+         matrix $\mathbf{S}$ is specified in terms of its
+         eigenvalues-eigenvector pairs
+         $(\hat{\lambda}_1,\hat{\mathbf{e}}_1),(\hat{\lambda}_2, 
+         \hat{\mathbf{e}}_2),...,(\hat{\lambda}_p,\hat{\mathbf{e}}_p)$,
+         where $\hat{\lambda}_1 \geq \hat{\lambda}_2 \geq \hat{\lambda}_3
+         \geq ... \geq \hat{\lambda}_p$. Let $m<p$ be the number of common
+         factors. Then the matrix of estimated factor loadings
+         $\{\Tilde{l}_{ij}\}$ is obtained as,
+         %			\begin{equation*}
+         %				\Tilde{\mathbf{L}} = \left[\sqrt{\hat{\lambda}_1}\hat{\mathbf{e}}_1 \vdots \sqrt{\hat{\lambda}_2}\hat{\mathbf{e}}_2\vdots ... \vdots \sqrt{\hat{\lambda}_m}\hat{\mathbf{e}}_m \right]
+         %			\end{equation*}
+         \begin{equation*}
+            % \delimitershortfall=0pt
+            % \setlength{\dashlinegap}{2pt}
+            \Tilde{\mathbf{L}} =
+            \left[\begin{array}{c|c|c|c}
+                  \sqrt{\hat{\lambda}_1}\hat{\mathbf{e}}_1 &
+                  \sqrt{\hat{\lambda}_2}\hat{\mathbf{e}}_2 & \cdots &
+                  \sqrt{\hat{\lambda}_m}\hat{\mathbf{e}}_m
+               \end{array}
+            \right]
+         \end{equation*}			
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \begin{itemize}
+      \item The estimated specific variances are provided by the diagonal elements of the matrix $\mathbf{S}-\Tilde{\mathbf{L}}\Tilde{\mathbf{L}^{'}}$, so,
+         \begin{equation*}
+            \Tilde{\mathbf{\Psi}}=\left[
+               \begin{array}{cccc}
+                  \Tilde{\psi}_1 & 0 & \cdots & 0 \\
+                  0 & \Tilde{\psi}_2 & \cdots & 0 \\
+                  \vdots & \vdots & \ddots & \vdots \\
+                  0 & 0 & \cdots & \Tilde{\psi}_p
+               \end{array}
+            \right],\ with\ \Tilde{\psi}_i=s_{ii}-\sum_{j=1}^m \Tilde{l}_{ij}^2
+         \end{equation*}
+      \item \textbf{Communalities} are estimated as,
+         \begin{equation*}
+            \Tilde{h}_i^2 = \Tilde{l}_{i1}^2+\Tilde{l}_{i2}^2+...+\Tilde{l}_{im}^2.
+         \end{equation*}
+      \item The principal component \textbf{factor analysis of the sample correlation matrix} is obtained by starting with $\mathbf{R}$ in place of $\mathbf{S}$.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Maximum Likelihood Method}
+   \begin{itemize}
+      \item If the common factors $\mathbf{F}$ and the specific factors
+         $\boldsymbol{\varepsilon}$ can be assumed to be normally distributed,
+         then maximum likelihood estimates of the factor loadings and specific
+         variances may be obtained
+         \vspace{0.45cm}
+      \item When $\mathbf{F}_j$ and $\boldsymbol{\varepsilon}_j$ are jointly
+         normal, the observations $\mathbf{X}_j-\boldsymbol{\mu} =
+         \mathbf{L}\mathbf{F}_j+\boldsymbol{\varepsilon}_j$ are then jointly normal
+         \vspace{0.45cm}
+      \item The corresponding likelihood is
+         \begin{align*}
+            \mathit{L}(\boldsymbol{\mu},\boldsymbol{\Sigma}) & = \left(2\boldsymbol{\pi}\right)^{-\frac{(n-1)p}{2}}|\boldsymbol{\Sigma}|^{-\frac{(n-1)}{2}}\mathbf{e}^{-\left(\frac{1}{2}\right)tr\left[\boldsymbol{\Sigma}^{-1}\left(\sum_{j=1}^{n} (x_j-\overline{x})(x_j-\overline{x})^{'}\right)\right]} \\ & \times \left(2\boldsymbol{\pi}\right)^{-\frac{p}{2}}|\boldsymbol{\Sigma}|^{-\frac{1}{2}}\mathbf{e}^{-\left(\frac{n}{2}\right)(\overline{\mathbf{x}}-\boldsymbol{\mu})^{'}\boldsymbol{\Sigma}^{-1}(\overline{\mathbf{x}}-\boldsymbol{\mu})}
+         \end{align*}
+      \item The above likelihood depends on  $\mathbf{L}$ and
+         $\boldsymbol{\Psi}$ through $\boldsymbol{\Sigma} =
+         \mathbf{L}\mathbf{L}^{'}+\boldsymbol{\Psi}$
+   \end{itemize}    
+\end{frame}
+
+\begin{frame}
+   \begin{itemize}
+      \item $\mathbf{L}$ is made well defined by imposing the computationally
+         convenient uniqueness condition:
+         \begin{equation*}
+            \mathbf{L}^{'}\boldsymbol{\Psi}^{-1}\mathbf{L} \,\text{ is a diagonal
+            matrix}
+         \end{equation*}
+      \item The maximum likelihood estimates $\mathbf{\hat{L}}$ and
+         $\boldsymbol{\hat{\Psi}}$ must be obtained by numerical maximization of
+         the above likelihood function
+         \vspace{0.45cm}
+      \item The maximum likelihood estimates of the communalities are, \begin{equation*}
+            \hat{h}_i^2=\hat{l}_{i1}^2+\hat{l}_{i2}^2+...+\hat{l}_{im}^2,\text{
+            for } i=1,2,...,p
+         \end{equation*}
+      \item Proportion of total sample variance due to $j^{th}$ factor is
+         \begin{equation*}
+             \frac{\hat{l}_{1j}^2+\hat{l}_{2j}^2+...+\hat{l}_{pj}^2}{s_{11}+s_{22}+...+s_{pp}}
+         \end{equation*}
+   \end{itemize}
+\end{frame}
 
 \end{document}
