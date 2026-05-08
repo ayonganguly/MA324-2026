@@ -1,0 +1,590 @@
+\documentclass[addpoints,answers,a4paper,11pt]{exam}
+\usepackage{amssymb,amsmath}
+\usepackage[usenames]{color}
+\usepackage{multicol,fancybox,tabularx,textcomp,tabulary,pbox,ifthen}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{blkarray}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{makecell}
+\usepackage{tikz}
+
+%***************** solutions color etc preferences ********************
+\unframedsolutions
+%\shadedsolutions
+%\definecolor{SolutionColor}{rgb}{.98,.98,.98}
+%\renewcommand{\solutiontitle}{\noindent\textsf{Soln.:}\par\noindent}
+
+%******************** Course Details *********************************
+\newcommand{\testname}{End-Semester Examination}
+\newcommand{\courseno}{MA 324}
+\newcommand{\coursename}{Statistical Inference and Multivariate Analysis}
+\newcommand{\instiname}{IIT GUWAHATI}
+\newcommand{\testdate}{May 8, 2026}
+\newcommand{\testtime}{14:00--17:00 IST}
+\newcommand{\semester}{2025-26 Even}
+
+%*****************************************************************************
+\newcommand{\emptyframedbox}{\framebox{\rule{0pt}{10pt}{\rule{10pt}{0pt}}}}
+\newcommand{\emptyrollno}{\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox}
+\newcommand{\emptyname}{\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox\emptyframedbox}
+
+%************* FOR FOOTER AND HEADER **********************************
+% page foot and header
+\pagestyle{headandfoot}
+
+\firstpagefooter{}{}{\tiny Page \thepage\ of \numpages\normalsize}
+\runningheader{\semester}{\testname}{\courseno}
+\runningheadrule
+%\runningfootrule
+\runningfooter{}{}{\tiny Page \thepage\ of \numpages\normalsize}
+%****************** TO REDUCE MARGINS*******************
+\extrawidth{.65in}
+\extraheadheight{-0.25in}
+\extrafootheight{-0.40in}
+%**END--OF--PROOF: stretch is a rubber space which fills. * ensures it works at beginning of line
+\newcommand{\eop}{\hspace*{\stretch{1}}{\scriptsize\maltese}}
+\renewcommand{\eop}{}
+%stretch is a rubber space which fills. * ensures it works at beginning of line
+\newcommand{\push}{\hspace*{\stretch{1}}}
+%to separate advanced questions
+%\newcommand{\advanced}{\fullwidth{\raisebox{-2pt}{$\ll$}{\hrulefill}\raisebox{-2pt}{\tiny\fbox{ADVANCED}}{\hrulefill}\raisebox{-2pt}{$\gg$}}}
+\newcommand{\advanced}{\fullwidth{\hrulefill\raisebox{-2pt}{\tiny\fbox{ADVANCED}}\hrulefill}}
+%ignore extra spaces around enviroments
+%\ignorespaces
+\parindent 0pt
+%**********some exam package options
+%\usehorizontalhalf
+%\marginpointname{}
+%\marginbonuspointname{}
+%\pointsinmargin
+%\pointformat{[\themarginpoints $^\mathrm{pnts.}$]}
+%\bonuspointformat{[\themarginpoints $^\mathrm{xtra}$]}
+
+% %*********** step mark macro *************************
+% \newif\ifstepmark
+% \newcommand{\stepmark}[1]{\ifstepmark
+%       \,\,\colorbox{Green!40!}{[{#1}\,point\ifdim#1pt=1pt%
+%          \else
+%             s
+%          \fi%
+%       ]}
+%    \else%
+%       {}
+%    \fi%
+% }
+
+\newcommand{\blankpages}[1]{
+   \ifthenelse{\boolean{printanswers}}
+   {}
+   {
+      \foreach \n [count=\ni] in {1,...,#1}{%
+         \ifnum\ni=#1% 
+            \newpage%
+         \else%
+            \newpage%
+            \mbox{}%
+         \fi%
+      }
+   }
+}
+
+\noprintanswers
+%\stepmarktrue
+%\stepmarkfalse
+
+\begin{document}
+
+\textsc{{\normalsize\courseno \push \testname}\smallskip\\
+{\normalsize\coursename \push \testtime}\smallskip\\
+{\normalsize\instiname \push \testdate}}
+\begin{center}
+   \fbox{\large{\textsc{\textbf{PART-A}}}}
+\end{center}
+
+\ifthenelse{\boolean{printanswers}}
+{
+   \fullwidth{\hrulefill\raisebox{-2pt}{\fbox{\textsc{Model Answers of
+               \testname\ (Total points: \numpoints)}}}\hrulefill}
+}
+{
+   \hrulefill\\[5mm]
+   Name of the Student: \hrulefill\\[5mm]
+   Signature of the Student: \hrulefill \hspace{10mm} Roll No.: \hrulefill\\[5mm]
+   Signature of the Invigilator: \hrulefill
+   \fullwidth{\hrulefill\raisebox{-2pt}{\footnotesize\fbox{\textsc{Instructions}}}\hrulefill}
+   \begin{enumerate}
+      % \item To `print' means to write legibly in capital letters.
+      % \item Put your signature in the space provided:$\rightarrow$ \push
+      % \framebox{\rule{100pt}{0pt}\rule{0pt}{10pt}} 
+      % \item Print your roll number:$\rightarrow$ \push \emptyrollno
+      % \item Print your name as registered:\push \emptyname
+      \item Check that you have \textbf{\numpages\  printed pages}. The PART-A
+         of the examination has \textbf{\numquestions\ questions}, for a total of
+         \textbf{\numpoints\ points}.
+      \item Attempt \textbf{all questions}.
+      \item There is \textbf{no credit} for a solution if the appropriate work is not
+         shown, even if the answer is correct.
+      \item Write your answers in this booklet and only in the \textbf{space marked for
+         answers}. Any answer written in any space other than the designated space will
+         \textbf{not be evaluated}.
+      \item The pages numbered \textbf{8 to 10} are kept as \textbf{additional pages}. If
+         you cannot able to fit a complete answer in the space provided just
+         after the question, you can use these three pages by referring the page
+         number of additional page in the original space.
+      \item At the beginning of the examination, a supplementary sheet has been
+         provided only for rough work. Should you need more, please ask the
+         invigilator.
+      \item No question requires any clarification from the instructors or
+         invigilators, even if a question has an error or incomplete data. The
+         students are advised to write answer according to their understanding
+         or write reasons for why it is not possible to solve partially or
+         completely that question by citing errors/insufficient data. 
+   \end{enumerate}
+
+   \fullwidth{\hrulefill\raisebox{-2pt}{\footnotesize\fbox{\textsc{For Office Use Only}}}\hrulefill}
+
+   \vspace{0.2in}
+   \begin{center}
+      \cellwidth{12mm} 
+      \gradetablestretch{3.0}
+      \gradetable[h][questions]
+   \end{center}
+
+   \newpage
+
+   \fullwidth{\hrulefill\raisebox{-2pt}{\footnotesize\fbox{\textsc{Questions}}}\hrulefill}
+}
+
+\begin{questions}
+
+   \question[5] Let $Y$ and $\epsilon$ are the response variable and the error
+   in a regression problem, respectively. $\theta_1$ and $\theta_2$ are the two
+   parameters. Let $y_i, i=1,2,3$, be the observed values of the response
+   variable. Consider,
+   \begin{eqnarray}
+      Y_1 &=& \theta_1 + \theta_2 + \epsilon_1, \nonumber \\
+      Y_2 &=& \theta_1 - 2\theta_2 + \epsilon_2, \nonumber \\
+      Y_3 &=& 2\theta_1 - \theta_2 + \epsilon_3, \nonumber 
+   \end{eqnarray}
+   where $E(\epsilon_i) = 0, \mbox{ and } V(\epsilon_i)= \sigma^2, i=1,2,3;
+   \sigma > 0$. Find the least square estimates (LSE) of $\theta_1$ and
+   $\theta_2$. 
+
+   \begin{solution}
+      We have
+      \begin{align*}
+         \begin{pmatrix} y_1 \\ y_2 \\ y_3 \end{pmatrix}_{3 \times
+         1} = \begin{bmatrix} 1 & 1 \\ 1 & -2 \\ 2 & -1 \end{bmatrix}_{3 \times 2}
+         \begin{bmatrix} \theta_1 \\ \theta_2 \end{bmatrix}_{2 \times 1} +
+         \begin{pmatrix} \epsilon_1 \\ \epsilon_2 \\ \epsilon_3 \end{pmatrix} 
+         \implies
+         Y = X\theta + \epsilon.
+      \end{align*}
+      The least square estimator of $\theta$ is $ \hat{\theta} = (X'X)^{-1}X'Y$.
+      Now,
+      \begin{align*}
+         (X'X) &= \begin{bmatrix} 1 & 1 & 2 \\ 1 & -2 & -1 \end{bmatrix}_{2
+         \times 3} \begin{bmatrix} 1 & 1 \\ 1 & -2 \\ 2 & -1 \end{bmatrix}_{3
+         \times 2} \\
+         &= \begin{bmatrix} 1+1+4=6 & 1-2-2=-3 \\ 1-2-2=-3 & 1+4+1=6
+         \end{bmatrix} = \begin{bmatrix} 6 & -3 \\ -3 & 6 \end{bmatrix}. \\
+         (X'X)^{-1} &= \frac{1}{36 - 9} \begin{bmatrix} 6 & 3 \\ 3 & 6
+         \end{bmatrix} = \frac{3}{27} \begin{bmatrix} 2 & 1 \\ 1 & 2
+         \end{bmatrix} = \frac{1}{9} \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}
+      \end{align*}
+      Thus
+      \begin{align*}
+         \hat{\theta} 
+         &= \frac{1}{9} \begin{bmatrix} 2 & 1 \\ 1 & 2
+         \end{bmatrix}_{2 \times 2} \begin{bmatrix} 1 & 1 & 2 \\ 1 & -2 & -1
+         \end{bmatrix}_{2 \times 3} \begin{bmatrix} y_1 \\ y_2 \\ y_3
+         \end{bmatrix} \\
+         &= \frac{1}{9} \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}
+         \begin{bmatrix} y_1 + y_2 + 2y_3 \\ y_1 - 2y_2 - y_3 \end{bmatrix} \\
+         &= \frac{1}{9} \begin{bmatrix} 2(y_1 + y_2 + 2y_3) + (y_1 - 2y_2 - y_3)
+         \\ (y_1 + y_2 + 2y_3) + 2(y_1 - 2y_2 - y_3) \end{bmatrix} \\
+         &= \frac{1}{9} \begin{bmatrix} 3y_1 + 3y_3 \\ 3y_1 - 3y_2
+         \end{bmatrix}\\
+         &= \begin{bmatrix} \frac{1}{3}(y_1 + y_3) \\ \frac{1}{3}(y_1 - y_2)
+         \end{bmatrix}.
+      \end{align*}
+
+      Hence,
+      $ \hat{\theta}_1 = \frac{1}{3}(y_1 + y_3) $
+      and 
+      $ \hat{\theta}_2 = \frac{1}{3}(y_1 - y_2) $.
+   \end{solution}
+
+   \blankpages{2}
+
+   \question Let $U_1$ and $U_2$ be two independent uniform random variables on the
+   interval $(0,\,1)$. Suppose that $\boldsymbol{X} = \left( X_1,\,X_2,\,X_3
+   \right)^\prime$, where $X_1=U_1$, $X_2=U_2$, and $X_3=U_1+U_2$. 
+   \begin{parts}
+      \part[3] Compute the correlation matrix $\boldsymbol{\rho}$ of $\boldsymbol{X}$.
+
+      \begin{solution}
+      
+         To compute correlation matrix $\rho$ of $X$.
+
+         \begin{align*}
+            E(U_1) = E(U_2) &= \frac{1}{2} && \text{ and } && V(U_1) = V(U_2) =
+            \frac{1}{12}.
+         \end{align*}
+         So, $V(X_1) = V(X_2) = \frac{1}{12}$ and $V(X_3) = V(U_1) + V(U_2) =
+         \frac{2}{12}$.
+         \begin{align*}
+            Cov(X_1, X_2) &= Cov(U_1, U_2) = 0 = Cov(X_2, X_1) \\ %\dots (1) \quad
+            %(\because U_1 \text{ \& } U_2 \text{ are ind.}) \\
+            Cov(X_1, X_3) &= Cov(U_1, U_1 + U_2) \\
+                          &= Cov(U_1, U_1) \\
+                          &= V(U_1) = \frac{1}{12} = Cov(X_3, X_1) \\
+            Cov(X_2, X_3) &= Cov(U_2, U_1 + U_2) \\
+                          &= V(U_2) = \frac{1}{12} = Cov(X_3, X_2).
+         \end{align*}
+         Now, $Corr(X_i, X_i) = 1$ for $i=1,2,3$. Moreover,
+         \begin{align*}
+            Corr(X_1, X_2) &= 0, \\
+            Corr(X_1, X_3) &= Corr(X_3, X_1) = \frac{Cov(X_1, X_3)}{\sqrt{V(X_1) V(X_3)}} =
+                           \frac{\frac{1}{12}}{\sqrt{\frac{1}{12} \cdot
+                           \frac{2}{12}}} = \frac{1}{\sqrt{2}}, \\
+            Corr(X_2, X_3) &= \frac{Cov(X_2, X_3)}{\sqrt{V(X_2) V(X_3)}} =
+            \frac{1}{\sqrt{2}}.
+         \end{align*}
+
+         Hence, the correlation matrix $\rho$ of $X$ is 
+         $$ \rho = \begin{bmatrix} 1 & 0 & \frac{1}{\sqrt{2}} \\ 0 & 1 &
+         \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 1
+         \end{bmatrix} .$$
+
+      \end{solution}
+
+      \part[3] Find the variance of first principal component based on the
+      correlation matrix that you find in part (a).
+
+      \begin{solution}
+         Let $Y_1$ be the first principal component based on the correlation matrix $\rho$. Then
+         $$ V(Y_1) = \lambda_1,$$
+         where $\lambda_1$ is the highest eigenvalue of the matrix $\rho$.  The
+         eigenvalues of $\rho$ are solution of the following equation:
+         \begin{align*}
+            & \quad (1-\lambda) \begin{vmatrix} 1-\lambda & \frac{1}{\sqrt{2}} \\
+            \frac{1}{\sqrt{2}} & 1-\lambda \end{vmatrix} - 0 \begin{vmatrix} 0 &
+            \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & 1-\lambda \end{vmatrix} +
+            \frac{1}{\sqrt{2}} \begin{vmatrix} 0 & 1-\lambda \\
+            \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{vmatrix} = 0\\
+            \Rightarrow & \quad (1-\lambda) \left[ (1-\lambda)^2 - \frac{1}{2} \right] -
+            0 + \frac{1}{\sqrt{2}} \left[ 0 - \frac{1}{\sqrt{2}}(1-\lambda)
+            \right] = 0 \\
+            \Rightarrow & \quad (1-\lambda)^3 - \frac{1}{2}(1-\lambda) - \frac{1}{2}(1-\lambda) = 0 \\
+            \Rightarrow & \quad (1-\lambda)^3 - (1-\lambda) = 0 \\
+            \Rightarrow & \quad (1-\lambda) \left( (1-\lambda)^2 - 1 \right) = 0 \\
+            \Rightarrow & \quad (1-\lambda) (\lambda^2 - 2\lambda) = 0 \\
+            \Rightarrow & \quad \lambda (1-\lambda) (\lambda - 2) = 0.
+         \end{align*}
+         Hence, the largest eigenvalue is $2$. So,
+         $$ V(Y_1) = 2. $$
+      \end{solution}
+
+   \end{parts}
+
+   \blankpages{2}
+
+   \question
+   Let the matrix of distance be
+   \[
+      \begin{blockarray}{ccccc}
+         & 1 & 2 & 3 & 4  \\
+         \begin{block}{c[cccc]}
+            \addlinespace
+            1 & 0 &   &   &   \\
+            \addlinespace
+            2 & 1 & 0 &   &   \\
+            \addlinespace
+            3 & 11& 2 & 0 &   \\
+            \addlinespace
+            4 & 5 & 3 & 3.5 & 0  \\
+            \addlinespace
+         \end{block}
+      \end{blockarray}
+   \]
+
+   \begin{parts}
+      \part[6] Cluster the four items using each of the following procedures:
+      \begin{subparts}
+         \subpart Complete linkage hierarchical procedure.
+         \subpart Average linkage hierarchical procedure.
+      \end{subparts}
+
+      \begin{solution}
+         %          \[
+         %             D = 
+         %             \begin{array}{cc}
+         %  & \begin{array}{cccc} 1 & 2 & 3 & 4 \end{array} \\
+         %                \begin{array}{c} 1 \\ 2 \\ 3 \\ 4 \end{array} &
+         %                \left[ \begin{array}{cccc}
+         %                      0 & & & \\
+         %                      1 & 0 & & \\
+         %                      11 & 2 & 0 & \\
+         %                      5 & 3 & 4 & 0
+         %                \end{array} \right]
+         %             \end{array}
+         %             = (d_{ij}) \quad i,j=1,2,3,4.
+         %          \]
+         %
+         %          \vspace{0.5cm}
+         %          \noindent \textbf{(a) Using Single linkage,}
+         %          \[ \min(d_{ij}) = 1 = d_{21} \]
+         %          So, we merge objects 1 \& 2 to form cluster (12). Remaining objects 3, 4. \\
+         %          The nearest neighbor distances are
+         %          \begin{align*}
+         %             d_{(12),3} &= \min(d_{13}, d_{23}) = \min(11, 2) = 2. \\
+         %             d_{(12),4} &= \min(d_{14}, d_{24}) = \min(5, 3) = 3.
+         %          \end{align*}
+         %          So we obtain the new distance matrix,
+         %          \[
+         %             \begin{array}{cc}
+         %  & \begin{array}{ccc} (12) & 3 & 4 \end{array} \\
+         %                \begin{array}{c} (12) \\ 3 \\ 4 \end{array} &
+         %                \left[ \begin{array}{ccc}
+         %                      0 & & \\
+         %                      2 & 0 & \\
+         %                      3 & 4 & 0
+         %                \end{array} \right]
+         %             \end{array}
+         %          \]
+         %          \[ \min(d_{ij}) = d_{(12),3} = 2. \]
+         %          So, we merge cluster (3) with cluster (12). \\
+         %          Now the nearest-neighbor distances are
+         %          \begin{align*}
+         %             d_{(123),4} &= \min(d_{(12),4}, d_{34}) \\
+         %                         &= \min(3, 4) \\
+         %                         &= 3
+         %          \end{align*}
+         %          So, we obtain the new distance matrix,
+         %          \[
+         %             \begin{array}{cc}
+         %  & \begin{array}{cc} (123) & 4 \end{array} \\
+         %                \begin{array}{c} (123) \\ 4 \end{array} &
+         %                \left[ \begin{array}{cc}
+         %                      0 & \\
+         %                      3 & 0
+         %                \end{array} \right]
+         %             \end{array}
+         %          \]
+         %          Now cluster (123) \& (4) are merged together to form a single cluster.
+         %
+         %          \vspace{0.5cm}
+         %          \noindent \textbf{(b) Using Complete linkage,}
+         % \[
+         %    D = 
+         %    \begin{array}{cc}
+         %       & \begin{array}{cccc} 1 & 2 & 3 & 4 \end{array} \\
+         %       \begin{array}{c} 1 \\ 2 \\ 3 \\ 4 \end{array} &
+         %       \left[ \begin{array}{cccc}
+         %             0 & & & \\
+         %             1 & 0 & & \\
+         %             11 & 2 & 0 & \\
+         %             5 & 3 & 4 & 0
+         %       \end{array} \right]
+         %    \end{array}
+         % \]
+         At the first stage merge objects 1 and 2 together as they are most similar. \\
+         At stage 2, we compute distances using complete linkage:
+         \begin{align*}
+            d_{(12),3} &= \max(d_{13}, d_{23}) = \max(11, 2) = 11,\\
+            d_{(12),4} &= \max(d_{14}, d_{24}) = \max(5, 3) = 5.
+         \end{align*}
+         So, we obtain the distance matrix,
+         \[
+            \begin{array}{cc}
+               & \begin{array}{ccc} (12) & 3 & 4 \end{array} \\
+               \begin{array}{c} (12) \\ 3 \\ 4 \end{array} &
+               \left[ \begin{array}{ccc}
+                     0 & & \\
+                     11 & 0 & \\
+                     5 & 3.5 & 0
+               \end{array} \right]
+            \end{array}
+         \]
+         At stage 3, merge objects 3 \& 4, as they are most similar. \\
+         Now, we compute,
+         \begin{align*}
+            d_{(12)(34)} &= \max\{d_{(12)3}, d_{(12)4}\} \\
+                          &= \max\{11, 5\} \\
+                          &= 11
+         \end{align*}
+         So, we obtain the new distance matrix,
+         \[
+            \begin{array}{cc}
+            & \begin{array}{cc} (12) & (34) \end{array} \\
+               \begin{array}{c} (12) \\ (34) \end{array} &
+               \left[ \begin{array}{cc}
+                     0 & \\
+                     11 & 0
+               \end{array} \right]
+            \end{array}
+         \]
+         Now, at the final stage, merge clusters (12) \& (34) together to form a
+         single cluster.
+
+         % \vspace{0.5cm}
+         % \noindent \textbf{(c) Dendogram from (a)}
+         %
+         % \vspace{0.3cm}
+         % \begin{tikzpicture}[yscale=1.5]
+         %    % Y-axis
+         %    \draw (0,0) -- (0,3.5); 
+         %    \foreach \y in {1,2,3} \draw (-0.1,\y) -- (0,\y) node[left] {\y};
+         %
+         %    % Nodes
+         %    \node[below] at (1,0) {1};
+         %    \node[below] at (2,0) {2};
+         %    \node[below] at (3,0) {3};
+         %    \node[below] at (4,0) {4};
+         %
+         %    % Links
+         %    \draw (1,0) -- (1,1) -- (2,1) -- (2,0);
+         %    \draw (1.5,1) -- (1.5,2) -- (3,2) -- (3,0);
+         %    \draw (2.25,2) -- (2.25,3) -- (4,3) -- (4,0);
+         %
+         %    % Points
+         %    \fill (1,0) circle (1.5pt);
+         %    \fill (2,0) circle (1.5pt);
+         %    \fill (3,0) circle (1.5pt);
+         %    \fill (4,0) circle (1.5pt);
+         %    \fill (1.5,1) circle (1.0pt);
+         %    \fill (2.25,2) circle (1.0pt);
+         % \end{tikzpicture}
+         %
+         % \vspace{0.5cm}
+         % \noindent \textbf{Dendogram from (b)}
+         %
+         % \vspace{0.3cm}
+         
+         \textbf{jaa}
+
+         At the first stage merge objects 1 and 2 together as they are most similar. \\
+         At stage 2, we compute distances using complete linkage:
+         \begin{align*}
+            d_{(12),3} &= \frac{d_{13} + d_{23}}{2} = \frac{11 + 2}{2} = 6.5,\\
+            d_{(12),4} &= \frac{d_{14} + d_{24}}{2} = \frac{5 + 3}{2} = 4.
+         \end{align*}
+         So, we obtain the distance matrix,
+         \[
+            \begin{array}{cc}
+               & \begin{array}{ccc} (12) & 3 & 4 \end{array} \\
+               \begin{array}{c} (12) \\ 3 \\ 4 \end{array} &
+               \left[ \begin{array}{ccc}
+                     0 & & \\
+                     6.5 & 0 & \\
+                     4 & 3.5 & 0
+               \end{array} \right]
+            \end{array}
+         \]
+         At stage 3, merge objects 3 \& 4, as they are most similar. \\
+         Now, we compute,
+         \begin{align*}
+            d_{(12)(34)} &= \frac{d_{(12)3} + d_{(12)4}}{2} = \frac{6.5 + 4}{2}
+            = 5.25.
+         \end{align*}
+         So, we obtain the new distance matrix,
+         \[
+            \begin{array}{cc}
+               & \begin{array}{cc} (12) & (34) \end{array} \\
+               \begin{array}{c} (12) \\ (34) \end{array} &
+               \left[ \begin{array}{cc}
+                     0 & \\
+                     5.25 & 0
+               \end{array} \right]
+            \end{array}
+         \]
+         Now, at the final stage, merge clusters (12) \& (34) together to form a
+         single cluster.
+      \end{solution}
+
+      \part[3] Draw the dendrograms and compare the results obtained using previous
+      two procedures.
+
+      \begin{solution}
+         Dendogram for complete linkage:
+         \begin{center}
+         \begin{tikzpicture}[yscale=0.5]
+            % Y-axis
+            \draw (0,0) -- (0,12); 
+            \foreach \y in {1,3.5,11} \draw (-0.1,\y) -- (0,\y) node[left] {\y};
+
+            % Nodes
+            \node[below] at (1,0) {1};
+            \node[below] at (2,0) {2};
+            \node[below] at (3,0) {3};
+            \node[below] at (4,0) {4};
+
+            % Links
+            \draw (1,0) -- (1,1) -- (2,1) -- (2,0);
+            \draw (3,0) -- (3,4) -- (4,4) -- (4,0);
+            \draw (1.5,1) -- (1.5,11) -- (3.5,11) -- (3.5,4);
+
+            % Points
+            \fill (1,0) circle (1.5pt);
+            \fill (2,0) circle (1.5pt);
+            \fill (3,0) circle (1.5pt);
+            \fill (4,0) circle (1.5pt);
+            \fill (1.5,1) circle (1.0pt);
+            \fill (3.5,4) circle (1.0pt);
+            \fill (2.5,11) circle (1.0pt);
+         \end{tikzpicture}
+         \end{center}
+         Dendogram for average linkage:
+         \begin{center}
+         \begin{tikzpicture}%[yscale=0.3]
+            % Y-axis
+            \draw (0,0) -- (0,6); 
+            \foreach \y in {1,3.5,5.25} \draw (-0.1,\y) -- (0,\y) node[left] {\y};
+
+            % Nodes
+            \node[below] at (1,0) {1};
+            \node[below] at (2,0) {2};
+            \node[below] at (3,0) {3};
+            \node[below] at (4,0) {4};
+
+            % Links
+            \draw (1,0) -- (1,1) -- (2,1) -- (2,0);
+            \draw (3,0) -- (3,4) -- (4,4) -- (4,0);
+            \draw (1.5,1) -- (1.5,5.25) -- (3.5,5.25) -- (3.5,4);
+
+            % Points
+            \fill (1,0) circle (1.5pt);
+            \fill (2,0) circle (1.5pt);
+            \fill (3,0) circle (1.5pt);
+            \fill (4,0) circle (1.5pt);
+            \fill (1.5,1) circle (1.0pt);
+            \fill (3.5,4) circle (1.0pt);
+            \fill (2.5,5.25) circle (1.0pt);
+         \end{tikzpicture}
+         \end{center}
+
+         \vspace{0.5cm}
+         % \noindent \textbf{Results comparing both (a) \& (b).} \\
+         Comparing the two dendrograms, we observe that the single linkage and
+         complete linkage do not differ in allocating objects in this case.
+      \end{solution}
+   \end{parts}
+
+   \blankpages{2}
+
+   \ifthenelse{\boolean{printanswers}}
+   {
+   }
+   {
+      \fullwidth{\hrulefill\raisebox{-2pt}{\footnotesize\fbox{\textsc{Additional
+      Pages for Answers}}}\hrulefill}
+   }
+
+   \blankpages{3}
+
+\end{questions}
+
+\end{document}
