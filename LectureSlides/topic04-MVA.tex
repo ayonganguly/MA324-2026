@@ -1008,12 +1008,12 @@
 
 \begin{frame}
 	\frametitle{Theorem}
-   Assume that $\Sigma$ has full rank. Let $\rho_1^* \geq \rho_2^* \geq ... \geq
-   \rho_p^*$ are the eigenvalues of
+   Assume that $\Sigma$ has full rank. Let $\rho_1^{*2} \geq \rho_2^{*2} \geq ... \geq
+   \rho_p^{*2}$ are the eigenvalues of
    $\Sigma_{11}^{-\frac{1}{2}}\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}\Sigma_{11}^{-\frac{1}{2}}$
    and $\boldsymbol{e}_1,...,\boldsymbol{e}_p$ are corresponding eigenvectors.
-   The quantities $\rho_1^*,...,\rho_p^*$ are also $p$ largest eigenvalues of
-   the matrix,
+   The quantities $\rho_1^{*2},...,\rho_p^{*2}$ are also $p$ largest eigenvalues of
+   the matrix
    $\Sigma_{22}^{-\frac{1}{2}}\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}\Sigma_{22}^{-\frac{1}{2}}$
    with corresponding eigenvectors $\boldsymbol{f}_1,...,\boldsymbol{f}_p$.
    Then,
@@ -1027,6 +1027,8 @@
          V_k=\boldsymbol{f_k}^{'}\Sigma_{22}^{-\frac{1}{2}}\boldsymbol{X}^{(2)}
          \text{ and } Corr(U_k,V_k)=\rho_k^*.$$
    \end{itemize}
+   Here $\rho_i^*$ is the positive square root of $\rho_i^{*2}$,
+   $i=1,\,2,\,\ldots,\,p$.
 \end{frame}
 
 \begin{frame}
