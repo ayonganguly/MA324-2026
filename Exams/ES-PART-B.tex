@@ -163,7 +163,7 @@
    Let 
    \begin{align*}
       \boldsymbol{S} &= \begin{pmatrix} 
-         S_{yy} & S_{y \boldsymbol{X}} \\
+         S_{yy} & S_{y \boldsymbol{X}}^{\,\textcolor{red}{T}} \\
          S_{y \boldsymbol{X}} & S_{\boldsymbol{X} \boldsymbol{X}}
       \end{pmatrix}      
    \end{align*}
@@ -175,36 +175,37 @@
    $\boldsymbol{X}$.
 
    \begin{solution}
-      In standard CCA, the squared sample canonical correlations $r^2$ are
+      In standard CCA, the squared sample canonical correlations are
       the eigenvalues of the matrix 
       \begin{align*}
          \mathbf{S}_{11}^{-\frac{1}{2}}
          \mathbf{S}_{12} \mathbf{S}_{22}^{-1}
          \mathbf{S}_{21}\mathbf{S}_{11}^{-\frac{1}{2}} = 
-         \frac{1}{s_y^2} \mathbf{s}_{yX}^T
+         \frac{1}{s_{yy}} \mathbf{s}_{yX}^T
          \mathbf{S}_{XX}^{-1} \mathbf{s}_{Xy}.
       \end{align*}
       Notice that $\mathbf{s}_{yX}^T$ is a $1 \times q$ vector,
       $\mathbf{S}_{XX}^{-1}$ is a $q \times q$ matrix, and $\mathbf{s}_{Xy}$
       is a $q \times 1$ vector. The resulting product is a $1 \times 1$
       scalar. The only eigenvalue of a scalar is the scalar itself.
-      Therefore, the single squared canonical correlation is:
+      Therefore, the single squared canonical correlation is
       \begin{equation} \label{eq:r2}
          r_1^2 = \frac{\mathbf{s}_{yX}^T \mathbf{S}_{XX}^{-1}
-         \mathbf{s}_{Xy}}{s_y^2}.
+         \mathbf{s}_{Xy}}{s_{yy}}.
       \end{equation}
 
-      Now, consider the multiple linear regression of $Y$ on the variables in
+      Now, consider the multiple linear regression of $Y$ on
       $\mathbf{X}$. The estimated regression coefficient vector is given by
       the standard ordinary least squares (OLS) solution:
       \begin{equation*}
          \hat{\boldsymbol{\beta}} = \mathbf{S}_{XX}^{-1} \mathbf{s}_{Xy}
       \end{equation*}
-      The portion of the variance in $Y$ explained by the regression model
-      (the Explained Variance) is calculated as $\hat{\boldsymbol{\beta}}^T
-      \mathbf{s}_{Xy}$:
+      % The portion of the variance in $Y$ explained by the regression model
+      % (the Explained Variance) is calculated as $\hat{\boldsymbol{\beta}}^T
+      % \mathbf{s}_{Xy}$:
+      Therefore,
       \begin{align*}
-         SS_{Reg} &= (\mathbf{S}_{XX}^{-1} \mathbf{s}_{Xy})^T \mathbf{s}_{Xy}
+         SS_{Reg} &= \widehat{\boldsymbol{\beta}}^{T} S_{yX} = (\mathbf{S}_{XX}^{-1} \mathbf{s}_{Xy})^T \mathbf{s}_{Xy}
          = \mathbf{s}_{yX}^T (\mathbf{S}_{XX}^{-1})^T \mathbf{s}_{Xy}
          = \mathbf{s}_{yX}^T \mathbf{S}_{XX}^{-1} \mathbf{s}_{Xy},
       \end{align*}
@@ -212,7 +213,7 @@
       \begin{equation} \label{eq:R2}
          R^2 = \frac{SS_{Reg}}{SS_T} =
          \frac{\mathbf{s}_{yX}^T \mathbf{S}_{XX}^{-1}
-         \mathbf{s}_{Xy}}{s_y^2}.
+      \mathbf{s}_{Xy}}{s_{yy}}.
       \end{equation}
       By comparing equations (\ref{eq:r2}) and (\ref{eq:R2}), we have $r_1^2 = R^2$.
    \end{solution}
@@ -256,7 +257,7 @@
             $\tilde{\mathbf{L}}$).
             \begin{align*}
                \tilde{h}_1^2 &= \tilde{l}_{11}^2 + \tilde{l}_{12}^2 \implies
-               \tilde{h}_1^2 = (0.8)^2 + (-0.4)^2 = 0.80.
+               \tilde{h}_1^2 = (0.8)^2 + (-0.4)^2 = 0.8.
             \end{align*}
          \end{solution}
 
@@ -358,10 +359,20 @@
 
    \begin{solution}
       The S-shaped curvature indicates that the distribution has heavier tails
-      than a normal distribution. The data is "fat-tailed," meaning extreme
-      outliers are more frequent than the normal model predicts. Therefore, a
-      heavy tailed distribution (like Cauchy distribution ot $t$-distribution
-      with low degrees of freedom) would provide better fit to the model.
+      than a normal distribution. Therefore, a normal distribution will not give
+      a good fit and a heavy tailed distribution would provide better fit to the
+      model.
+
+      \textbf{Note:} 
+      \begin{enumerate}
+         \item About half of the observed values are negative. Therefore, a
+            distribution with support in $[0,\,\infty)$ is not a plausible
+            distribution. 
+         \item Looking in to the given plot, it is difficulty to say exactly
+            which distribution will provide a good fit among heavy tailed
+            distributions. For that you need to draw Q-Q plot or that
+            distribution.
+      \end{enumerate}
    \end{solution}
    
    \blankpages{1}
