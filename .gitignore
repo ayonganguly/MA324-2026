@@ -8,6 +8,8 @@
 *.snm
 *.toc
 *.vrb
-ES-Responses.pdf
 /.quarto/
 **/*.quarto_ipynb
+Q3-MasterAnswerScripts.pdf
+ES-PART-A-MasterAnswerScripts.pdf
+ES-PART-B-MasterAnswerScripts.pdf
