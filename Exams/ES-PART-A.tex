@@ -90,6 +90,10 @@
    }
 }
 
+% Define a reusable command to draw a tight circle around any element
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle, draw, inner sep=2pt] (char) {#1};}}
+
 \printanswers
 %\stepmarktrue
 %\stepmarkfalse
@@ -391,7 +395,24 @@
          %       \end{array} \right]
          %    \end{array}
          % \]
+         \underline{Complete linkage:}
          At the first stage merge objects 1 and 2 together as they are most similar. \\
+         \[
+            \begin{blockarray}{ccccc}
+         & 1 & 2 & 3 & 4  \\
+         \begin{block}{c[cccc]}
+            \addlinespace
+            1 & 0 &   &   &   \\
+            \addlinespace
+            2 & \circled{1} & 0 &   &   \\
+            \addlinespace
+            3 & 11& 2 & 0 &   \\
+            \addlinespace
+            4 & 5 & 3 & 3.5 & 0  \\
+            \addlinespace
+         \end{block}
+            \end{blockarray}
+         \]
          At stage 2, we compute distances using complete linkage:
          \begin{align*}
             d_{(12),3} &= \max(d_{13}, d_{23}) = \max(11, 2) = 11,\\
@@ -405,7 +426,7 @@
                \left[ \begin{array}{ccc}
                      0 & & \\
                      11 & 0 & \\
-                     5 & 3.5 & 0
+                     5 & \circled{3.5} & 0
                \end{array} \right]
             \end{array}
          \]
@@ -423,7 +444,7 @@
                \begin{array}{c} (12) \\ (34) \end{array} &
                \left[ \begin{array}{cc}
                      0 & \\
-                     11 & 0
+                     \circled{11} & 0
                \end{array} \right]
             \end{array}
          \]
@@ -464,8 +485,7 @@
          %
          % \vspace{0.3cm}
          
-         \textbf{jaa}
-
+         \underline{Average linkage:}
          At the first stage merge objects 1 and 2 together as they are most similar. \\
          At stage 2, we compute distances using complete linkage:
          \begin{align*}
@@ -480,7 +500,7 @@
                \left[ \begin{array}{ccc}
                      0 & & \\
                      6.5 & 0 & \\
-                     4 & 3.5 & 0
+                     4 & \circled{3.5} & 0
                \end{array} \right]
             \end{array}
          \]
@@ -497,7 +517,7 @@
                \begin{array}{c} (12) \\ (34) \end{array} &
                \left[ \begin{array}{cc}
                      0 & \\
-                     5.25 & 0
+                     \circled{5.25} & 0
                \end{array} \right]
             \end{array}
          \]
@@ -570,6 +590,8 @@
          % \noindent \textbf{Results comparing both (a) \& (b).} \\
          Comparing the two dendrograms, we observe that the single linkage and
          complete linkage do not differ in allocating objects in this case.
+         However, the distance at which different sets are merged are different
+         in these two procedure.
       \end{solution}
    \end{parts}
 
